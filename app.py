@@ -66,6 +66,7 @@ Rules:
   * "professional_summary": 3-4 sentence high-impact summary aligned with this role and matching JD keywords
   * "skills": list of 8-16 core competencies and technical skills directly matching the job description
   * "experience": array of 1-3 relevant roles, each with "title", "company", "dates", "location", and "bullets" (list of 2-3 strong action-oriented, metric-driven bullets incorporating the revised improvements)
+  * "projects": optional array of relevant technical, open-source, or portfolio projects (if present in candidate's resume or relevant to JD), each with "name", "tools", "link", "date", and "bullets" (list of 1-2 impact bullets)
   * "education": array of degrees/certifications with "degree", "school", "year"
 - Important: Output strictly valid JSON. Properly escape any quotation marks inside text strings with backslashes. Do not wrap in markdown.
 
@@ -107,6 +108,17 @@ Expected JSON structure:
         "location": "City, State",
         "bullets": [
           "Optimized bullet point with metric and action verb..."
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "name": "Project Name",
+        "tools": "Go, Docker, Redis",
+        "link": "github.com/...",
+        "date": "2023 - Present",
+        "bullets": [
+          "Built high-throughput service handling 10k requests/sec..."
         ]
       }
     ],
@@ -260,6 +272,13 @@ def ensure_tailored_artifacts(res: dict, resume_text: str = "", jd_text: str = "
             if not isinstance(role.get("bullets"), list):
                 role["bullets"] = [str(role.get("bullets", ""))] if role.get("bullets") else []
 
+    # Projects (optional)
+    proj = tr.get("projects")
+    if proj and isinstance(proj, list):
+        for p in proj:
+            if isinstance(p, dict) and not isinstance(p.get("bullets"), list):
+                p["bullets"] = [str(p.get("bullets", ""))] if p.get("bullets") else []
+
     # Education
     edu = tr.get("education")
     if not edu or not isinstance(edu, list) or len(edu) == 0:
@@ -386,20 +405,55 @@ def build_resume_docx(data: dict) -> bytes:
     skills = data.get("skills", [])
     if skills:
         add_section_heading("CORE COMPETENCIES & TECHNICAL SKILLS")
-        kp = doc.add_paragraph()
-        kp.paragraph_format.space_before = Pt(0)
-        kp.paragraph_format.space_after = Pt(6)
-        if isinstance(skills, list):
-            skill_text = " • ".join(str(s) for s in skills)
+        if isinstance(skills, list) and skills and isinstance(skills[0], dict) and "category" in skills[0]:
+            for item in skills:
+                cat_name = item.get("category", "").strip()
+                cat_skills = item.get("skills", "")
+                if isinstance(cat_skills, list):
+                    cat_skills = ", ".join(str(s) for s in cat_skills)
+                if cat_name or cat_skills:
+                    kp = doc.add_paragraph()
+                    kp.paragraph_format.space_before = Pt(0)
+                    kp.paragraph_format.space_after = Pt(2)
+                    if cat_name:
+                        c_run = kp.add_run(f"{cat_name}: ")
+                        c_run.bold = True
+                        c_run.font.size = Pt(9.5)
+                        c_run.font.name = "Calibri"
+                        c_run.font.color.rgb = NAVY
+                    
+                    s_run = kp.add_run(str(cat_skills))
+                    s_run.font.size = Pt(9.5)
+                    s_run.font.name = "Calibri"
+                    s_run.font.color.rgb = DARK
         elif isinstance(skills, dict):
-            parts = [f"{k.capitalize()}: {', '.join(v) if isinstance(v, list) else str(v)}" for k, v in skills.items()]
-            skill_text = " | ".join(parts)
+            for k, v in skills.items():
+                kp = doc.add_paragraph()
+                kp.paragraph_format.space_before = Pt(0)
+                kp.paragraph_format.space_after = Pt(2)
+                c_run = kp.add_run(f"{k}: ")
+                c_run.bold = True
+                c_run.font.size = Pt(9.5)
+                c_run.font.name = "Calibri"
+                c_run.font.color.rgb = NAVY
+                
+                v_text = ", ".join(str(s) for s in v) if isinstance(v, list) else str(v)
+                s_run = kp.add_run(v_text)
+                s_run.font.size = Pt(9.5)
+                s_run.font.name = "Calibri"
+                s_run.font.color.rgb = DARK
         else:
-            skill_text = str(skills)
-        k_run = kp.add_run(skill_text)
-        k_run.font.size = Pt(9.5)
-        k_run.font.name = "Calibri"
-        k_run.font.color.rgb = DARK
+            kp = doc.add_paragraph()
+            kp.paragraph_format.space_before = Pt(0)
+            kp.paragraph_format.space_after = Pt(6)
+            if isinstance(skills, list):
+                skill_text = " • ".join(str(s) for s in skills)
+            else:
+                skill_text = str(skills)
+            k_run = kp.add_run(skill_text)
+            k_run.font.size = Pt(9.5)
+            k_run.font.name = "Calibri"
+            k_run.font.color.rgb = DARK
 
     # Experience
     experience = data.get("experience", [])
@@ -436,6 +490,50 @@ def build_resume_docx(data: dict) -> bytes:
                 d_run.font.color.rgb = SLATE
 
             bullets = job.get("bullets", [])
+            for b in bullets:
+                bp = doc.add_paragraph(style='List Bullet')
+                bp.paragraph_format.space_before = Pt(0)
+                bp.paragraph_format.space_after = Pt(2)
+                b_run = bp.add_run(str(b))
+                b_run.font.size = Pt(9.5)
+                b_run.font.name = "Calibri"
+                b_run.font.color.rgb = DARK
+
+    # Technical & Personal Projects
+    projects = data.get("projects", [])
+    if projects and isinstance(projects, list):
+        add_section_heading("TECHNICAL & PERSONAL PROJECTS")
+        for proj in projects:
+            pp = doc.add_paragraph()
+            pp.paragraph_format.space_before = Pt(6)
+            pp.paragraph_format.space_after = Pt(2)
+            
+            p_name = proj.get("name", "")
+            p_tools = proj.get("tools", "")
+            p_link = proj.get("link", "")
+            p_date = proj.get("date", "")
+            
+            pn_run = pp.add_run(p_name)
+            pn_run.bold = True
+            pn_run.font.size = Pt(10.5)
+            pn_run.font.name = "Calibri"
+            pn_run.font.color.rgb = DARK
+            
+            if p_tools:
+                pt_run = pp.add_run(f" | {p_tools}")
+                pt_run.italic = True
+                pt_run.font.size = Pt(9.5)
+                pt_run.font.name = "Calibri"
+                pt_run.font.color.rgb = SLATE
+                
+            right_parts = " - ".join(filter(None, [p_link, p_date]))
+            if right_parts:
+                pl_run = pp.add_run(f"   ({right_parts})")
+                pl_run.font.size = Pt(9.0)
+                pl_run.font.name = "Calibri"
+                pl_run.font.color.rgb = NAVY
+                
+            bullets = proj.get("bullets", [])
             for b in bullets:
                 bp = doc.add_paragraph(style='List Bullet')
                 bp.paragraph_format.space_before = Pt(0)

@@ -1072,6 +1072,74 @@
       gap: 6px;
     }
 
+    /* Categorized Skills Styling Across Templates */
+    .bp-skills-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      width: 100%;
+    }
+
+    .b-skill-cat-row {
+      font-size: 0.84rem;
+      line-height: 1.45;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .b-skill-cat-label {
+      font-weight: 700;
+      color: #0F172A;
+      white-space: nowrap;
+    }
+
+    .b-skill-cat-items {
+      color: #334155;
+    }
+
+    .builder-paper.tpl-jake .b-skill-cat-label {
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.84rem;
+    }
+
+    .builder-paper.tpl-jake .b-skill-cat-items {
+      color: #111111;
+      font-size: 0.84rem;
+    }
+
+    .builder-paper.tpl-mcdowell .b-skill-cat-row {
+      font-family: var(--font-mono);
+      font-size: 0.775rem;
+    }
+
+    .builder-paper.tpl-mcdowell .b-skill-cat-label {
+      color: #1D4ED8;
+      font-weight: 700;
+    }
+
+    .builder-paper.tpl-asg .b-skill-cat-row {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.84rem;
+    }
+
+    .builder-paper.tpl-asg .b-skill-cat-label {
+      color: #111827;
+      font-weight: bold;
+    }
+
+    .builder-paper.tpl-universal .b-skill-cat-label {
+      color: #0F172A;
+      font-weight: 700;
+    }
+
+    .builder-paper.tpl-belresume .b-skill-cat-label {
+      color: #4F46E5;
+      font-weight: 700;
+    }
+
     /* --------------------------------------------------------------------------
        Print Styles (Strict A4 Paper Output)
        -------------------------------------------------------------------------- */
@@ -1273,23 +1341,59 @@
           <span class="card-num">3</span>
           <h3 class="card-title">Core Competencies & Skills</h3>
         </div>
-        <div class="form-group">
-          <label for="bf-skills">Technical Skills <span>(Comma separated)</span></label>
-          <textarea id="bf-skills" class="textarea-field" placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, AWS, GraphQL..."></textarea>
+
+        <!-- Mode Toggle -->
+        <div class="skills-mode-tabs" style="display: flex; gap: 6px; margin-bottom: 12px; background: #F1F5F9; padding: 4px; border-radius: 8px;">
+          <button type="button" class="btn-sm-tab active" id="btn-mode-categorized" style="flex: 1; padding: 7px 10px; font-size: 0.77rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: #FFFFFF; color: #2330D8; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: all 0.15s;">Categorized by Area (ATS Best Practice)</button>
+          <button type="button" class="btn-sm-tab" id="btn-mode-simple" style="flex: 1; padding: 7px 10px; font-size: 0.77rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: transparent; color: #64748B; transition: all 0.15s;">Single Comma-Separated</button>
+        </div>
+
+        <!-- Categorized Skills Editor -->
+        <div id="skills-categorized-panel">
+          <div style="font-size: 0.75rem; color: #64748B; margin-bottom: 10px;">
+            Group your skills into clear ATS categories (e.g. <strong>Backend</strong>, <strong>Frontend</strong>, <strong>Tools</strong>, <strong>Databases</strong>, or custom).
+          </div>
+          <div id="bf-skill-cat-container" class="dynamic-list"></div>
           
-          <!-- Quick add skill suggestions -->
-          <div class="skill-pills-suggestions" id="skill-suggestions">
-            <span style="font-size: 0.7rem; color: #64748B; align-self: center;">Quick add:</span>
-            <span class="pill-sugg" data-skill="Python">+ Python</span>
-            <span class="pill-sugg" data-skill="TypeScript">+ TypeScript</span>
-            <span class="pill-sugg" data-skill="React">+ React</span>
-            <span class="pill-sugg" data-skill="FastAPI">+ FastAPI</span>
-            <span class="pill-sugg" data-skill="Node.js">+ Node.js</span>
-            <span class="pill-sugg" data-skill="PostgreSQL">+ PostgreSQL</span>
-            <span class="pill-sugg" data-skill="Docker">+ Docker</span>
-            <span class="pill-sugg" data-skill="AWS">+ AWS</span>
-            <span class="pill-sugg" data-skill="Kubernetes">+ Kubernetes</span>
-            <span class="pill-sugg" data-skill="CI/CD">+ CI/CD</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center;">
+            <button type="button" class="btn-add-action" id="btn-add-skill-cat">
+              + Add Custom Category
+            </button>
+          </div>
+
+          <!-- Quick Preset Categories -->
+          <div style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--color-border);">
+            <div style="font-size: 0.7rem; font-weight: 600; color: #64748B; margin-bottom: 6px;">⚡ Quick Add Popular Category:</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;" id="preset-categories-wrap">
+              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Backend" data-skills="Python, FastAPI, Node.js, REST APIs, Microservices">+ Backend</button>
+              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Frontend" data-skills="React, Next.js, TypeScript, Tailwind CSS, Redux">+ Frontend</button>
+              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Languages" data-skills="Python, TypeScript, JavaScript, Go, SQL, C++">+ Languages</button>
+              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Databases" data-skills="PostgreSQL, Redis, MongoDB, MySQL, DynamoDB">+ Databases</button>
+              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Cloud &amp; DevOps" data-skills="AWS (ECS, Lambda, S3), Docker, Kubernetes, CI/CD, Git">+ Cloud &amp; DevOps</button>
+              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Developer Tools" data-skills="Docker, Git, GitHub Actions, Postman, Linux, Jest">+ Developer Tools</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simple Skills Editor -->
+        <div id="skills-simple-panel" style="display: none;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="bf-skills">Technical Skills <span>(Comma separated)</span></label>
+            <textarea id="bf-skills" class="textarea-field" placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, AWS, GraphQL..."></textarea>
+            
+            <div class="skill-pills-suggestions" id="skill-suggestions">
+              <span style="font-size: 0.7rem; color: #64748B; align-self: center;">Quick add:</span>
+              <span class="pill-sugg" data-skill="Python">+ Python</span>
+              <span class="pill-sugg" data-skill="TypeScript">+ TypeScript</span>
+              <span class="pill-sugg" data-skill="React">+ React</span>
+              <span class="pill-sugg" data-skill="FastAPI">+ FastAPI</span>
+              <span class="pill-sugg" data-skill="Node.js">+ Node.js</span>
+              <span class="pill-sugg" data-skill="PostgreSQL">+ PostgreSQL</span>
+              <span class="pill-sugg" data-skill="Docker">+ Docker</span>
+              <span class="pill-sugg" data-skill="AWS">+ AWS</span>
+              <span class="pill-sugg" data-skill="Kubernetes">+ Kubernetes</span>
+              <span class="pill-sugg" data-skill="CI/CD">+ CI/CD</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1306,11 +1410,23 @@
         </button>
       </div>
 
-      <!-- Section 5: Education -->
+      <!-- Section 5: Projects -->
       <div class="editor-card">
         <div class="card-head">
           <span class="card-num">5</span>
-          <h3 class="card-title">Education & Credentials</h3>
+          <h3 class="card-title">Technical &amp; Personal Projects</h3>
+        </div>
+        <div id="bf-projects-container" class="dynamic-list"></div>
+        <button type="button" class="btn-add-action" id="btn-add-project">
+          + Add Project
+        </button>
+      </div>
+
+      <!-- Section 6: Education -->
+      <div class="editor-card">
+        <div class="card-head">
+          <span class="card-num">6</span>
+          <h3 class="card-title">Education &amp; Credentials</h3>
         </div>
         <div id="bf-education-container" class="dynamic-list"></div>
         <button type="button" class="btn-add-action" id="btn-add-education">
@@ -1368,6 +1484,12 @@
             <div class="b-experience-list" id="bp-experience-list"></div>
           </div>
 
+          <!-- Projects Section -->
+          <div class="b-section" id="bp-sec-projects">
+            <h2 class="b-sec-title">TECHNICAL &amp; PERSONAL PROJECTS</h2>
+            <div class="b-projects-list" id="bp-projects-list"></div>
+          </div>
+
           <!-- Education Section -->
           <div class="b-section" id="bp-sec-education">
             <h2 class="b-sec-title">EDUCATION & CREDENTIALS</h2>
@@ -1400,9 +1522,20 @@
       const bfSummary = document.getElementById('bf-summary');
       const bfSkills = document.getElementById('bf-skills');
       const bfExpContainer = document.getElementById('bf-experience-container');
+      const bfProjContainer = document.getElementById('bf-projects-container');
       const bfEduContainer = document.getElementById('bf-education-container');
 
+      const btnModeCategorized = document.getElementById('btn-mode-categorized');
+      const btnModeSimple = document.getElementById('btn-mode-simple');
+      const skillsCategorizedPanel = document.getElementById('skills-categorized-panel');
+      const skillsSimplePanel = document.getElementById('skills-simple-panel');
+      const bfSkillCatContainer = document.getElementById('bf-skill-cat-container');
+      const btnAddSkillCat = document.getElementById('btn-add-skill-cat');
+      const presetCategoriesWrap = document.getElementById('preset-categories-wrap');
+      let skillsMode = 'categorized';
+
       const btnAddExp = document.getElementById('btn-add-experience');
+      const btnAddProj = document.getElementById('btn-add-project');
       const btnAddEdu = document.getElementById('btn-add-education');
       const btnSample = document.getElementById('btn-sample');
       const btnClear = document.getElementById('btn-clear');
@@ -1424,6 +1557,8 @@
       const bpSkillsWrap = document.getElementById('bp-skills-wrap');
       const bpSecExp = document.getElementById('bp-sec-experience');
       const bpExpList = document.getElementById('bp-experience-list');
+      const bpSecProj = document.getElementById('bp-sec-projects');
+      const bpProjList = document.getElementById('bp-projects-list');
       const bpSecEdu = document.getElementById('bp-sec-education');
       const bpEduList = document.getElementById('bp-education-list');
 
@@ -1458,8 +1593,99 @@
         }
       });
 
-      // Quick skill pills
-      const skillSuggestions = document.querySelectorAll('.pill-sugg');
+      // Skills Mode Switcher
+      function setSkillsMode(mode) {
+        skillsMode = mode;
+        if (mode === 'categorized') {
+          if (btnModeCategorized) {
+            btnModeCategorized.classList.add('active');
+            btnModeCategorized.style.background = '#FFFFFF';
+            btnModeCategorized.style.color = '#2330D8';
+            btnModeCategorized.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+          }
+          if (btnModeSimple) {
+            btnModeSimple.classList.remove('active');
+            btnModeSimple.style.background = 'transparent';
+            btnModeSimple.style.color = '#64748B';
+            btnModeSimple.style.boxShadow = 'none';
+          }
+          if (skillsCategorizedPanel) skillsCategorizedPanel.style.display = 'block';
+          if (skillsSimplePanel) skillsSimplePanel.style.display = 'none';
+        } else {
+          if (btnModeSimple) {
+            btnModeSimple.classList.add('active');
+            btnModeSimple.style.background = '#FFFFFF';
+            btnModeSimple.style.color = '#2330D8';
+            btnModeSimple.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+          }
+          if (btnModeCategorized) {
+            btnModeCategorized.classList.remove('active');
+            btnModeCategorized.style.background = 'transparent';
+            btnModeCategorized.style.color = '#64748B';
+            btnModeCategorized.style.boxShadow = 'none';
+          }
+          if (skillsCategorizedPanel) skillsCategorizedPanel.style.display = 'none';
+          if (skillsSimplePanel) skillsSimplePanel.style.display = 'block';
+        }
+        updateLivePaper();
+      }
+
+      if (btnModeCategorized) btnModeCategorized.addEventListener('click', () => setSkillsMode('categorized'));
+      if (btnModeSimple) btnModeSimple.addEventListener('click', () => setSkillsMode('simple'));
+
+      // Skill Category Cards Builder
+      function addSkillCategoryCard(data = {}) {
+        const item = document.createElement('div');
+        item.className = 'dynamic-item skill-cat-item';
+        item.style.padding = '10px 12px';
+        item.style.marginBottom = '8px';
+        item.innerHTML = `
+          <button type="button" class="btn-remove-item btn-remove-skill-cat" title="Remove Category">✕</button>
+          <div class="form-row-2" style="margin-bottom: 0; gap: 10px;">
+            <div class="form-group" style="margin-bottom: 0; flex: 1.2;">
+              <label style="font-size: 0.72rem; font-weight: 600;">Category Label</label>
+              <input type="text" class="input-field skill-cat-name" placeholder="e.g. Backend, Frontend, Tools..." value="${escapeHtml(data.category || '')}">
+            </div>
+            <div class="form-group" style="margin-bottom: 0; flex: 2.2;">
+              <label style="font-size: 0.72rem; font-weight: 600;">Skills (Comma separated)</label>
+              <input type="text" class="input-field skill-cat-skills" placeholder="e.g. Python, FastAPI, PostgreSQL, Redis" value="${escapeHtml(data.skills || '')}">
+            </div>
+          </div>
+        `;
+
+        item.querySelector('.btn-remove-skill-cat').addEventListener('click', () => {
+          item.remove();
+          updateLivePaper();
+        });
+
+        item.querySelectorAll('input').forEach(inp => {
+          inp.addEventListener('input', updateLivePaper);
+        });
+
+        bfSkillCatContainer.appendChild(item);
+        updateLivePaper();
+      }
+
+      if (btnAddSkillCat) {
+        btnAddSkillCat.addEventListener('click', () => {
+          addSkillCategoryCard({ category: '', skills: '' });
+          const inputs = bfSkillCatContainer.querySelectorAll('.skill-cat-name');
+          if (inputs.length > 0) inputs[inputs.length - 1].focus();
+        });
+      }
+
+      if (presetCategoriesWrap) {
+        presetCategoriesWrap.querySelectorAll('.btn-preset-cat').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const cat = btn.getAttribute('data-cat');
+            const skills = btn.getAttribute('data-skills');
+            addSkillCategoryCard({ category: cat, skills: skills });
+          });
+        });
+      }
+
+      // Quick skill pills in simple mode
+      const skillSuggestions = document.querySelectorAll('.pill-sugg[data-skill]');
       skillSuggestions.forEach(pill => {
         pill.addEventListener('click', () => {
           const s = pill.getAttribute('data-skill');
@@ -1627,7 +1853,84 @@
         updateLivePaper();
       }
 
+      // Project Cards Builder
+      function addProjectCard(data) {
+        const item = document.createElement('div');
+        item.className = 'dynamic-item';
+        item.innerHTML = `
+          <button type="button" class="btn-remove-item" title="Remove Project">✕</button>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Project Name *</label>
+              <input type="text" class="input-field proj-name" placeholder="e.g. Distributed Task Queue" value="${escapeHtml(data.name || '')}">
+            </div>
+            <div class="form-group">
+              <label>Technologies Used</label>
+              <input type="text" class="input-field proj-tools" placeholder="e.g. Go, Redis, Docker, gRPC" value="${escapeHtml(data.tools || '')}">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Project / GitHub URL</label>
+              <input type="text" class="input-field proj-link" placeholder="e.g. github.com/username/project" value="${escapeHtml(data.link || '')}">
+            </div>
+            <div class="form-group">
+              <label>Date / Status</label>
+              <input type="text" class="input-field proj-date" placeholder="e.g. 2023 - Present" value="${escapeHtml(data.date || '')}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Project Highlights &amp; Impact Bullets</label>
+            <div class="bullets-container"></div>
+            <button type="button" class="btn-add-action btn-add-proj-bullet" style="margin-top: 6px;">+ Add Bullet</button>
+          </div>
+        `;
+
+        const bContainer = item.querySelector('.bullets-container');
+        const btnAddB = item.querySelector('.btn-add-proj-bullet');
+        const btnRemove = item.querySelector('.btn-remove-item');
+
+        btnRemove.addEventListener('click', () => {
+          item.remove();
+          updateLivePaper();
+        });
+
+        function addBulletRow(text) {
+          const row = document.createElement('div');
+          row.className = 'bullet-row';
+          row.innerHTML = `
+            <input type="text" class="input-field proj-bullet" placeholder="Built fault-tolerant scheduler processing 10k tasks/sec..." value="${escapeHtml(text || '')}">
+            <button type="button" class="btn-remove-bullet" title="Remove bullet">✕</button>
+          `;
+          row.querySelector('.btn-remove-bullet').addEventListener('click', () => {
+            row.remove();
+            updateLivePaper();
+          });
+          row.querySelector('input').addEventListener('input', updateLivePaper);
+          bContainer.appendChild(row);
+        }
+
+        if (Array.isArray(data.bullets) && data.bullets.length > 0) {
+          data.bullets.forEach(b => addBulletRow(b));
+        } else {
+          addBulletRow('');
+        }
+
+        btnAddB.addEventListener('click', () => {
+          addBulletRow('');
+          updateLivePaper();
+        });
+
+        item.querySelectorAll('input').forEach(input => {
+          input.addEventListener('input', updateLivePaper);
+        });
+
+        bfProjContainer.appendChild(item);
+        updateLivePaper();
+      }
+
       if (btnAddExp) btnAddExp.addEventListener('click', () => addExperienceCard({}));
+      if (btnAddProj) btnAddProj.addEventListener('click', () => addProjectCard({}));
       if (btnAddEdu) btnAddEdu.addEventListener('click', () => addEducationCard({}));
 
       // Update Live Canvas in Real-Time
@@ -1667,12 +1970,39 @@
         }
 
         // Skills
-        const skillsRaw = bfSkills.value.split(',').map(s => s.trim()).filter(Boolean);
-        if (skillsRaw.length > 0) {
-          bpSecSkills.style.display = 'block';
-          bpSkillsWrap.innerHTML = skillsRaw.map(s => `<span class="b-skill-pill">${escapeHtml(s)}</span>`).join('');
+        if (skillsMode === 'categorized') {
+          const catItems = bfSkillCatContainer.querySelectorAll('.skill-cat-item');
+          let hasCats = false;
+          let catHtml = '<div class="bp-skills-categories">';
+          catItems.forEach(item => {
+            const catName = item.querySelector('.skill-cat-name').value.trim();
+            const catSkills = item.querySelector('.skill-cat-skills').value.trim();
+            if (catName || catSkills) {
+              hasCats = true;
+              catHtml += `
+                <div class="b-skill-cat-row">
+                  ${catName ? `<span class="b-skill-cat-label">${escapeHtml(catName)}:</span>` : ''}
+                  <span class="b-skill-cat-items">${escapeHtml(catSkills)}</span>
+                </div>
+              `;
+            }
+          });
+          catHtml += '</div>';
+
+          if (hasCats) {
+            bpSecSkills.style.display = 'block';
+            bpSkillsWrap.innerHTML = catHtml;
+          } else {
+            bpSecSkills.style.display = 'none';
+          }
         } else {
-          bpSecSkills.style.display = 'none';
+          const skillsRaw = bfSkills.value.split(',').map(s => s.trim()).filter(Boolean);
+          if (skillsRaw.length > 0) {
+            bpSecSkills.style.display = 'block';
+            bpSkillsWrap.innerHTML = skillsRaw.map(s => `<span class="b-skill-pill">${escapeHtml(s)}</span>`).join('');
+          } else {
+            bpSecSkills.style.display = 'none';
+          }
         }
 
         // Experience
@@ -1709,6 +2039,45 @@
           bpExpList.innerHTML = expHtml;
         } else {
           bpSecExp.style.display = 'none';
+        }
+
+        // Projects
+        const projItems = bfProjContainer.querySelectorAll('.dynamic-item');
+        if (projItems.length > 0) {
+          bpSecProj.style.display = 'block';
+          let projHtml = '';
+          projItems.forEach(item => {
+            const name = item.querySelector('.proj-name').value.trim();
+            const tools = item.querySelector('.proj-tools').value.trim();
+            const link = item.querySelector('.proj-link').value.trim();
+            const date = item.querySelector('.proj-date').value.trim();
+            const bullets = Array.from(item.querySelectorAll('.proj-bullet')).map(b => b.value.trim()).filter(Boolean);
+
+            if (name) {
+              projHtml += `
+                <div class="bp-proj-entry" style="margin-bottom: 12px;">
+                  <div class="bp-job-head">
+                    <div>
+                      <span class="bp-job-title">${escapeHtml(name)}</span>
+                      ${tools ? `<span class="bp-job-tools" style="font-weight: 500; color: #475569; font-size: 0.88rem;"> | <em>${escapeHtml(tools)}</em></span>` : ''}
+                    </div>
+                    <div class="bp-job-dates">
+                      ${link ? `<span style="margin-right: 8px; color: #2330D8;">${escapeHtml(link)}</span>` : ''}
+                      ${date ? `<span>${escapeHtml(date)}</span>` : ''}
+                    </div>
+                  </div>
+                  ${bullets.length > 0 ? `
+                    <ul class="bp-bullets-list">
+                      ${bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+                    </ul>
+                  ` : ''}
+                </div>
+              `;
+            }
+          });
+          bpProjList.innerHTML = projHtml;
+        } else {
+          bpSecProj.style.display = 'none';
         }
 
         // Education
@@ -1760,6 +2129,15 @@
         bfSummary.value = 'Full-Stack Software Engineer with 6+ years of experience architecting high-throughput distributed systems, REST/GraphQL APIs, and responsive web applications. Proven track record of scaling platforms to 10M+ MAUs, reducing API latency by 45%, and leading engineering teams in modern CI/CD best practices.';
         bfSkills.value = 'Python, FastAPI, TypeScript, React, Next.js, Node.js, PostgreSQL, Redis, Docker, Kubernetes, AWS (ECS, Lambda, S3), GraphQL, CI/CD Pipelines, System Design, Unit & Integration Testing';
 
+        setSkillsMode('categorized');
+        bfSkillCatContainer.innerHTML = '';
+        addSkillCategoryCard({ category: 'Languages', skills: 'Python, TypeScript, JavaScript, Go, SQL, HTML5/CSS3' });
+        addSkillCategoryCard({ category: 'Backend & APIs', skills: 'FastAPI, Node.js, Express, RESTful APIs, GraphQL, Microservices' });
+        addSkillCategoryCard({ category: 'Frontend', skills: 'React, Next.js, Redux Toolkit, Tailwind CSS, Webpack' });
+        addSkillCategoryCard({ category: 'Databases & Cache', skills: 'PostgreSQL, Redis, MongoDB, SQLAlchemy, Query Optimization' });
+        addSkillCategoryCard({ category: 'Cloud & DevOps', skills: 'AWS (ECS, Lambda, S3), Docker, Kubernetes, GitHub Actions, CI/CD' });
+        addSkillCategoryCard({ category: 'Developer Tools', skills: 'Git, Linux, Postman, Jest, System Design, Agile/Scrum' });
+
         bfExpContainer.innerHTML = '';
         addExperienceCard({
           title: 'Lead Full-Stack Engineer',
@@ -1786,6 +2164,29 @@
           ]
         });
 
+        bfProjContainer.innerHTML = '';
+        addProjectCard({
+          name: 'Distributed Task Orchestrator',
+          tools: 'Go, Redis, Docker, gRPC',
+          link: 'github.com/alexmorgan-code/task-orch',
+          date: '2023 - Present',
+          bullets: [
+            'Built a fault-tolerant distributed job scheduler processing 10,000+ tasks/sec with zero job loss across worker failures.',
+            'Engineered real-time WebSocket dashboard for worker node telemetry, memory consumption tracking, and cluster health monitoring.'
+          ]
+        });
+
+        addProjectCard({
+          name: 'ResumeFit — AI ATS Match Engine',
+          tools: 'Python, FastAPI, Groq LLM, TypeScript',
+          link: 'github.com/alexmorgan-code/resumefit',
+          date: '2024',
+          bullets: [
+            'Developed asynchronous resume analysis pipeline evaluating candidate fit against job requirements in under 800ms.',
+            'Implemented OpenXML DOCX and high-fidelity A4 rendering engine powering instant ATS-compliant exports across 5 templates.'
+          ]
+        });
+
         bfEduContainer.innerHTML = '';
         addEducationCard({
           degree: 'B.S. in Computer Science',
@@ -1806,6 +2207,8 @@
           if (inp) inp.value = '';
         });
         bfExpContainer.innerHTML = '';
+        bfSkillCatContainer.innerHTML = '';
+        bfProjContainer.innerHTML = '';
         bfEduContainer.innerHTML = '';
         updateLivePaper();
       });
@@ -1817,13 +2220,35 @@
 
       // Export Word (.docx)
       btnDocx.addEventListener('click', async () => {
+        let skillsPayload;
+        if (skillsMode === 'categorized') {
+          const catItems = bfSkillCatContainer.querySelectorAll('.skill-cat-item');
+          skillsPayload = [];
+          catItems.forEach(item => {
+            const catName = item.querySelector('.skill-cat-name').value.trim();
+            const catSkills = item.querySelector('.skill-cat-skills').value.trim();
+            if (catName || catSkills) {
+              skillsPayload.push({
+                category: catName,
+                skills: catSkills
+              });
+            }
+          });
+          if (skillsPayload.length === 0 && bfSkills.value.trim()) {
+            skillsPayload = bfSkills.value.split(',').map(s => s.trim()).filter(Boolean);
+          }
+        } else {
+          skillsPayload = bfSkills.value.split(',').map(s => s.trim()).filter(Boolean);
+        }
+
         const resumePayload = {
           full_name: bfName.value.trim() || 'Alex Morgan',
           target_role: bfTitle.value.trim() || 'Software Engineer',
           contact_info: [bfEmail.value, bfPhone.value, bfLocation.value, bfLinkedin.value, bfPortfolio.value].filter(Boolean).join(' | '),
           professional_summary: bfSummary.value.trim(),
-          skills: bfSkills.value.split(',').map(s => s.trim()).filter(Boolean),
+          skills: skillsPayload,
           experience: [],
+          projects: [],
           education: []
         };
 
@@ -1835,6 +2260,17 @@
             dates: item.querySelector('.exp-dates').value.trim(),
             location: item.querySelector('.exp-location').value.trim(),
             bullets: Array.from(item.querySelectorAll('.exp-bullet')).map(b => b.value.trim()).filter(Boolean)
+          });
+        });
+
+        const projItems = bfProjContainer.querySelectorAll('.dynamic-item');
+        projItems.forEach(item => {
+          resumePayload.projects.push({
+            name: item.querySelector('.proj-name').value.trim(),
+            tools: item.querySelector('.proj-tools').value.trim(),
+            link: item.querySelector('.proj-link').value.trim(),
+            date: item.querySelector('.proj-date').value.trim(),
+            bullets: Array.from(item.querySelectorAll('.proj-bullet')).map(b => b.value.trim()).filter(Boolean)
           });
         });
 
@@ -1892,7 +2328,20 @@
           plainText += `PROFESSIONAL SUMMARY\n${bfSummary.value}\n\n`;
         }
 
-        if (bfSkills.value) {
+        if (skillsMode === 'categorized') {
+          const catItems = bfSkillCatContainer.querySelectorAll('.skill-cat-item');
+          if (catItems.length > 0) {
+            plainText += `TECHNICAL SKILLS\n`;
+            catItems.forEach(item => {
+              const catName = item.querySelector('.skill-cat-name').value.trim();
+              const catSkills = item.querySelector('.skill-cat-skills').value.trim();
+              if (catName || catSkills) {
+                plainText += `${catName ? catName + ': ' : ''}${catSkills}\n`;
+              }
+            });
+            plainText += `\n`;
+          }
+        } else if (bfSkills.value) {
           plainText += `TECHNICAL SKILLS\n${bfSkills.value}\n\n`;
         }
 
@@ -1908,6 +2357,24 @@
               if (b.value.trim()) plainText += `• ${b.value.trim()}\n`;
             });
             plainText += `\n`;
+          });
+        }
+
+        const projItems = bfProjContainer.querySelectorAll('.dynamic-item');
+        if (projItems.length > 0) {
+          plainText += `TECHNICAL & PERSONAL PROJECTS\n`;
+          projItems.forEach(item => {
+            const name = item.querySelector('.proj-name').value.trim();
+            const tools = item.querySelector('.proj-tools').value.trim();
+            const link = item.querySelector('.proj-link').value.trim();
+            const date = item.querySelector('.proj-date').value.trim();
+            if (name) {
+              plainText += `${name}${tools ? ` | ${tools}` : ''}${link || date ? ` (${[link, date].filter(Boolean).join(' - ')})` : ''}\n`;
+              item.querySelectorAll('.proj-bullet').forEach(b => {
+                if (b.value.trim()) plainText += `• ${b.value.trim()}\n`;
+              });
+              plainText += `\n`;
+            }
           });
         }
 

@@ -4703,6 +4703,12 @@
                     <div class="sheet-experience" id="sheet-experience"></div>
                   </div>
 
+                  <!-- Projects -->
+                  <div class="sheet-section" id="sheet-sec-projects" style="display: none;">
+                    <h4 class="sheet-sec-title">TECHNICAL &amp; PERSONAL PROJECTS</h4>
+                    <div class="sheet-projects" id="sheet-projects"></div>
+                  </div>
+
                   <!-- Education -->
                   <div class="sheet-section">
                     <h4 class="sheet-sec-title">EDUCATION & CREDENTIALS</h4>
@@ -4776,7 +4782,7 @@
             <p style="font-size: 0.95rem; color: var(--color-ink-muted); margin: 0;">Build an authentic ATS-proof resume
               from scratch on a live 1:1 A4 canvas with one-click Word (.docx) &amp; PDF export.</p>
           </div>
-          <a href="/builder" class="btn-hero-secondary"
+          <a href="/builder" class="btn-hero-primary"
             style="white-space: nowrap; padding: 12px 24px; border-radius: var(--radius-pill); font-weight: 700; text-decoration: none;">
             ✨ Open Studio ➔
           </a>
@@ -5425,6 +5431,8 @@
       const sheetSummary = document.getElementById('sheet-summary');
       const sheetSkills = document.getElementById('sheet-skills');
       const sheetExperience = document.getElementById('sheet-experience');
+      const sheetSecProjects = document.getElementById('sheet-sec-projects');
+      const sheetProjects = document.getElementById('sheet-projects');
       const sheetEducation = document.getElementById('sheet-education');
 
       // State
@@ -6118,11 +6126,17 @@
           sheetSkills.replaceChildren();
           let skillsList = [];
           if (Array.isArray(tr.skills)) {
-            skillsList = tr.skills;
+            tr.skills.forEach(item => {
+              if (item && typeof item === 'object' && (item.category || item.skills)) {
+                skillsList.push(`${item.category ? item.category + ': ' : ''}${Array.isArray(item.skills) ? item.skills.join(', ') : item.skills}`);
+              } else if (item) {
+                skillsList.push(String(item));
+              }
+            });
           } else if (typeof tr.skills === 'object' && tr.skills !== null) {
             Object.entries(tr.skills).forEach(([k, v]) => {
-              if (Array.isArray(v)) skillsList.push(...v);
-              else skillsList.push(String(v));
+              if (Array.isArray(v)) skillsList.push(`${k}: ${v.join(', ')}`);
+              else skillsList.push(`${k}: ${String(v)}`);
             });
           }
           if (skillsList.length === 0) {
@@ -6173,6 +6187,48 @@
           }
         }
 
+        // Projects
+        if (sheetProjects && sheetSecProjects) {
+          sheetProjects.replaceChildren();
+          const projList = Array.isArray(tr.projects) ? tr.projects : [];
+          if (projList.length > 0) {
+            sheetSecProjects.style.display = 'block';
+            projList.forEach(proj => {
+              const card = createEl('div', 'sheet-job');
+              const header = createEl('div', 'sheet-job-header');
+
+              const titleComp = createEl('div', 'sheet-job-title-company');
+              const projName = createEl('span', 'sheet-job-title', proj.name || 'Project');
+              titleComp.appendChild(projName);
+              if (proj.tools) {
+                titleComp.appendChild(document.createTextNode(' | '));
+                const toolsSpan = createEl('span', 'sheet-job-company', proj.tools);
+                toolsSpan.style.fontStyle = 'italic';
+                titleComp.appendChild(toolsSpan);
+              }
+
+              const meta = createEl('div', 'sheet-job-meta');
+              const metaParts = [proj.link, proj.date].filter(Boolean);
+              meta.textContent = metaParts.join(' • ');
+
+              header.appendChild(titleComp);
+              header.appendChild(meta);
+              card.appendChild(header);
+
+              const ul = createEl('ul', 'sheet-bullets');
+              const bullets = Array.isArray(proj.bullets) ? proj.bullets : [proj.bullets].filter(Boolean);
+              bullets.forEach(b => {
+                ul.appendChild(createEl('li', null, String(b)));
+              });
+              card.appendChild(ul);
+
+              sheetProjects.appendChild(card);
+            });
+          } else {
+            sheetSecProjects.style.display = 'none';
+          }
+        }
+
         // Education
         if (sheetEducation) {
           sheetEducation.replaceChildren();
@@ -6214,6 +6270,15 @@
             lines.push(`• ${b}`);
           });
         });
+        if (Array.isArray(tr.projects) && tr.projects.length > 0) {
+          lines.push('\n--- TECHNICAL & PERSONAL PROJECTS ---');
+          tr.projects.forEach(p => {
+            lines.push(`\n${p.name || 'Project'}${p.tools ? ' | ' + p.tools : ''}${p.link || p.date ? ' (' + [p.link, p.date].filter(Boolean).join(' • ') + ')' : ''}`);
+            (Array.isArray(p.bullets) ? p.bullets : []).forEach(b => {
+              lines.push(`• ${b}`);
+            });
+          });
+        }
         lines.push('\n--- EDUCATION & CREDENTIALS ---');
         (Array.isArray(tr.education) ? tr.education : []).forEach(e => {
           lines.push(`${e.degree || 'Degree'} - ${e.school || ''} ${e.year ? '(' + e.year + ')' : ''}`);
