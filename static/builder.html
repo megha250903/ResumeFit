@@ -1939,10 +1939,11 @@
           .replace(/'/g, '&#39;');
       }
 
-      // Check if template requested in hash
-      if (window.location.hash) {
-        const hash = window.location.hash.replace('#', '');
-        if (templateNames[hash]) selectTemplate(hash);
+      // Check if template requested in query param or hash
+      const urlParams = new URLSearchParams(window.location.search);
+      const reqTpl = urlParams.get('template') || (window.location.hash ? window.location.hash.replace('#', '') : null);
+      if (reqTpl && templateNames[reqTpl]) {
+        selectTemplate(reqTpl);
       }
 
       // Load initial sample profile
