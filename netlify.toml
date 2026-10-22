@@ -2,6 +2,12 @@
   # Tell Netlify to serve files from the static folder as the root website
   publish = "static"
 
+# Handle /static/* assets seamlessly on Netlify
+[[redirects]]
+  from = "/static/*"
+  to = "/:splat"
+  status = 200
+
 # Direct /builder URL to builder.html
 [[redirects]]
   from = "/builder"

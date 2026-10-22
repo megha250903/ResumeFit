@@ -796,4 +796,14 @@ def builder_page():
     return FileResponse("static/builder.html")
 
 
+@app.get("/logo.jpg")
+def get_logo():
+    return FileResponse("static/logo.jpg")
+
+
+@app.get("/workflow-showcase.png")
+def get_workflow_showcase():
+    return FileResponse("static/workflow-showcase.png")
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
