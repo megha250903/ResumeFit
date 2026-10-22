@@ -206,6 +206,105 @@
       transition: background-color var(--transition), transform var(--transition);
     }
 
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      padding: 9px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      z-index: 60;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: #FFFFFF;
+      border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle.is-active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle.is-active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.is-active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 860px) {
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: #1822A8;
+        background: linear-gradient(180deg, #1C27B8 0%, #131B8A 100%);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        padding: 22px 20px 28px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        display: none;
+        z-index: 99;
+        max-height: calc(100vh - 65px);
+        overflow-y: auto;
+      }
+
+      .nav-links.is-open {
+        display: flex;
+        animation: slideDownNav 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes slideDownNav {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .nav-link {
+        font-size: 1.05rem;
+        font-weight: 600;
+        padding: 10px 14px;
+        border-radius: 8px;
+        display: block;
+        transition: background 0.15s ease;
+      }
+
+      .nav-link:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .nav-btn {
+        width: 100%;
+        text-align: center;
+        padding: 12px 18px;
+        font-size: 1rem;
+        margin-top: 6px;
+      }
+    }
+
     .nav-btn:hover {
       background-color: var(--color-yellow-hover);
     }
@@ -3981,7 +4080,12 @@
           alt="ResumeFit logo" class="brand-img">
         <span class="brand-name">ResumeFit</span>
       </a>
-      <ul class="nav-links">
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
         <li><a href="#how-it-works" class="nav-link">How it works</a></li>
         <li><a href="#templates" class="nav-link">5 ATS Templates</a></li>
         <li><a href="#tool" class="nav-link" id="nav-link-analyzer">ATS Scan</a></li>
@@ -7586,6 +7690,26 @@
         });
       }
 
+      // Initialize Mobile Navigation Toggle
+      function initMobileNav() {
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+        if (navToggle && navLinks) {
+          navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('is-open');
+            navToggle.classList.toggle('is-active', isOpen);
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          });
+          navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              navLinks.classList.remove('is-open');
+              navToggle.classList.remove('is-active');
+              navToggle.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
+      }
+
       // Run visual enhancements on load
       function initVisuals() {
         initSplitType();
@@ -7593,6 +7717,7 @@
         initScrollProgress();
         initCustomCursor();
         initFaq();
+        initMobileNav();
       }
 
       if (document.readyState === 'loading') {
