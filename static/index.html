@@ -1,0 +1,2301 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ResumeFit — Match score, resume improvements, and recruiter email</title>
+  <meta name="description"
+    content="Know your odds before you hit apply. Compare your resume against any job description for an instant match score, missing skills, prioritized edits, and a hiring manager outreach email.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Curtains.js WebGL & SplitType CDN -->
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://cdn.jsdelivr.net/npm/curtainsjs@8.1.6/dist/curtains.umd.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       Design System & Variables
+       ========================================================================== */
+    :root {
+      --color-blue: #2330D8;
+      --color-blue-dark: #1923A3;
+      --color-blue-tint: #E6E8FB;
+      --color-blue-subtle: #F0F2FD;
+      --color-yellow: #FFD83D;
+      --color-yellow-hover: #F2CC2B;
+      --color-ink: #0C1033;
+      --color-ink-muted: #4B526D;
+      --color-ink-soft: #7A829D;
+      --color-bg: #F6F7FB;
+      --color-surface: #FFFFFF;
+      --color-border: #DDE2F0;
+      --color-border-subtle: #EDF0F7;
+
+      --color-match: #0E7A55;
+      --color-match-bg: #E8F7F1;
+      --color-match-border: #BCE7D6;
+
+      --color-gap: #B6370A;
+      --color-gap-bg: #FDF1ED;
+      --color-gap-border: #F7D0C4;
+
+      --font-display: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+      --font-body: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+
+      --shadow-sm: 0 1px 3px rgba(12, 16, 51, 0.05);
+      --shadow-md: 0 6px 18px rgba(12, 16, 51, 0.06);
+      --shadow-lg: 0 16px 36px rgba(12, 16, 51, 0.08);
+      --shadow-hero: 0 24px 50px rgba(12, 16, 51, 0.25);
+
+      --transition: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    /* Accessibility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--color-yellow);
+      outline-offset: 3px;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       Navigation Bar
+       ========================================================================== */
+    .site-nav {
+      background-color: var(--color-blue);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+
+    .nav-link:hover {
+      color: #FFFFFF;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+
+    .nav-btn:hover {
+      background-color: var(--color-yellow-hover);
+    }
+
+    /* ==========================================================================
+       Hero Section
+       ========================================================================== */
+    .hero {
+      background-color: var(--color-blue);
+      color: #FFFFFF;
+      padding: 64px 0 88px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Curtains.js WebGL Interactive Canvas */
+    .curtains-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.82;
+    }
+
+    .hero-plane {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* SplitType Kinetic Typography Reveal */
+    .split-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(24px) rotate(1.5deg);
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease;
+      will-change: transform, opacity;
+    }
+
+    .split-char.is-visible {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+
+    .hero-title .word,
+    .section-title .word {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-pill);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 20px;
+    }
+
+    .eyebrow-pip {
+      width: 7px;
+      height: 7px;
+      background-color: var(--color-yellow);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.35rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      margin-bottom: 20px;
+      max-width: 22ch;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
+      padding: 0 6px;
+      border-radius: 4px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hero-sub {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 32px;
+      max-width: 52ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 26px;
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      transition: background-color var(--transition), transform var(--transition);
+    }
+
+    .btn-hero-primary:hover {
+      background-color: var(--color-yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      background-color: transparent;
+      color: #FFFFFF;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color var(--transition), background-color var(--transition);
+    }
+
+    .btn-hero-secondary:hover {
+      border-color: #FFFFFF;
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Hero Mockup (The One Memorable Animation) */
+    .hero-visual {
+      position: relative;
+      max-width: 440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .resume-mock {
+      background-color: var(--color-surface);
+      color: var(--color-ink);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-hero);
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .resume-header {
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+    }
+
+    .mock-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    .mock-role {
+      font-size: 0.8125rem;
+      color: var(--color-ink-muted);
+    }
+
+    .mock-section-title {
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--color-ink-soft);
+      margin: 12px 0 6px;
+    }
+
+    .mock-line {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: #2D334A;
+      margin-bottom: 6px;
+    }
+
+    /* Highlighter Pen Animation */
+    .highlight {
+      background-image: linear-gradient(var(--color-yellow), var(--color-yellow));
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      background-size: 0% 100%;
+      color: var(--color-ink);
+      font-weight: 600;
+      padding: 1px 3px;
+      border-radius: 2px;
+      animation: highlightStroke 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .highlight-delay-1 {
+      animation-delay: 0.4s;
+    }
+
+    .highlight-delay-2 {
+      animation-delay: 0.9s;
+    }
+
+    .highlight-delay-3 {
+      animation-delay: 1.4s;
+    }
+
+    @keyframes highlightStroke {
+      0% {
+        background-size: 0% 100%;
+      }
+
+      100% {
+        background-size: 100% 100%;
+      }
+    }
+
+    /* Floating Score Badge */
+    .floating-score {
+      position: absolute;
+      top: -20px;
+      right: -16px;
+      z-index: 10;
+      background-color: var(--color-surface);
+      border: 2px solid var(--color-blue);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      box-shadow: 0 12px 28px rgba(12, 16, 51, 0.22);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: floatBadge 3.2s ease-in-out infinite alternate;
+      white-space: nowrap;
+    }
+
+    @keyframes floatBadge {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .score-badge-circle {
+      width: 44px;
+      height: 44px;
+      background-color: var(--color-blue-tint);
+      color: var(--color-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .score-badge-text b {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--color-ink);
+      font-weight: 700;
+    }
+
+    .score-badge-text span {
+      font-size: 0.75rem;
+      color: var(--color-match);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       How It Works Section (Sequence)
+       ========================================================================== */
+    .how-it-works {
+      padding: 72px 0;
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+
+    .section-eyebrow {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-blue);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--color-ink);
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--color-ink-muted);
+      line-height: 1.5;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .step-card {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--color-blue);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .step-heading {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.9375rem;
+      color: var(--color-ink-muted);
+      line-height: 1.55;
+    }
+
+    /* ==========================================================================
+       The Analysis Tool Section
+       ========================================================================== */
+    .tool-section {
+      padding: 72px 0 88px;
+    }
+
+    .tool-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .panel-label {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    /* Switch between Upload & Paste */
+    .tab-switch {
+      display: inline-flex;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .tab-btn {
+      padding: 5px 12px;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--color-ink-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition);
+    }
+
+    .tab-btn.active {
+      background-color: var(--color-surface);
+      color: var(--color-ink);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Drag and drop upload zone */
+    .dropzone {
+      border: 2px dashed var(--color-border);
+      background-color: var(--color-bg);
+      border-radius: var(--radius-md);
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition), background-color var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: var(--color-blue);
+      background-color: var(--color-blue-subtle);
+    }
+
+    .drop-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--color-blue-tint);
+      color: var(--color-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .drop-primary {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--color-ink);
+      margin-bottom: 4px;
+    }
+
+    .drop-sub {
+      font-size: 0.8125rem;
+      color: var(--color-ink-muted);
+    }
+
+    .file-pill {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 380px;
+      padding: 10px 14px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      margin-top: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .file-pill.visible {
+      display: flex;
+    }
+
+    .file-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 260px;
+    }
+
+    .file-remove {
+      background: transparent;
+      border: none;
+      color: var(--color-gap);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .file-remove:hover {
+      text-decoration: underline;
+    }
+
+    /* Textareas */
+    .tool-textarea {
+      width: 100%;
+      min-height: 250px;
+      padding: 14px 16px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--color-ink);
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      resize: vertical;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .tool-textarea:focus {
+      outline: none;
+      border-color: var(--color-blue);
+      box-shadow: 0 0 0 3px var(--color-blue-tint);
+    }
+
+    .panel-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.8125rem;
+      color: var(--color-ink-soft);
+    }
+
+    .counter.valid {
+      color: var(--color-match);
+      font-weight: 600;
+    }
+
+    /* Submit and status row */
+    .tool-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .btn-analyze {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 380px;
+      padding: 16px 28px;
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: background-color var(--transition), transform var(--transition), opacity var(--transition);
+    }
+
+    .btn-analyze:hover:not(:disabled) {
+      background-color: var(--color-yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-analyze:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Progress & Loading States */
+    .progress-box {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      padding: 8px 16px;
+    }
+
+    .progress-box.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--color-blue-tint);
+      border-top-color: var(--color-blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .progress-msg {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-blue);
+      min-height: 1.5em;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Error Message Alert */
+    .alert-error {
+      display: none;
+      width: 100%;
+      max-width: 620px;
+      padding: 14px 18px;
+      background-color: var(--color-gap-bg);
+      border: 1px solid var(--color-gap-border);
+      border-radius: var(--radius-md);
+      color: var(--color-gap);
+      font-size: 0.9375rem;
+      line-height: 1.45;
+    }
+
+    .alert-error.visible {
+      display: block;
+    }
+
+    .alert-error b {
+      display: block;
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       Results Display Section
+       ========================================================================== */
+    .results-container {
+      margin-top: 48px;
+      display: none;
+    }
+
+    .results-container.visible {
+      display: block;
+    }
+
+    /* Blue Score Banner */
+    .results-banner {
+      background-color: var(--color-blue);
+      color: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .gauge-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .gauge-svg {
+      width: 140px;
+      height: 140px;
+      transform: rotate(-90deg);
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.18);
+      stroke-width: 10;
+    }
+
+    .gauge-fill {
+      fill: none;
+      stroke: var(--color-yellow);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 377;
+      stroke-dashoffset: 377;
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gauge-label {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-number {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #FFFFFF;
+    }
+
+    .gauge-caption {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.75);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    .banner-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .banner-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-pill);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .banner-verdict {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .banner-summary {
+      font-size: 1rem;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 65ch;
+    }
+
+    .banner-fit {
+      font-size: 0.9375rem;
+      color: var(--color-yellow);
+      font-weight: 500;
+    }
+
+    .banner-disclaimer {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .results-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-sub {
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+      margin-bottom: 18px;
+    }
+
+    .chips-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .chip-match {
+      background-color: var(--color-match-bg);
+      border: 1px solid var(--color-match-border);
+      color: var(--color-match);
+    }
+
+    .chip-gap {
+      background-color: var(--color-gap-bg);
+      border: 1px solid var(--color-gap-border);
+      color: var(--color-gap);
+    }
+
+    .chip-empty {
+      color: var(--color-ink-soft);
+      font-size: 0.875rem;
+      font-style: italic;
+    }
+
+    /* Improvements Section */
+    .improvements-card {
+      margin-bottom: 32px;
+    }
+
+    .improvements-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .improvement-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      padding: 16px 20px;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      align-items: start;
+    }
+
+    .imp-badge {
+      width: 28px;
+      height: 28px;
+      background-color: var(--color-blue);
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .imp-content b {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .imp-content span {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+      line-height: 1.5;
+    }
+
+    /* Outreach Email Section */
+    .email-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background-color: var(--color-surface);
+      color: var(--color-blue);
+      border: 1.5px solid var(--color-blue);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition);
+    }
+
+    .btn-copy:hover {
+      background-color: var(--color-blue-tint);
+    }
+
+    .btn-copy.copied {
+      background-color: var(--color-match);
+      border-color: var(--color-match);
+      color: #FFFFFF;
+    }
+
+    .email-preview {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .email-field {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.9375rem;
+    }
+
+    .email-field strong {
+      color: var(--color-ink-muted);
+      font-weight: 600;
+      margin-right: 6px;
+    }
+
+    .email-subject-text {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    .email-body-text {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--color-ink);
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .email-note {
+      margin-top: 12px;
+      font-size: 0.8125rem;
+      color: var(--color-ink-soft);
+    }
+
+    /* ==========================================================================
+       Site Footer
+       ========================================================================== */
+    .site-footer {
+      background-color: #070A20;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 48px 0 36px;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 60ch;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       Responsive Rules & Reduced Motion
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .results-banner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .gauge-wrapper {
+        margin: 0 auto;
+      }
+
+      .banner-eyebrow {
+        margin: 0 auto;
+      }
+
+      .floating-score {
+        right: 4px;
+        top: -14px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        padding: 44px 0 60px;
+      }
+
+      .floating-score {
+        right: 0;
+        top: -14px;
+        transform: scale(0.9);
+        transform-origin: top right;
+      }
+
+      .tool-card {
+        padding: 20px 16px;
+      }
+
+      .results-banner {
+        padding: 24px 18px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-hero-primary,
+      .btn-hero-secondary {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .highlight {
+        background-size: 100% 100% !important;
+      }
+
+      .floating-score {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand" aria-label="ResumeFit home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span class="brand-name">ResumeFit</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works" class="nav-link">How it works</a></li>
+        <li><a href="#tool" class="nav-btn">Start free scan</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <!-- Curtains.js WebGL Interactive Liquid Surface -->
+      <div id="canvas" class="curtains-canvas" aria-hidden="true"></div>
+      <div id="hero-plane" class="hero-plane" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="hero-eyebrow">
+              <span class="eyebrow-pip" aria-hidden="true"></span>
+              <span>Intelligent screening readiness</span>
+            </div>
+            <h1 id="hero-heading" class="hero-title">
+              Know your odds before you hit <em>apply.</em>
+            </h1>
+            <p class="hero-sub">
+              Upload your resume and paste any target job description. Get an honest match score, clear missing
+              requirements, bullet edits that increase callbacks, and a personalized outreach email.
+            </p>
+            <div class="hero-actions">
+              <a href="#tool" class="btn-hero-primary">Scan your resume now</a>
+              <a href="#how-it-works" class="btn-hero-secondary">See how it works</a>
+            </div>
+            <div class="hero-trust">
+              <div class="hero-trust-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>No sign-up required</span>
+              </div>
+              <div class="hero-trust-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Private &amp; secure</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Visual: Mock Resume with Highlighter Pen Animation -->
+          <div class="hero-visual" aria-hidden="true">
+            <div class="resume-mock">
+              <div class="resume-header">
+                <div class="mock-name">Elena Vance</div>
+                <div class="mock-role">San Francisco, CA • linkedin.com/in/elena-vance</div>
+              </div>
+              <div class="mock-section-title">Core Competencies</div>
+              <div class="mock-line">
+                <span class="highlight highlight-delay-1">Design Systems</span>, Prototyping, Wireframing, <span
+                  class="highlight highlight-delay-2">WCAG 2.1 AA Accessibility</span>, User Research
+              </div>
+              <div class="mock-section-title">Experience</div>
+              <div class="mock-line">
+                <strong>Lead Product Designer</strong> — Mercury Labs (2022–Present)
+              </div>
+              <div class="mock-line">
+                • Built token-based multi-brand UI system adopted by 14 engineers.
+              </div>
+              <div class="mock-line">
+                • Conducted usability audits leading to a 28% increase in activation.
+              </div>
+              <div class="mock-line">
+                • Partnered directly with engineering leads on <span
+                  class="highlight highlight-delay-3">cross-functional agile sprints</span>.
+              </div>
+            </div>
+
+            <div class="floating-score">
+              <div class="score-badge-circle">82%</div>
+              <div class="score-badge-text">
+                <b>Strong match</b>
+                <span>Senior Product Designer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works (Sequence) -->
+    <section id="how-it-works" class="how-it-works" aria-labelledby="how-heading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">A straightforward process</div>
+          <h2 id="how-heading" class="section-title">How ResumeFit works</h2>
+          <p class="section-sub">Three fast steps to review your application materials against the exact criteria
+            recruiters evaluate.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <h3 class="step-heading">Provide your resume</h3>
+            <p class="step-desc">Upload your PDF, DOCX, or plain text file. Prefer to paste directly? Switch to the text
+              editor with one click.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <h3 class="step-heading">Paste the job description</h3>
+            <p class="step-desc">Copy the full posting from LinkedIn, Indeed, or the company career site, including
+              requirements and responsibilities.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <h3 class="step-heading">Get targeted revisions</h3>
+            <p class="step-desc">Receive a 0–100 relevance score, detected skill gaps, high-impact bullet edits, and an
+              outreach note ready to send.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tool Section -->
+    <section id="tool" class="tool-section" aria-labelledby="tool-heading">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">Free analysis</div>
+          <h2 id="tool-heading" class="section-title">Compare your resume against any role</h2>
+          <p class="section-sub">Paste both documents below to identify gaps and tailor your application in seconds.</p>
+        </div>
+
+        <div class="tool-card">
+          <form id="analyze-form" novalidate>
+            <div class="tool-grid">
+
+              <!-- Panel 1: Resume Input -->
+              <div class="panel">
+                <div class="panel-head">
+                  <span class="panel-label">1. Your resume</span>
+                  <div class="tab-switch" role="tablist" aria-label="Resume input mode">
+                    <button type="button" role="tab" id="tab-file" class="tab-btn active" aria-selected="true"
+                      aria-controls="view-file">Upload file</button>
+                    <button type="button" role="tab" id="tab-text" class="tab-btn" aria-selected="false"
+                      aria-controls="view-text">Paste text</button>
+                  </div>
+                </div>
+
+                <!-- File Upload View -->
+                <div id="view-file" role="tabpanel" aria-labelledby="tab-file">
+                  <div class="dropzone" id="dropzone" tabindex="0" role="button"
+                    aria-label="Upload resume file, drag and drop or browse">
+                    <input type="file" id="file-input" class="sr-only" accept=".pdf,.docx,.txt" aria-hidden="true">
+                    <div class="drop-icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                      </svg>
+                    </div>
+                    <div class="drop-primary">Choose a file or drag it here</div>
+                    <div class="drop-sub">PDF, DOCX, or TXT up to 5 MB</div>
+
+                    <div class="file-pill" id="file-pill">
+                      <span class="file-name" id="file-name">filename.pdf</span>
+                      <button type="button" class="file-remove" id="file-remove"
+                        aria-label="Remove uploaded file">Remove</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Textarea View -->
+                <div id="view-text" role="tabpanel" aria-labelledby="tab-text" hidden>
+                  <label for="resume-text" class="sr-only">Resume text content</label>
+                  <textarea id="resume-text" class="tool-textarea"
+                    placeholder="Paste your resume text here (experience, skills, projects, education)..."></textarea>
+                </div>
+
+                <div class="panel-footer">
+                  <span id="resume-hint">Select a file or switch to paste mode</span>
+                  <span id="resume-counter" class="counter">0 chars</span>
+                </div>
+              </div>
+
+              <!-- Panel 2: Job Description Input -->
+              <div class="panel">
+                <div class="panel-head">
+                  <label for="jd-text" class="panel-label">2. Target job description</label>
+                </div>
+
+                <textarea id="jd-text" class="tool-textarea"
+                  placeholder="Paste the entire job posting here, including required qualifications, preferred skills, and core responsibilities..."></textarea>
+
+                <div class="panel-footer">
+                  <span id="jd-hint">Minimum 80 characters needed</span>
+                  <span id="jd-counter" class="counter">0 chars</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Form Action & Live Status -->
+            <div class="tool-actions">
+              <button type="submit" id="btn-submit" class="btn-analyze">
+                <span>Analyze resume match</span>
+              </button>
+
+              <div class="progress-box" id="progress-box" aria-live="polite">
+                <div class="spinner" aria-hidden="true"></div>
+                <div class="progress-msg" id="progress-msg">Parsing resume details...</div>
+              </div>
+
+              <div class="alert-error" id="alert-error" role="alert">
+                <b id="error-title">Submission issue</b>
+                <span id="error-desc">Please check your inputs and try again.</span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Results Output Area -->
+        <div id="results" class="results-container" aria-live="polite">
+
+          <!-- Score Banner -->
+          <div class="results-banner">
+            <div class="gauge-wrapper">
+              <svg class="gauge-svg" viewBox="0 0 140 140" aria-hidden="true">
+                <circle class="gauge-bg" cx="70" cy="70" r="60"></circle>
+                <circle class="gauge-fill" id="gauge-fill" cx="70" cy="70" r="60"></circle>
+              </svg>
+              <div class="gauge-label">
+                <span class="gauge-number" id="result-score">0%</span>
+                <span class="gauge-caption">Match</span>
+              </div>
+            </div>
+
+            <div class="banner-body">
+              <div class="banner-eyebrow" id="result-badge">Moderate match</div>
+              <h3 class="banner-verdict" id="result-verdict">Strong foundation with two specific skill gaps.</h3>
+              <p class="banner-summary" id="result-summary">Summary breakdown here.</p>
+              <p class="banner-fit" id="result-fit">Experience fit description here.</p>
+              <p class="banner-disclaimer">Note: This is an estimated relevance match score to guide your preparation,
+                not a hiring guarantee.</p>
+            </div>
+          </div>
+
+          <!-- Skills Matched vs Missing -->
+          <div class="skills-grid">
+            <div class="results-card">
+              <div class="card-title">
+                <span>Matched qualifications</span>
+                <span class="chip chip-match" id="count-matched">0</span>
+              </div>
+              <p class="card-sub">Skills and requirements already clearly supported by your resume.</p>
+              <div class="chips-flow" id="matched-chips"></div>
+            </div>
+
+            <div class="results-card">
+              <div class="card-title">
+                <span>Important missing gaps</span>
+                <span class="chip chip-gap" id="count-missing">0</span>
+              </div>
+              <p class="card-sub">Key terms or responsibilities from the job post not detected in your resume.</p>
+              <div class="chips-flow" id="missing-chips"></div>
+            </div>
+          </div>
+
+          <!-- Prioritized Improvements -->
+          <div class="results-card improvements-card">
+            <div class="card-title">Recommended resume improvements</div>
+            <p class="card-sub">Concrete, high-impact edits ordered by priority. Update your resume bullets with
+              verifiable evidence before submitting.</p>
+            <div class="improvements-list" id="improvements-list"></div>
+          </div>
+
+          <!-- Outreach Email -->
+          <div class="results-card">
+            <div class="email-header-row">
+              <div>
+                <div class="card-title" style="margin-bottom: 2px;">Ready-to-send hiring manager email</div>
+                <p class="card-sub" style="margin-bottom: 0;">A confident, 150-word outreach note highlighting your
+                  relevant experience.</p>
+              </div>
+              <button type="button" class="btn-copy" id="btn-copy-email">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="copy-text">Copy email text</span>
+              </button>
+            </div>
+
+            <div class="email-preview">
+              <div class="email-field">
+                <strong>Subject:</strong>
+                <span class="email-subject-text" id="email-subject">Application: Role</span>
+              </div>
+              <div class="email-body-text" id="email-body">Email body text will appear here.</div>
+            </div>
+            <p class="email-note">Tip: Personalize the placeholders like [Hiring Manager] and [Your Name] before
+              sending.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" style="width:24px;height:24px;font-size:0.875rem;" aria-hidden="true">R</span>
+        <span>ResumeFit</span>
+      </div>
+      <p class="footer-disclaimer">
+        ResumeFit analyzes how well your resume matches a given job description to help you tailor your application. It
+        does not predict or guarantee hiring outcomes.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Vanilla Client-Side JavaScript -->
+  <script>
+    (function () {
+      'use strict';
+
+      // DOM Elements
+      const form = document.getElementById('analyze-form');
+      const tabFile = document.getElementById('tab-file');
+      const tabText = document.getElementById('tab-text');
+      const viewFile = document.getElementById('view-file');
+      const viewText = document.getElementById('view-text');
+
+      const dropzone = document.getElementById('dropzone');
+      const fileInput = document.getElementById('file-input');
+      const filePill = document.getElementById('file-pill');
+      const fileNameDisplay = document.getElementById('file-name');
+      const fileRemoveBtn = document.getElementById('file-remove');
+
+      const resumeText = document.getElementById('resume-text');
+      const resumeCounter = document.getElementById('resume-counter');
+      const resumeHint = document.getElementById('resume-hint');
+
+      const jdText = document.getElementById('jd-text');
+      const jdCounter = document.getElementById('jd-counter');
+
+      const btnSubmit = document.getElementById('btn-submit');
+      const progressBox = document.getElementById('progress-box');
+      const progressMsg = document.getElementById('progress-msg');
+      const alertError = document.getElementById('alert-error');
+      const errorTitle = document.getElementById('error-title');
+      const errorDesc = document.getElementById('error-desc');
+
+      const resultsSection = document.getElementById('results');
+      const resultScore = document.getElementById('result-score');
+      const gaugeFill = document.getElementById('gauge-fill');
+      const resultBadge = document.getElementById('result-badge');
+      const resultVerdict = document.getElementById('result-verdict');
+      const resultSummary = document.getElementById('result-summary');
+      const resultFit = document.getElementById('result-fit');
+
+      const countMatched = document.getElementById('count-matched');
+      const matchedChips = document.getElementById('matched-chips');
+      const countMissing = document.getElementById('count-missing');
+      const missingChips = document.getElementById('missing-chips');
+
+      const improvementsList = document.getElementById('improvements-list');
+      const emailSubject = document.getElementById('email-subject');
+      const emailBody = document.getElementById('email-body');
+      const btnCopyEmail = document.getElementById('btn-copy-email');
+      const copyText = document.getElementById('copy-text');
+
+      // State
+      let activeTab = 'file'; // 'file' or 'text'
+      let selectedFile = null;
+      let progressTimer = null;
+      let fullEmailText = '';
+
+      const PROGRESS_MESSAGES = [
+        'Reading resume structure and format...',
+        'Comparing core technical and soft skills...',
+        'Evaluating experience relevance against requirements...',
+        'Ranking high-impact resume improvements...',
+        'Drafting customized hiring manager outreach...'
+      ];
+
+      // Tab Switching
+      function setTab(tab) {
+        activeTab = tab;
+        if (tab === 'file') {
+          tabFile.classList.add('active');
+          tabFile.setAttribute('aria-selected', 'true');
+          tabText.classList.remove('active');
+          tabText.setAttribute('aria-selected', 'false');
+          viewFile.hidden = false;
+          viewText.hidden = true;
+          updateResumeCounter();
+        } else {
+          tabText.classList.add('active');
+          tabText.setAttribute('aria-selected', 'true');
+          tabFile.classList.remove('active');
+          tabFile.setAttribute('aria-selected', 'false');
+          viewFile.hidden = true;
+          viewText.hidden = false;
+          resumeText.focus();
+          updateResumeCounter();
+        }
+      }
+
+      tabFile.addEventListener('click', () => setTab('file'));
+      tabText.addEventListener('click', () => setTab('text'));
+
+      // File Drag & Drop Handling
+      dropzone.addEventListener('click', (e) => {
+        if (e.target === fileRemoveBtn) return;
+        fileInput.click();
+      });
+
+      dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          fileInput.click();
+        }
+      });
+
+      ['dragenter', 'dragover'].forEach(name => {
+        dropzone.addEventListener(name, (e) => {
+          e.preventDefault();
+          dropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(name => {
+        dropzone.addEventListener(name, (e) => {
+          e.preventDefault();
+          dropzone.classList.remove('dragover');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer && e.dataTransfer.files;
+        if (files && files.length > 0) {
+          handleFileSelection(files[0]);
+        }
+      });
+
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files.length > 0) {
+          handleFileSelection(fileInput.files[0]);
+        }
+      });
+
+      function handleFileSelection(file) {
+        clearError();
+        const validExtensions = ['.pdf', '.docx', '.txt'];
+        const ext = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+
+        if (!validExtensions.includes(ext)) {
+          showError('Unsupported file type', 'Please upload a PDF, DOCX, or TXT file.');
+          return;
+        }
+
+        const maxBytes = 5 * 1024 * 1024;
+        if (file.size > maxBytes) {
+          showError('File is too large', 'Please upload a file smaller than 5 MB, or paste your resume text instead.');
+          return;
+        }
+
+        selectedFile = file;
+        fileNameDisplay.textContent = file.name;
+        filePill.classList.add('visible');
+        updateResumeCounter();
+      }
+
+      fileRemoveBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectedFile = null;
+        fileInput.value = '';
+        filePill.classList.remove('visible');
+        updateResumeCounter();
+      });
+
+      // Character Counters
+      function updateResumeCounter() {
+        if (activeTab === 'file') {
+          if (selectedFile) {
+            resumeHint.textContent = 'File attached: ' + selectedFile.name;
+            resumeCounter.textContent = formatBytes(selectedFile.size);
+            resumeCounter.classList.add('valid');
+          } else {
+            resumeHint.textContent = 'Select a file or switch to paste mode';
+            resumeCounter.textContent = 'No file';
+            resumeCounter.classList.remove('valid');
+          }
+        } else {
+          const len = resumeText.value.trim().length;
+          resumeCounter.textContent = len + ' chars';
+          if (len >= 80) {
+            resumeHint.textContent = 'Resume text ready';
+            resumeCounter.classList.add('valid');
+          } else {
+            resumeHint.textContent = 'Minimum 80 characters needed';
+            resumeCounter.classList.remove('valid');
+          }
+        }
+      }
+
+      function updateJdCounter() {
+        const len = jdText.value.trim().length;
+        jdCounter.textContent = len + ' chars';
+        if (len >= 80) {
+          jdCounter.classList.add('valid');
+        } else {
+          jdCounter.classList.remove('valid');
+        }
+      }
+
+      function formatBytes(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      }
+
+      resumeText.addEventListener('input', updateResumeCounter);
+      jdText.addEventListener('input', updateJdCounter);
+
+      // Errors & Progress
+      function showError(title, message) {
+        errorTitle.textContent = title;
+        errorDesc.textContent = message;
+        alertError.classList.add('visible');
+        alertError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function clearError() {
+        alertError.classList.remove('visible');
+      }
+
+      function startProgress() {
+        progressBox.classList.add('active');
+        btnSubmit.disabled = true;
+        let index = 0;
+        progressMsg.textContent = PROGRESS_MESSAGES[0];
+
+        progressTimer = setInterval(() => {
+          index = (index + 1) % PROGRESS_MESSAGES.length;
+          progressMsg.style.opacity = '0';
+          setTimeout(() => {
+            progressMsg.textContent = PROGRESS_MESSAGES[index];
+            progressMsg.style.opacity = '1';
+          }, 180);
+        }, 2600);
+      }
+
+      function stopProgress() {
+        if (progressTimer) clearInterval(progressTimer);
+        progressBox.classList.remove('active');
+        btnSubmit.disabled = false;
+      }
+
+      // Safe DOM Helper (strictly no innerHTML)
+      function createEl(tag, className, text) {
+        const el = document.createElement(tag);
+        if (className) el.className = className;
+        if (text !== undefined && text !== null) el.textContent = String(text);
+        return el;
+      }
+
+      // Form Submit Workflow
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearError();
+
+        const jd = jdText.value.trim();
+        const textResume = resumeText.value.trim();
+
+        // Validation
+        if (activeTab === 'file' && !selectedFile) {
+          showError('Missing resume', 'Please upload your resume file (PDF, DOCX, or TXT) or switch tabs to paste your resume text.');
+          return;
+        }
+
+        if (activeTab === 'text' && textResume.length < 80) {
+          showError('Resume text too short', 'Please paste at least 80 characters of your resume so the model can evaluate your experience.');
+          return;
+        }
+
+        if (jd.length < 80) {
+          showError('Job description too short', 'Please paste the full job description (at least 80 characters) including requirements and responsibilities.');
+          return;
+        }
+
+        const formData = new FormData();
+        if (activeTab === 'file' && selectedFile) {
+          formData.append('resume_file', selectedFile);
+        } else {
+          formData.append('resume_text', textResume);
+        }
+        formData.append('job_description', jd);
+
+        startProgress();
+        resultsSection.classList.remove('visible');
+
+        try {
+          const response = await fetch('/api/analyze', {
+            method: 'POST',
+            body: formData
+          });
+
+          const data = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            let msg = data.detail || 'Could not complete the analysis. Please try again.';
+            if (response.status === 429) {
+              msg = 'Hourly request limit reached (or AI service busy). Please wait a bit before scanning again.';
+            } else if (response.status === 500) {
+              msg = 'Server configuration error (missing API key). Please contact the administrator.';
+            }
+            throw new Error(msg);
+          }
+
+          renderResults(data);
+        } catch (err) {
+          showError('Analysis failed', err.message || 'Network error occurred. Please verify your connection.');
+        } finally {
+          stopProgress();
+        }
+      });
+
+      // Render Results using safe textContent DOM tree
+      function renderResults(data) {
+        const rawScore = Number(data.score) || 0;
+        const score = Math.max(0, Math.min(100, Math.round(rawScore)));
+
+        // Update Score & Gauge
+        resultScore.textContent = score + '%';
+        const circumference = 2 * Math.PI * 60; // ~376.99
+        const offset = circumference - (score / 100) * circumference;
+        gaugeFill.style.strokeDashoffset = String(offset);
+
+        // Score Band
+        let badgeLabel = 'Needs improvement';
+        if (score >= 75) {
+          badgeLabel = 'Strong match';
+        } else if (score >= 50) {
+          badgeLabel = 'Moderate match';
+        }
+        resultBadge.textContent = badgeLabel;
+
+        // Texts
+        resultVerdict.textContent = data.verdict || 'Match evaluation ready.';
+        resultSummary.textContent = data.summary || 'Summary not provided.';
+        resultFit.textContent = data.experience_fit ? ('Experience Fit: ' + data.experience_fit) : '';
+
+        // Matched Skills Chips
+        matchedChips.replaceChildren();
+        const matchedList = Array.isArray(data.matched) ? data.matched : [];
+        countMatched.textContent = String(matchedList.length);
+        if (matchedList.length === 0) {
+          matchedChips.appendChild(createEl('span', 'chip-empty', 'No specific matches detected.'));
+        } else {
+          matchedList.forEach(item => {
+            const chip = createEl('span', 'chip chip-match');
+            const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            icon.setAttribute('width', '12');
+            icon.setAttribute('height', '12');
+            icon.setAttribute('viewBox', '0 0 24 24');
+            icon.setAttribute('fill', 'none');
+            icon.setAttribute('stroke', 'currentColor');
+            icon.setAttribute('stroke-width', '3');
+            const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+            poly.setAttribute('points', '20 6 9 17 4 12');
+            icon.appendChild(poly);
+            chip.appendChild(icon);
+            chip.appendChild(document.createTextNode(String(item)));
+            matchedChips.appendChild(chip);
+          });
+        }
+
+        // Missing Skills Chips
+        missingChips.replaceChildren();
+        const missingList = Array.isArray(data.missing) ? data.missing : [];
+        countMissing.textContent = String(missingList.length);
+        if (missingList.length === 0) {
+          missingChips.appendChild(createEl('span', 'chip-empty', 'No significant skill gaps flagged.'));
+        } else {
+          missingList.forEach(item => {
+            const chip = createEl('span', 'chip chip-gap');
+            const dot = createEl('span', null, '•');
+            dot.style.fontSize = '1.2rem';
+            dot.style.lineHeight = '0';
+            dot.style.marginRight = '2px';
+            chip.appendChild(dot);
+            chip.appendChild(document.createTextNode(String(item)));
+            missingChips.appendChild(chip);
+          });
+        }
+
+        // Improvements List
+        improvementsList.replaceChildren();
+        const improvements = Array.isArray(data.improvements) ? data.improvements : [];
+        if (improvements.length === 0) {
+          improvementsList.appendChild(createEl('p', 'chip-empty', 'No specific revisions suggested.'));
+        } else {
+          improvements.forEach((imp, idx) => {
+            const item = createEl('div', 'improvement-item');
+            const badge = createEl('div', 'imp-badge', String(idx + 1));
+            const content = createEl('div', 'imp-content');
+            const changeHeading = createEl('b', null, imp.change || 'Suggested update');
+            const whyText = createEl('span', null, imp.why || '');
+            content.appendChild(changeHeading);
+            content.appendChild(whyText);
+            item.appendChild(badge);
+            item.appendChild(content);
+            improvementsList.appendChild(item);
+          });
+        }
+
+        // Email Draft
+        const email = data.email || {};
+        const subject = email.subject || 'Application: [Role]';
+        const body = email.body || '';
+        emailSubject.textContent = subject;
+        emailBody.textContent = body;
+        fullEmailText = 'Subject: ' + subject + '\n\n' + body;
+
+        // Show Results and Scroll
+        resultsSection.classList.add('visible');
+        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Copy Email to Clipboard
+      btnCopyEmail.addEventListener('click', async () => {
+        if (!fullEmailText) return;
+        try {
+          await navigator.clipboard.writeText(fullEmailText);
+          btnCopyEmail.classList.add('copied');
+          copyText.textContent = 'Copied to clipboard!';
+        } catch {
+          // Fallback selection
+          const range = document.createRange();
+          range.selectNodeContents(emailBody);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          copyText.textContent = 'Selected (Press Ctrl+C)';
+        }
+        setTimeout(() => {
+          btnCopyEmail.classList.remove('copied');
+          copyText.textContent = 'Copy email text';
+        }, 2200);
+      });
+
+      // Initial state
+      updateResumeCounter();
+      updateJdCounter();
+
+      // ======================================================================
+      // SplitType: Kinetic Typography Staggered Reveal
+      // ======================================================================
+      function initSplitType() {
+        if (typeof SplitType === 'undefined') return;
+        const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduce) return;
+
+        const heroTitle = document.getElementById('hero-heading');
+        if (heroTitle) {
+          const split = new SplitType(heroTitle, { types: 'words, chars', tagName: 'span' });
+          if (split.chars && split.chars.length > 0) {
+            split.chars.forEach((ch, idx) => {
+              ch.classList.add('split-char');
+              ch.style.transitionDelay = (idx * 24) + 'ms';
+            });
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                split.chars.forEach(ch => ch.classList.add('is-visible'));
+              });
+            });
+          }
+        }
+
+        // Stagger section headings as user scrolls into view
+        const sectionTitles = document.querySelectorAll('.section-title');
+        if ('IntersectionObserver' in window && sectionTitles.length > 0) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const st = new SplitType(entry.target, { types: 'words, chars', tagName: 'span' });
+                if (st.chars) {
+                  st.chars.forEach((ch, i) => {
+                    ch.classList.add('split-char');
+                    ch.style.transitionDelay = (i * 18) + 'ms';
+                  });
+                  requestAnimationFrame(() => {
+                    st.chars.forEach(ch => ch.classList.add('is-visible'));
+                  });
+                }
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.25 });
+
+          sectionTitles.forEach(t => observer.observe(t));
+        }
+      }
+
+      // ======================================================================
+      // Curtains.js: Interactive WebGL Liquid Surface & Shimmer
+      // ======================================================================
+      function initCurtains() {
+        if (typeof Curtains === 'undefined') return;
+        const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduce) return;
+
+        const planeEl = document.getElementById('hero-plane');
+        const heroEl = document.querySelector('.hero');
+        if (!planeEl || !heroEl) return;
+
+        try {
+          const curtains = new Curtains({
+            container: 'canvas',
+            pixelRatio: Math.min(1.5, window.devicePixelRatio || 1)
+          });
+
+          // Vertex Shader: Undulating ambient waves + interactive mouse ripples
+          const vs = `
+            precision mediump float;
+            attribute vec3 aVertexPosition;
+            attribute vec2 aTextureCoord;
+            uniform mat4 uMVMatrix;
+            uniform mat4 uPMatrix;
+            uniform float uTime;
+            uniform vec2 uMouse;
+            uniform float uMouseSpeed;
+            varying vec2 vTextureCoord;
+            varying float vWave;
+
+            void main() {
+              vec3 pos = aVertexPosition;
+              float dist = distance(aTextureCoord, uMouse);
+              float ripple = sin(dist * 20.0 - uTime * 3.5) * exp(-dist * 4.2) * (uMouseSpeed * 0.05);
+              float ambient = sin(pos.x * 2.8 + uTime * 1.1) * cos(pos.y * 2.2 + uTime * 0.9) * 0.025;
+              pos.z += ripple + ambient;
+              vWave = pos.z;
+              vTextureCoord = aTextureCoord;
+              gl_Position = uPMatrix * uMVMatrix * vec4(pos, 1.0);
+            }
+          `;
+
+          // Fragment Shader: Ultramarine silky gradient with gold wave crests
+          const fs = `
+            precision mediump float;
+            uniform float uTime;
+            uniform vec2 uMouse;
+            varying vec2 vTextureCoord;
+            varying float vWave;
+
+            void main() {
+              vec3 blue1 = vec3(0.137, 0.188, 0.847);    // Ultramarine #2330D8
+              vec3 blueDark = vec3(0.059, 0.082, 0.443); // Navy #0F1571
+              vec3 gold = vec3(1.0, 0.847, 0.239);       // Yellow accent #FFD83D
+
+              float grad = clamp(vTextureCoord.y * 0.75 + vTextureCoord.x * 0.25, 0.0, 1.0);
+              vec3 col = mix(blue1, blueDark, grad);
+              col += gold * (max(0.0, vWave) * 1.5);
+              col += vec3(0.03) * sin(vTextureCoord.y * 8.0 + uTime * 0.5);
+
+              gl_FragColor = vec4(col, 0.82);
+            }
+          `;
+
+          const params = {
+            vertexShader: vs,
+            fragmentShader: fs,
+            widthSegments: 36,
+            heightSegments: 36,
+            uniforms: {
+              time: { name: 'uTime', type: '1f', value: 0 },
+              mouse: { name: 'uMouse', type: '2f', value: [0.5, 0.5] },
+              mouseSpeed: { name: 'uMouseSpeed', type: '1f', value: 0 }
+            }
+          };
+
+          const plane = curtains.addPlane(planeEl, params);
+          if (!plane) return;
+
+          let targetMouse = [0.5, 0.5];
+          let currentMouse = [0.5, 0.5];
+          let mouseSpeed = 0;
+          let lastPos = { x: 0, y: 0 };
+
+          heroEl.addEventListener('mousemove', (e) => {
+            const rect = heroEl.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            targetMouse = [x, 1.0 - y];
+            const dx = e.clientX - lastPos.x;
+            const dy = e.clientY - lastPos.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            mouseSpeed = Math.min(2.5, mouseSpeed + dist * 0.04);
+            lastPos = { x: e.clientX, y: e.clientY };
+          }, { passive: true });
+
+          plane.onRender(() => {
+            plane.uniforms.time.value += 0.02;
+            currentMouse[0] += (targetMouse[0] - currentMouse[0]) * 0.08;
+            currentMouse[1] += (targetMouse[1] - currentMouse[1]) * 0.08;
+            mouseSpeed *= 0.94;
+
+            plane.uniforms.mouse.value = currentMouse;
+            plane.uniforms.mouseSpeed.value = mouseSpeed;
+          });
+        } catch (err) {
+          console.warn('Curtains.js WebGL fallback:', err);
+        }
+      }
+
+      // Run visual enhancements on load
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => {
+          initSplitType();
+          initCurtains();
+        });
+      } else {
+        initSplitType();
+        initCurtains();
+      }
+    })();
+  </script>
+</body>
+
+</html>
