@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumeFit Co-Pilot</title>
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --navy: #070A20;
+      --blue: #1B2A4A;
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --muted: #64748B;
+      --green: #10B981;
+      --green-bg: #ECFDF5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      width: 380px;
+      min-height: 480px;
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #070A20 0%, #151D3B 100%);
+      color: #FFFFFF;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-logo {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 12px;
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #34D399;
+    }
+
+    /* Container */
+    .content {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Job Info Box */
+    .job-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .platform-pill {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: #EFF6FF;
+      color: var(--accent);
+      border: 1px solid #DBEAFE;
+    }
+
+    .job-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .job-company {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .job-chars {
+      font-size: 11px;
+      color: #94A3B8;
+      margin-top: 6px;
+    }
+
+    /* Resume Status */
+    .resume-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .resume-name {
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-edit-resume {
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .btn-edit-resume:hover {
+      text-decoration: underline;
+    }
+
+    /* Resume Editor Area */
+    .resume-editor {
+      display: none;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .resume-editor.open {
+      display: block;
+    }
+
+    textarea.resume-input {
+      width: 100%;
+      height: 90px;
+      font-size: 11px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      resize: vertical;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .btn-save-resume {
+      padding: 5px 10px;
+      background-color: var(--blue);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Action Buttons */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+
+    .btn-full {
+      grid-column: span 2;
+      background-color: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .btn-full:hover {
+      background-color: #0d1a33;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Result Box */
+    .result-box {
+      display: none;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 4px;
+    }
+
+    .result-box.visible {
+      display: block;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .result-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .btn-copy {
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      background-color: #F1F5F9;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .btn-copy.copied {
+      background-color: var(--green);
+      color: #FFFFFF;
+      border-color: var(--green);
+    }
+
+    .result-subject {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .result-text {
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--text);
+      max-height: 160px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      padding: 8px;
+      background-color: #F8FAFC;
+      border-radius: 4px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .skill-chip {
+      font-size: 10px;
+      font-weight: 600;
+      background-color: #EFF6FF;
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #FFFFFF;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 24px 16px;
+      color: var(--muted);
+    }
+
+    .empty-state svg {
+      margin-bottom: 8px;
+      stroke: #94A3B8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <img src="icon.jpg" alt="" class="brand-logo">
+      <span>ResumeFit Co-Pilot</span>
+    </div>
+    <div class="status-badge" id="status-badge">
+      <span class="status-dot"></span>
+      <span>Connected</span>
+    </div>
+  </header>
+
+  <div class="content">
+    <!-- Active Job Card -->
+    <div class="card" id="job-card">
+      <div id="job-found" style="display: none;">
+        <div class="job-header">
+          <span class="platform-pill" id="job-platform">Indeed</span>
+          <span style="font-size: 11px; color: var(--green); font-weight: 600;">● Active Job</span>
+        </div>
+        <div class="job-title" id="job-title">Software Engineer - Backend</div>
+        <div class="job-company" id="job-company">Sardine</div>
+        <div class="job-chars" id="job-meta">Extracting job description...</div>
+      </div>
+
+      <div id="job-empty" class="empty-state">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <p><b>No job posting detected on this tab.</b></p>
+        <p style="font-size: 11px; margin-top: 4px;">Open an Indeed, LinkedIn, or Greenhouse job page to auto-extract.</p>
+      </div>
+    </div>
+
+    <!-- Candidate Resume Setting Card -->
+    <div class="card">
+      <div class="resume-row">
+        <span class="resume-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span id="resume-summary-label">Resume: Not configured</span>
+        </span>
+        <button type="button" class="btn-edit-resume" id="btn-toggle-resume">Edit</button>
+      </div>
+
+      <div class="resume-editor" id="resume-editor">
+        <textarea class="resume-input" id="resume-input" placeholder="Paste your resume text here once. It will be remembered for all future job applications..."></textarea>
+        <div style="display: flex; justify-content: flex-end;">
+          <button type="button" class="btn-save-resume" id="btn-save-resume">Save Resume</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="actions-grid">
+      <button type="button" class="btn btn-primary" id="btn-quick-email">
+        <span>⚡ Write Email</span>
+      </button>
+      <button type="button" class="btn btn-secondary" id="btn-quick-cover">
+        <span>📄 Cover Letter</span>
+      </button>
+      <button type="button" class="btn btn-full" id="btn-open-resumefit">
+        <span>🚀 Open in ResumeFit (Full CV + ATS)</span>
+      </button>
+    </div>
+
+    <!-- Output Box -->
+    <div class="result-box" id="result-box">
+      <div class="result-header">
+        <span class="result-title" id="result-type-label">Generated Outreach</span>
+        <button type="button" class="btn-copy" id="btn-copy-result">Copy Text</button>
+      </div>
+      <div class="result-subject" id="result-subject"></div>
+      <div class="result-text" id="result-text"></div>
+      <div class="skill-chips" id="result-chips"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

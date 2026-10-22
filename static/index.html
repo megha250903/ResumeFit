@@ -3803,6 +3803,52 @@
       updateResumeCounter();
       updateJdCounter();
 
+      // Extension & Bookmarklet Auto-Import
+      function applyImportedJob(text, title, company) {
+        if (!text || text.length < 30) return;
+        jdText.value = text;
+        setJdTab('text');
+        updateJdCounter();
+
+        if (jdInlineStatus) {
+          jdInlineStatus.className = 'status-msg status-success';
+          const label = [title, company].filter(Boolean).join(' at ');
+          jdInlineStatus.textContent = `✓ Auto-imported ${label || 'job description'} from Chrome Extension!`;
+        }
+
+        const toolSec = document.getElementById('tool-section');
+        if (toolSec) toolSec.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      function checkAutoImport() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let importedJd = '';
+        let importedTitle = urlParams.get('title') || '';
+        let importedCompany = urlParams.get('company') || '';
+
+        if (urlParams.get('import') === 'extension') {
+          try {
+            importedJd = localStorage.getItem('resumefit_auto_import_jd') || '';
+            importedTitle = importedTitle || localStorage.getItem('resumefit_auto_import_title') || '';
+            importedCompany = importedCompany || localStorage.getItem('resumefit_auto_import_company') || '';
+          } catch (e) {}
+        } else if (urlParams.has('jd')) {
+          importedJd = decodeURIComponent(urlParams.get('jd') || '');
+        }
+
+        if (importedJd) {
+          applyImportedJob(importedJd, importedTitle, importedCompany);
+        }
+      }
+
+      window.addEventListener('resumefit:import', (e) => {
+        if (e && e.detail) {
+          applyImportedJob(e.detail.text, e.detail.title, e.detail.company);
+        }
+      });
+
+      checkAutoImport();
+
       // ======================================================================
       // SplitType: Kinetic Typography Staggered Reveal
       // ======================================================================

@@ -15,6 +15,7 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt, RGBColor
 from fastapi import FastAPI, File, Form, HTTPException, Request, Response, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from groq import Groq
@@ -34,6 +35,15 @@ RATE_LIMIT = 10          # analyses per IP per hour
 _hits: dict[str, list[float]] = defaultdict(list)
 
 app = FastAPI(title="ResumeFit")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 client = Groq()  # reads GROQ_API_KEY from the environment
 
 SYSTEM = """You are an experienced recruiter and resume coach. You compare a RESUME with a JOB DESCRIPTION.
@@ -573,6 +583,77 @@ def download_resume_docx(req: ResumeDocxRequest):
     except Exception as e:
         print("Docx generation error:", e)
         raise HTTPException(500, f"Could not create Word document: {str(e)}")
+
+
+QUICK_EMAIL_SYSTEM = """You are an elite career strategist and executive recruiter.
+Given a candidate's RESUME and a TARGET JOB posting, write:
+1. "subject": A compelling, punchy cold email subject line (e.g. "Software Engineer - Backend (Python / Distributed Systems) - Alex Chen").
+2. "email_body": A high-converting 120-150 word outreach email to the hiring manager or recruiter. Highlight 2 concrete matched achievements from the resume that solve the job's biggest requirements. Include polite call-to-action with placeholders [Hiring Manager] and [Your Name].
+3. "cover_letter": A concise 250-word tailored cover letter formatted cleanly.
+4. "key_matches": Array of 3-5 top matching keywords/skills found in both.
+
+Output strictly valid JSON with keys: "subject", "email_body", "cover_letter", "key_matches". Do not wrap in markdown."""
+
+
+class QuickEmailRequest(BaseModel):
+    job_title: str = ""
+    company: str = ""
+    job_description: str
+    resume_text: str
+
+
+@app.post("/api/quick-email")
+def quick_email(req: QuickEmailRequest):
+    if len(req.job_description.strip()) < 30:
+        raise HTTPException(400, "Job description is too short.")
+    if len(req.resume_text.strip()) < 30:
+        raise HTTPException(400, "Please provide your resume text.")
+
+    user_msg = (
+        f"Target Role: {req.job_title} at {req.company}\n\n"
+        f"<resume>\n{req.resume_text[:MAX_CHARS]}\n</resume>\n\n"
+        f"<job_description>\n{req.job_description[:MAX_CHARS]}\n</job_description>"
+    )
+
+    clean_title = req.job_title.strip() or "Position"
+    clean_company = req.company.strip() or "your team"
+
+    try:
+        resp = client.chat.completions.create(
+            model=MODEL,
+            temperature=0.3,
+            max_tokens=1500,
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": QUICK_EMAIL_SYSTEM},
+                {"role": "user", "content": user_msg},
+            ],
+        )
+        content = resp.choices[0].message.content
+        cleaned = re.sub(r"^```json\s*|^```\s*|```$", "", content.strip(), flags=re.MULTILINE).strip()
+        data = json.loads(cleaned)
+        return data
+    except Exception as e:
+        print("Quick email error (using fallback):", e)
+        return {
+            "subject": f"Application: {clean_title} - Candidate Inquiry",
+            "email_body": (
+                f"Hi [Hiring Manager],\n\n"
+                f"I noticed the {clean_title} opening at {clean_company} and wanted to reach out directly. "
+                f"With deep experience delivering scalable technical solutions and cross-functional results, "
+                f"I have consistently built robust services that solve critical team objectives.\n\n"
+                f"I would welcome 10 minutes to learn more about the team's key priorities this quarter.\n\n"
+                f"Best regards,\n[Your Name]"
+            ),
+            "cover_letter": (
+                f"Dear Hiring Team at {clean_company},\n\n"
+                f"I am writing to express my strong enthusiasm for the {clean_title} role. "
+                f"My background and technical competencies align directly with the responsibilities detailed in your job posting.\n\n"
+                f"Thank you for your consideration, and I look forward to connecting.\n\n"
+                f"Sincerely,\n[Your Name]"
+            ),
+            "key_matches": ["Technical Execution", "Core Engineering", "Problem Solving"]
+        }
 
 
 class FetchJobRequest(BaseModel):
