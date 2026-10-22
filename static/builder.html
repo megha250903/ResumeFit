@@ -188,11 +188,13 @@
 
     /* Left Form Column */
     .studio-left-col {
-      width: 46%;
-      min-width: 460px;
-      max-width: 650px;
+      width: 48%;
+      min-width: 440px;
+      max-width: 660px;
       height: 100%;
       overflow-y: auto;
+      overflow-x: hidden !important;
+      box-sizing: border-box;
       padding: 20px 24px 60px;
       background-color: var(--color-bg);
       border-right: 1px solid var(--color-border);
@@ -308,13 +310,15 @@
 
     .tpl-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1100px) {
       .tpl-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -322,13 +326,15 @@
       background: var(--color-bg);
       border: 2px solid var(--color-border);
       border-radius: 8px;
-      padding: 10px 8px;
+      padding: 10px 10px;
       cursor: pointer;
       transition: all 0.16s ease;
       display: flex;
       flex-direction: column;
       gap: 4px;
       position: relative;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .tpl-card:hover {
@@ -349,16 +355,17 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--color-blue);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      line-height: 1.25;
+      min-width: 0;
     }
 
     .tpl-name {
-      font-size: 0.775rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--color-ink);
       line-height: 1.25;
+      min-width: 0;
     }
 
     .tpl-desc {
@@ -369,6 +376,7 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      min-width: 0;
     }
 
     /* --------------------------------------------------------------------------
@@ -378,17 +386,85 @@
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: 10px;
-      padding: 18px 20px;
+      padding: 16px 18px;
       box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .editor-card.collapsed {
+      padding: 13px 18px;
+      background: #FFFFFF;
     }
 
     .card-head {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
       margin-bottom: 14px;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--color-border-subtle);
+      transition: all 0.15s ease;
+    }
+
+    .card-head:hover {
+      opacity: 0.85;
+    }
+
+    .editor-card.collapsed .card-head {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .card-head-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-toggle-icon {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: #F1F5F9;
+      color: #64748B;
+      transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), background 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .card-head:hover .card-toggle-icon {
+      background: #E2E8F0;
+      color: #0F172A;
+    }
+
+    /* When open, icon is ^ (pointing up). When collapsed, it rotates 180° to point down (v). */
+    .editor-card.collapsed .card-toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    .card-body {
+      display: block;
+      animation: fadeInCardBody 0.2s ease;
+    }
+
+    .editor-card.collapsed .card-body {
+      display: none;
+    }
+
+    @keyframes fadeInCardBody {
+      from {
+        opacity: 0;
+        transform: translateY(-3px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .card-num {
@@ -402,6 +478,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .card-title {
@@ -503,22 +580,91 @@
       position: relative;
     }
 
-    .btn-remove-item {
+    .dynamic-item > .btn-remove-item {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      color: #94A3B8;
+      top: 8px;
+      right: 8px;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: #64748B;
       cursor: pointer;
-      padding: 4px;
-      border-radius: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      transition: all 0.15s ease;
+      z-index: 2;
+    }
+
+    .dynamic-item > .btn-remove-item:hover {
+      color: #DC2626;
+      background: #FEE2E2;
+      border-color: #FCA5A5;
+    }
+
+    /* Prevent first row in dynamic cards from colliding with the remove button */
+    .dynamic-item > .form-row-2:first-of-type {
+      padding-right: 28px;
+    }
+
+    /* Skill Category Card Row - sleek aligned layout without overlap */
+    .skill-cat-item {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      background: #F8FAFC;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
       transition: all 0.15s ease;
     }
 
-    .btn-remove-item:hover {
-      color: var(--color-rose);
+    .skill-cat-item:hover {
+      background: #FFFFFF;
+      border-color: #CBD5E1;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+
+    .skill-cat-fields {
+      display: flex;
+      flex: 1;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .btn-remove-skill-cat {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      color: #64748B;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      transition: all 0.15s ease;
+      margin-bottom: 1px;
+      flex-shrink: 0;
+    }
+
+    .btn-remove-skill-cat:hover {
       background: #FEE2E2;
+      border-color: #FCA5A5;
+      color: #DC2626;
+      transform: scale(1.04);
     }
 
     .bullets-container {
@@ -1234,204 +1380,277 @@
     <!-- Left Form Editor Column -->
     <section class="studio-left-col" aria-label="Resume Form Editor">
       
+      <!-- Sections Overview & Global Toggle -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: -4px; padding: 0 2px;">
+        <span style="font-size: 0.75rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.04em;">Editor Sections</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" id="btn-expand-all" style="background: none; border: none; font-size: 0.74rem; font-weight: 600; color: #2563EB; cursor: pointer; padding: 2px 4px;">Expand All</button>
+          <span style="color: #CBD5E1;">•</span>
+          <button type="button" id="btn-collapse-all" style="background: none; border: none; font-size: 0.74rem; font-weight: 600; color: #64748B; cursor: pointer; padding: 2px 4px;">Collapse All</button>
+        </div>
+      </div>
+
       <!-- 5 Template Selector Card -->
-      <div class="tpl-cards-section">
-        <div class="tpl-header-row">
-          <div>
-            <h2 class="tpl-title">Choose Template</h2>
-            <p class="tpl-sub">Select from 5 proven ATS-friendly formats</p>
+      <div class="editor-card tpl-cards-section" id="card-sec-template">
+        <div class="card-head" role="button" tabindex="0" aria-expanded="true">
+          <div class="card-head-left">
+            <div>
+              <h2 class="tpl-title" style="margin-bottom: 2px;">Choose Template</h2>
+              <p class="tpl-sub">Select from 5 proven ATS-friendly formats</p>
+            </div>
           </div>
+          <span class="card-toggle-icon" title="Toggle section">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </span>
         </div>
 
-        <div class="tpl-grid" role="radiogroup" aria-label="Resume Templates">
-          <!-- 1: Jake's Resume -->
-          <div class="tpl-card active" data-template="jake" role="radio" aria-checked="true" tabindex="0">
-            <span class="tpl-badge">01 • Overleaf 50k+</span>
-            <div class="tpl-name">Jake's Resume</div>
-            <div class="tpl-desc">The default choice on Overleaf. Single-column, 1-page, pure ATS clarity.</div>
-          </div>
+        <div class="card-body">
+          <div class="tpl-grid" role="radiogroup" aria-label="Resume Templates">
+            <!-- 1: Jake's Resume -->
+            <div class="tpl-card active" data-template="jake" role="radio" aria-checked="true" tabindex="0">
+              <span class="tpl-badge">01 • Overleaf 50k+</span>
+              <div class="tpl-name">Jake's Resume</div>
+              <div class="tpl-desc">The default choice on Overleaf. Single-column, 1-page, pure ATS clarity.</div>
+            </div>
 
-          <!-- 2: The McDowell CV / Apex -->
-          <div class="tpl-card" data-template="mcdowell" role="radio" aria-checked="false" tabindex="0">
-            <span class="tpl-badge">02 • FAANG-Proven</span>
-            <div class="tpl-name">McDowell / Apex</div>
-            <div class="tpl-desc">Cracking the Coding Interview layout. High-density, project-first.</div>
-          </div>
+            <!-- 2: The McDowell CV / Apex -->
+            <div class="tpl-card" data-template="mcdowell" role="radio" aria-checked="false" tabindex="0">
+              <span class="tpl-badge">02 • FAANG-Proven</span>
+              <div class="tpl-name">McDowell / Apex</div>
+              <div class="tpl-desc">Cracking the Coding Interview layout. High-density, project-first.</div>
+            </div>
 
-          <!-- 3: ASG ATS Minimalist -->
-          <div class="tpl-card" data-template="asg" role="radio" aria-checked="false" tabindex="0">
-            <span class="tpl-badge">03 • Minimalist LaTeX</span>
-            <div class="tpl-name">ASG ATS Resume</div>
-            <div class="tpl-desc">Tinos serif font, exact alignment, thin section dividers, zero clutter.</div>
-          </div>
+            <!-- 3: ASG ATS Minimalist -->
+            <div class="tpl-card" data-template="asg" role="radio" aria-checked="false" tabindex="0">
+              <span class="tpl-badge">03 • Minimalist LaTeX</span>
+              <div class="tpl-name">ASG ATS Resume</div>
+              <div class="tpl-desc">Tinos serif font, exact alignment, thin section dividers, zero clutter.</div>
+            </div>
 
-          <!-- 4: Universal Résumé -->
-          <div class="tpl-card" data-template="universal" role="radio" aria-checked="false" tabindex="0">
-            <span class="tpl-badge">04 • Web/Print Hybrid</span>
-            <div class="tpl-name">Universal Résumé</div>
-            <div class="tpl-desc">Tailwind CSS pragmatic pick. Equal proportions on screen & print.</div>
-          </div>
+            <!-- 4: Universal Résumé -->
+            <div class="tpl-card" data-template="universal" role="radio" aria-checked="false" tabindex="0">
+              <span class="tpl-badge">04 • Web/Print Hybrid</span>
+              <div class="tpl-name">Universal Résumé</div>
+              <div class="tpl-desc">Tailwind CSS pragmatic pick. Equal proportions on screen & print.</div>
+            </div>
 
-          <!-- 5: BelResumé -->
-          <div class="tpl-card" data-template="belresume" role="radio" aria-checked="false" tabindex="0">
-            <span class="tpl-badge">05 • Static Portfolio</span>
-            <div class="tpl-name">BelResumé</div>
-            <div class="tpl-desc">Zola & Tailwind modular resume with portfolio aesthetic & skill pills.</div>
+            <!-- 5: BelResumé -->
+            <div class="tpl-card" data-template="belresume" role="radio" aria-checked="false" tabindex="0">
+              <span class="tpl-badge">05 • Static Portfolio</span>
+              <div class="tpl-name">BelResumé</div>
+              <div class="tpl-desc">Zola & Tailwind modular resume with portfolio aesthetic & skill pills.</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Section 1: Personal & Contact -->
-      <div class="editor-card">
-        <div class="card-head">
-          <span class="card-num">1</span>
-          <h3 class="card-title">Personal & Contact Details</h3>
+      <div class="editor-card" id="card-sec-contact">
+        <div class="card-head" role="button" tabindex="0" aria-expanded="true">
+          <div class="card-head-left">
+            <span class="card-num">1</span>
+            <h3 class="card-title">Personal & Contact Details</h3>
+          </div>
+          <span class="card-toggle-icon" title="Toggle section">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </span>
         </div>
-        <div class="form-row-2">
-          <div class="form-group">
-            <label for="bf-name">Full Name *</label>
-            <input type="text" id="bf-name" class="input-field" placeholder="e.g. Alex Morgan">
+        <div class="card-body">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="bf-name">Full Name *</label>
+              <input type="text" id="bf-name" class="input-field" placeholder="e.g. Alex Morgan">
+            </div>
+            <div class="form-group">
+              <label for="bf-title">Target Job Title</label>
+              <input type="text" id="bf-title" class="input-field" placeholder="e.g. Senior Software Engineer">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="bf-title">Target Job Title</label>
-            <input type="text" id="bf-title" class="input-field" placeholder="e.g. Senior Software Engineer">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="bf-email">Email Address</label>
+              <input type="email" id="bf-email" class="input-field" placeholder="alex.morgan@email.com">
+            </div>
+            <div class="form-group">
+              <label for="bf-phone">Phone Number</label>
+              <input type="tel" id="bf-phone" class="input-field" placeholder="+1 (555) 019-2834">
+            </div>
           </div>
-        </div>
-        <div class="form-row-2">
-          <div class="form-group">
-            <label for="bf-email">Email Address</label>
-            <input type="email" id="bf-email" class="input-field" placeholder="alex.morgan@email.com">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="bf-location">Location</label>
+              <input type="text" id="bf-location" class="input-field" placeholder="San Francisco, CA">
+            </div>
+            <div class="form-group">
+              <label for="bf-linkedin">LinkedIn Handle</label>
+              <input type="text" id="bf-linkedin" class="input-field" placeholder="linkedin.com/in/alexmorgan">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="bf-phone">Phone Number</label>
-            <input type="tel" id="bf-phone" class="input-field" placeholder="+1 (555) 019-2834">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="bf-portfolio">GitHub / Portfolio URL</label>
+            <input type="text" id="bf-portfolio" class="input-field" placeholder="github.com/alexmorgan">
           </div>
-        </div>
-        <div class="form-row-2">
-          <div class="form-group">
-            <label for="bf-location">Location</label>
-            <input type="text" id="bf-location" class="input-field" placeholder="San Francisco, CA">
-          </div>
-          <div class="form-group">
-            <label for="bf-linkedin">LinkedIn Handle</label>
-            <input type="text" id="bf-linkedin" class="input-field" placeholder="linkedin.com/in/alexmorgan">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="bf-portfolio">GitHub / Portfolio URL</label>
-          <input type="text" id="bf-portfolio" class="input-field" placeholder="github.com/alexmorgan">
         </div>
       </div>
 
       <!-- Section 2: Professional Summary -->
-      <div class="editor-card">
-        <div class="card-head">
-          <span class="card-num">2</span>
-          <h3 class="card-title">Professional Summary</h3>
+      <div class="editor-card" id="card-sec-summary">
+        <div class="card-head" role="button" tabindex="0" aria-expanded="true">
+          <div class="card-head-left">
+            <span class="card-num">2</span>
+            <h3 class="card-title">Professional Summary</h3>
+          </div>
+          <span class="card-toggle-icon" title="Toggle section">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </span>
         </div>
-        <div class="form-group">
-          <label for="bf-summary">Executive Summary <span>(3-4 high-impact lines with core keywords)</span></label>
-          <textarea id="bf-summary" class="textarea-field" placeholder="Full-Stack Engineer with 6+ years experience architecting distributed systems..."></textarea>
+        <div class="card-body">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="bf-summary">Executive Summary <span>(3-4 high-impact lines with core keywords)</span></label>
+            <textarea id="bf-summary" class="textarea-field" placeholder="Full-Stack Engineer with 6+ years experience architecting distributed systems..."></textarea>
+          </div>
         </div>
       </div>
 
       <!-- Section 3: Skills -->
-      <div class="editor-card">
-        <div class="card-head">
-          <span class="card-num">3</span>
-          <h3 class="card-title">Core Competencies & Skills</h3>
+      <div class="editor-card" id="card-sec-skills">
+        <div class="card-head" role="button" tabindex="0" aria-expanded="true">
+          <div class="card-head-left">
+            <span class="card-num">3</span>
+            <h3 class="card-title">Core Competencies & Skills</h3>
+          </div>
+          <span class="card-toggle-icon" title="Toggle section">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </span>
         </div>
 
-        <!-- Mode Toggle -->
-        <div class="skills-mode-tabs" style="display: flex; gap: 6px; margin-bottom: 12px; background: #F1F5F9; padding: 4px; border-radius: 8px;">
-          <button type="button" class="btn-sm-tab active" id="btn-mode-categorized" style="flex: 1; padding: 7px 10px; font-size: 0.77rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: #FFFFFF; color: #2330D8; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: all 0.15s;">Categorized by Area (ATS Best Practice)</button>
-          <button type="button" class="btn-sm-tab" id="btn-mode-simple" style="flex: 1; padding: 7px 10px; font-size: 0.77rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: transparent; color: #64748B; transition: all 0.15s;">Single Comma-Separated</button>
-        </div>
-
-        <!-- Categorized Skills Editor -->
-        <div id="skills-categorized-panel">
-          <div style="font-size: 0.75rem; color: #64748B; margin-bottom: 10px;">
-            Group your skills into clear ATS categories (e.g. <strong>Backend</strong>, <strong>Frontend</strong>, <strong>Tools</strong>, <strong>Databases</strong>, or custom).
-          </div>
-          <div id="bf-skill-cat-container" class="dynamic-list"></div>
-          
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center;">
-            <button type="button" class="btn-add-action" id="btn-add-skill-cat">
-              + Add Custom Category
-            </button>
+        <div class="card-body">
+          <!-- Mode Toggle -->
+          <div class="skills-mode-tabs" style="display: flex; gap: 6px; margin-bottom: 12px; background: #F1F5F9; padding: 4px; border-radius: 8px;">
+            <button type="button" class="btn-sm-tab active" id="btn-mode-categorized" style="flex: 1; padding: 7px 10px; font-size: 0.77rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: #FFFFFF; color: #2330D8; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: all 0.15s;">Categorized by Area (ATS Best Practice)</button>
+            <button type="button" class="btn-sm-tab" id="btn-mode-simple" style="flex: 1; padding: 7px 10px; font-size: 0.77rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; background: transparent; color: #64748B; transition: all 0.15s;">Single Comma-Separated</button>
           </div>
 
-          <!-- Quick Preset Categories -->
-          <div style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--color-border);">
-            <div style="font-size: 0.7rem; font-weight: 600; color: #64748B; margin-bottom: 6px;">⚡ Quick Add Popular Category:</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 6px;" id="preset-categories-wrap">
-              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Backend" data-skills="Python, FastAPI, Node.js, REST APIs, Microservices">+ Backend</button>
-              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Frontend" data-skills="React, Next.js, TypeScript, Tailwind CSS, Redux">+ Frontend</button>
-              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Languages" data-skills="Python, TypeScript, JavaScript, Go, SQL, C++">+ Languages</button>
-              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Databases" data-skills="PostgreSQL, Redis, MongoDB, MySQL, DynamoDB">+ Databases</button>
-              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Cloud &amp; DevOps" data-skills="AWS (ECS, Lambda, S3), Docker, Kubernetes, CI/CD, Git">+ Cloud &amp; DevOps</button>
-              <button type="button" class="pill-sugg btn-preset-cat" data-cat="Developer Tools" data-skills="Docker, Git, GitHub Actions, Postman, Linux, Jest">+ Developer Tools</button>
+          <!-- Categorized Skills Editor -->
+          <div id="skills-categorized-panel">
+            <div style="font-size: 0.75rem; color: #64748B; margin-bottom: 10px;">
+              Group your skills into clear ATS categories (e.g. <strong>Backend</strong>, <strong>Frontend</strong>, <strong>Tools</strong>, <strong>Databases</strong>, or custom).
+            </div>
+            <div id="bf-skill-cat-container" class="dynamic-list"></div>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center;">
+              <button type="button" class="btn-add-action" id="btn-add-skill-cat">
+                + Add Custom Category
+              </button>
+            </div>
+
+            <!-- Quick Preset Categories -->
+            <div style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--color-border);">
+              <div style="font-size: 0.7rem; font-weight: 600; color: #64748B; margin-bottom: 6px;">⚡ Quick Add Popular Category:</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;" id="preset-categories-wrap">
+                <button type="button" class="pill-sugg btn-preset-cat" data-cat="Backend" data-skills="Python, FastAPI, Node.js, REST APIs, Microservices">+ Backend</button>
+                <button type="button" class="pill-sugg btn-preset-cat" data-cat="Frontend" data-skills="React, Next.js, TypeScript, Tailwind CSS, Redux">+ Frontend</button>
+                <button type="button" class="pill-sugg btn-preset-cat" data-cat="Languages" data-skills="Python, TypeScript, JavaScript, Go, SQL, C++">+ Languages</button>
+                <button type="button" class="pill-sugg btn-preset-cat" data-cat="Databases" data-skills="PostgreSQL, Redis, MongoDB, MySQL, DynamoDB">+ Databases</button>
+                <button type="button" class="pill-sugg btn-preset-cat" data-cat="Cloud &amp; DevOps" data-skills="AWS (ECS, Lambda, S3), Docker, Kubernetes, CI/CD, Git">+ Cloud &amp; DevOps</button>
+                <button type="button" class="pill-sugg btn-preset-cat" data-cat="Developer Tools" data-skills="Docker, Git, GitHub Actions, Postman, Linux, Jest">+ Developer Tools</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Simple Skills Editor -->
-        <div id="skills-simple-panel" style="display: none;">
-          <div class="form-group" style="margin-bottom: 0;">
-            <label for="bf-skills">Technical Skills <span>(Comma separated)</span></label>
-            <textarea id="bf-skills" class="textarea-field" placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, AWS, GraphQL..."></textarea>
-            
-            <div class="skill-pills-suggestions" id="skill-suggestions">
-              <span style="font-size: 0.7rem; color: #64748B; align-self: center;">Quick add:</span>
-              <span class="pill-sugg" data-skill="Python">+ Python</span>
-              <span class="pill-sugg" data-skill="TypeScript">+ TypeScript</span>
-              <span class="pill-sugg" data-skill="React">+ React</span>
-              <span class="pill-sugg" data-skill="FastAPI">+ FastAPI</span>
-              <span class="pill-sugg" data-skill="Node.js">+ Node.js</span>
-              <span class="pill-sugg" data-skill="PostgreSQL">+ PostgreSQL</span>
-              <span class="pill-sugg" data-skill="Docker">+ Docker</span>
-              <span class="pill-sugg" data-skill="AWS">+ AWS</span>
-              <span class="pill-sugg" data-skill="Kubernetes">+ Kubernetes</span>
-              <span class="pill-sugg" data-skill="CI/CD">+ CI/CD</span>
+          <!-- Simple Skills Editor -->
+          <div id="skills-simple-panel" style="display: none;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="bf-skills">Technical Skills <span>(Comma separated)</span></label>
+              <textarea id="bf-skills" class="textarea-field" placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, AWS, GraphQL..."></textarea>
+              
+              <div class="skill-pills-suggestions" id="skill-suggestions">
+                <span style="font-size: 0.7rem; color: #64748B; align-self: center;">Quick add:</span>
+                <span class="pill-sugg" data-skill="Python">+ Python</span>
+                <span class="pill-sugg" data-skill="TypeScript">+ TypeScript</span>
+                <span class="pill-sugg" data-skill="React">+ React</span>
+                <span class="pill-sugg" data-skill="FastAPI">+ FastAPI</span>
+                <span class="pill-sugg" data-skill="Node.js">+ Node.js</span>
+                <span class="pill-sugg" data-skill="PostgreSQL">+ PostgreSQL</span>
+                <span class="pill-sugg" data-skill="Docker">+ Docker</span>
+                <span class="pill-sugg" data-skill="AWS">+ AWS</span>
+                <span class="pill-sugg" data-skill="Kubernetes">+ Kubernetes</span>
+                <span class="pill-sugg" data-skill="CI/CD">+ CI/CD</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Section 4: Experience -->
-      <div class="editor-card">
-        <div class="card-head">
-          <span class="card-num">4</span>
-          <h3 class="card-title">Professional Experience</h3>
+      <div class="editor-card" id="card-sec-experience">
+        <div class="card-head" role="button" tabindex="0" aria-expanded="true">
+          <div class="card-head-left">
+            <span class="card-num">4</span>
+            <h3 class="card-title">Professional Experience</h3>
+          </div>
+          <span class="card-toggle-icon" title="Toggle section">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </span>
         </div>
-        <div id="bf-experience-container" class="dynamic-list"></div>
-        <button type="button" class="btn-add-action" id="btn-add-experience">
-          + Add Work Experience
-        </button>
+        <div class="card-body">
+          <div id="bf-experience-container" class="dynamic-list"></div>
+          <button type="button" class="btn-add-action" id="btn-add-experience">
+            + Add Work Experience
+          </button>
+        </div>
       </div>
 
       <!-- Section 5: Projects -->
-      <div class="editor-card">
-        <div class="card-head">
-          <span class="card-num">5</span>
-          <h3 class="card-title">Technical &amp; Personal Projects</h3>
+      <div class="editor-card" id="card-sec-projects">
+        <div class="card-head" role="button" tabindex="0" aria-expanded="true">
+          <div class="card-head-left">
+            <span class="card-num">5</span>
+            <h3 class="card-title">Technical &amp; Personal Projects</h3>
+          </div>
+          <span class="card-toggle-icon" title="Toggle section">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </span>
         </div>
-        <div id="bf-projects-container" class="dynamic-list"></div>
-        <button type="button" class="btn-add-action" id="btn-add-project">
-          + Add Project
-        </button>
+        <div class="card-body">
+          <div id="bf-projects-container" class="dynamic-list"></div>
+          <button type="button" class="btn-add-action" id="btn-add-project">
+            + Add Project
+          </button>
+        </div>
       </div>
 
       <!-- Section 6: Education -->
-      <div class="editor-card">
-        <div class="card-head">
-          <span class="card-num">6</span>
-          <h3 class="card-title">Education &amp; Credentials</h3>
+      <div class="editor-card" id="card-sec-education">
+        <div class="card-head" role="button" tabindex="0" aria-expanded="true">
+          <div class="card-head-left">
+            <span class="card-num">6</span>
+            <h3 class="card-title">Education &amp; Credentials</h3>
+          </div>
+          <span class="card-toggle-icon" title="Toggle section">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </span>
         </div>
-        <div id="bf-education-container" class="dynamic-list"></div>
-        <button type="button" class="btn-add-action" id="btn-add-education">
-          + Add Education / Degree
-        </button>
+        <div class="card-body">
+          <div id="bf-education-container" class="dynamic-list"></div>
+          <button type="button" class="btn-add-action" id="btn-add-education">
+            + Add Education / Degree
+          </button>
+        </div>
       </div>
 
     </section>
@@ -1636,21 +1855,19 @@
       // Skill Category Cards Builder
       function addSkillCategoryCard(data = {}) {
         const item = document.createElement('div');
-        item.className = 'dynamic-item skill-cat-item';
-        item.style.padding = '10px 12px';
-        item.style.marginBottom = '8px';
+        item.className = 'skill-cat-item';
         item.innerHTML = `
-          <button type="button" class="btn-remove-item btn-remove-skill-cat" title="Remove Category">✕</button>
-          <div class="form-row-2" style="margin-bottom: 0; gap: 10px;">
-            <div class="form-group" style="margin-bottom: 0; flex: 1.2;">
-              <label style="font-size: 0.72rem; font-weight: 600;">Category Label</label>
+          <div class="skill-cat-fields">
+            <div class="form-group" style="margin-bottom: 0; flex: 1.1;">
+              <label style="font-size: 0.72rem; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Category Label</label>
               <input type="text" class="input-field skill-cat-name" placeholder="e.g. Backend, Frontend, Tools..." value="${escapeHtml(data.category || '')}">
             </div>
-            <div class="form-group" style="margin-bottom: 0; flex: 2.2;">
-              <label style="font-size: 0.72rem; font-weight: 600;">Skills (Comma separated)</label>
+            <div class="form-group" style="margin-bottom: 0; flex: 2.3;">
+              <label style="font-size: 0.72rem; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">Skills (Comma separated)</label>
               <input type="text" class="input-field skill-cat-skills" placeholder="e.g. Python, FastAPI, PostgreSQL, Redis" value="${escapeHtml(data.skills || '')}">
             </div>
           </div>
+          <button type="button" class="btn-remove-skill-cat" title="Remove Category" aria-label="Remove Category">✕</button>
         `;
 
         item.querySelector('.btn-remove-skill-cat').addEventListener('click', () => {
@@ -2406,6 +2623,55 @@
           .replace(/'/g, '&#39;');
       }
 
+      // Collapsible Card Accordions
+      document.querySelectorAll('.card-head').forEach(head => {
+        head.addEventListener('click', (e) => {
+          if (e.target.closest('button, input, a') && !e.target.closest('.card-toggle-icon')) return;
+          const card = head.closest('.editor-card');
+          if (card) {
+            const isCollapsed = card.classList.toggle('collapsed');
+            head.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+          }
+        });
+
+        head.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            head.click();
+          }
+        });
+      });
+
+      const btnExpandAll = document.getElementById('btn-expand-all');
+      const btnCollapseAll = document.getElementById('btn-collapse-all');
+      if (btnExpandAll) {
+        btnExpandAll.addEventListener('click', () => {
+          document.querySelectorAll('.editor-card').forEach(c => {
+            c.classList.remove('collapsed');
+            const h = c.querySelector('.card-head');
+            if (h) h.setAttribute('aria-expanded', 'true');
+          });
+        });
+      }
+      if (btnCollapseAll) {
+        btnCollapseAll.addEventListener('click', () => {
+          document.querySelectorAll('.editor-card').forEach(c => {
+            c.classList.add('collapsed');
+            const h = c.querySelector('.card-head');
+            if (h) h.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Prevent any unwanted horizontal shifting of the editor column
+      const studioLeftCol = document.querySelector('.studio-left-col');
+      if (studioLeftCol) {
+        studioLeftCol.scrollLeft = 0;
+        studioLeftCol.addEventListener('scroll', () => {
+          if (studioLeftCol.scrollLeft !== 0) studioLeftCol.scrollLeft = 0;
+        });
+      }
+
       // Check if template requested in query param or hash
       const urlParams = new URLSearchParams(window.location.search);
       const reqTpl = urlParams.get('template') || (window.location.hash ? window.location.hash.replace('#', '') : null);
@@ -2415,6 +2681,14 @@
 
       // Load initial sample profile
       loadSampleProfile();
+
+      // Initial fit-to-screen
+      window.addEventListener('load', () => {
+        if (btnZoomFit) btnZoomFit.click();
+      });
+      window.addEventListener('resize', () => {
+        if (btnZoomFit) btnZoomFit.click();
+      });
 
     })();
   </script>
