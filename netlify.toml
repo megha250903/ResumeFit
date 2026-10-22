@@ -1,0 +1,15 @@
+[build]
+  # Tell Netlify to serve files from the static folder as the root website
+  publish = "static"
+
+# Direct /builder URL to builder.html
+[[redirects]]
+  from = "/builder"
+  to = "/builder.html"
+  status = 200
+
+# Fallback for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
