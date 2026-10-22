@@ -3590,6 +3590,19 @@
       opacity: 1;
     }
 
+    /* Disable custom cursor completely on mobile/tablet and touch devices */
+    @media (max-width: 900px), (pointer: coarse), (hover: none) {
+      .cursor-dot,
+      .cursor-ring,
+      body.cursor-visible .cursor-dot,
+      body.cursor-visible .cursor-ring {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    }
+
     /* ==========================================================================
        Redesigned Homepage Styles: 5 Templates Showcase, Studio Banner, ATS Matrix, FAQ
        ========================================================================== */
@@ -7568,6 +7581,11 @@
       // Bespoke Custom Cursor (Dual Layer Fluid Highlighter)
       // ======================================================================
       function initCustomCursor() {
+        // Disable custom cursor on mobile screens or touch devices
+        if (window.matchMedia('(max-width: 900px), (pointer: coarse), (hover: none)').matches) {
+          return;
+        }
+
         const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
         if (!dot || !ring) return;
