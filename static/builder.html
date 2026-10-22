@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Studio — ResumeFit (5 ATS-Tested Pro Templates)</title>
+  <meta name="description" content="Build and tailor an ATS-optimized software engineering resume using 5 proven formats: Jake's Resume, McDowell CV / Apex, ASG Minimalist LaTeX, Universal Web/Print, and BelResumé.">
+  
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  
+  <!-- Fonts: Inter, Tinos (for LaTeX serif), JetBrains Mono (for tech code accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-bg: #F8FAFC;
+      --color-surface: #FFFFFF;
+      --color-border: #E2E8F0;
+      --color-border-subtle: #F1F5F9;
+      --color-ink: #0F172A;
+      --color-ink-muted: #64748B;
+      --color-blue: #2563EB;
+      --color-blue-dark: #1D4ED8;
+      --color-blue-tint: #EFF6FF;
+      --color-indigo: #4F46E5;
+      --color-emerald: #10B981;
+      --color-rose: #EF4444;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-serif: 'Tinos', 'Times New Roman', Times, serif;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-sheet: 0 20px 40px rgba(15, 23, 42, 0.22), 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-ink);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --------------------------------------------------------------------------
+       Top Studio Header
+       -------------------------------------------------------------------------- */
+    .studio-header {
+      height: 60px;
+      background-color: #0A0F24;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      flex-shrink: 0;
+      z-index: 50;
+    }
+
+    .studio-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+
+    .brand-logo-wrap img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .brand-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #2563EB, #4F46E5);
+      color: #FFFFFF;
+    }
+
+    .btn-back-analyzer {
+      font-size: 0.8125rem;
+      color: #94A3B8;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      transition: all 0.15s ease;
+      margin-left: 8px;
+    }
+
+    .btn-back-analyzer:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .studio-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-studio {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn-studio-ghost {
+      background: rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-studio-ghost:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #FFFFFF;
+    }
+
+    .btn-studio-primary {
+      background: #2563EB;
+      color: #FFFFFF;
+    }
+
+    .btn-studio-primary:hover {
+      background: #1D4ED8;
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-studio-success {
+      background: #059669;
+      color: #FFFFFF;
+    }
+
+    .btn-studio-success:hover {
+      background: #047857;
+      box-shadow: 0 0 12px rgba(5, 150, 105, 0.4);
+    }
+
+    /* --------------------------------------------------------------------------
+       Main Studio Layout (Split 2-Columns)
+       -------------------------------------------------------------------------- */
+    .studio-workspace {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+
+    /* Left Form Column */
+    .studio-left-col {
+      width: 46%;
+      min-width: 460px;
+      max-width: 650px;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px 24px 60px;
+      background-color: var(--color-bg);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Right Preview Column */
+    .studio-right-col {
+      flex: 1;
+      height: 100%;
+      background-color: #0B0F19;
+      overflow-y: auto;
+      padding: 20px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Floating Toolbar */
+    .preview-floating-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 794px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 20px;
+      color: #E2E8F0;
+      font-size: 0.8125rem;
+    }
+
+    .preview-tag-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10B981;
+    }
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-zoom {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .btn-zoom:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .zoom-level-text {
+      font-size: 0.75rem;
+      font-weight: 600;
+      min-width: 38px;
+      text-align: center;
+      color: #94A3B8;
+    }
+
+    /* --------------------------------------------------------------------------
+       Template Selector Cards Grid
+       -------------------------------------------------------------------------- */
+    .tpl-cards-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tpl-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .tpl-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    .tpl-sub {
+      font-size: 0.775rem;
+      color: var(--color-ink-muted);
+    }
+
+    .tpl-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 1200px) {
+      .tpl-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .tpl-card {
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: 8px;
+      padding: 10px 8px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+    }
+
+    .tpl-card:hover {
+      border-color: #93C5FD;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tpl-card.active {
+      border-color: var(--color-blue);
+      background-color: #F0F7FF;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .tpl-badge {
+      font-size: 0.625rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-blue);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tpl-name {
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      line-height: 1.25;
+    }
+
+    .tpl-desc {
+      font-size: 0.675rem;
+      color: var(--color-ink-muted);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* --------------------------------------------------------------------------
+       Editor Section Cards & Fields
+       -------------------------------------------------------------------------- */
+    .editor-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .card-num {
+      width: 22px;
+      height: 22px;
+      background: var(--color-blue-tint);
+      color: var(--color-blue);
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .form-group label span {
+      color: var(--color-ink-muted);
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .input-field,
+    .textarea-field {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      font-size: 0.835rem;
+      font-family: inherit;
+      color: var(--color-ink);
+      background: #FFFFFF;
+      transition: all 0.15s ease;
+    }
+
+    .input-field:focus,
+    .textarea-field:focus {
+      outline: none;
+      border-color: var(--color-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .textarea-field {
+      min-height: 75px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    /* Quick skill suggestions bar */
+    .skill-pills-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .pill-sugg {
+      font-size: 0.7rem;
+      background: #F1F5F9;
+      color: #334155;
+      padding: 3px 8px;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+
+    .pill-sugg:hover {
+      background: var(--color-blue-tint);
+      color: var(--color-blue);
+      border-color: #BFDBFE;
+    }
+
+    /* Dynamic Entries (Experience & Education) */
+    .dynamic-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .dynamic-item {
+      background: #F8FAFC;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 14px;
+      position: relative;
+    }
+
+    .btn-remove-item {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #94A3B8;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-remove-item:hover {
+      color: var(--color-rose);
+      background: #FEE2E2;
+    }
+
+    .bullets-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .bullet-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-remove-bullet {
+      background: none;
+      border: none;
+      color: #94A3B8;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+    }
+
+    .btn-remove-bullet:hover {
+      color: var(--color-rose);
+    }
+
+    .btn-add-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      background: #FFFFFF;
+      border: 1px dashed var(--color-border);
+      border-radius: 6px;
+      font-size: 0.785rem;
+      font-weight: 600;
+      color: var(--color-blue);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      align-self: flex-start;
+    }
+
+    .btn-add-action:hover {
+      background: var(--color-blue-tint);
+      border-color: var(--color-blue);
+    }
+
+    /* --------------------------------------------------------------------------
+       Live Paper Canvas (A4 Standard 794px)
+       -------------------------------------------------------------------------- */
+    .paper-canvas-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      transition: transform 0.2s ease;
+      transform-origin: top center;
+    }
+
+    .builder-paper {
+      width: 794px;
+      min-height: 1123px;
+      background: #FFFFFF;
+      box-shadow: var(--shadow-sheet);
+      padding: 42px 48px;
+      color: #000000;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
+    .b-section {
+      margin-bottom: 14px;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 1: Jake's Resume (The Default Choice - Overleaf 50k+ Forks)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-jake {
+      font-family: var(--font-serif);
+      color: #000000;
+      line-height: 1.34;
+    }
+
+    .builder-paper.tpl-jake .b-header {
+      text-align: center;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .builder-paper.tpl-jake .b-name {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+
+    .builder-paper.tpl-jake .b-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #111111;
+      margin-bottom: 4px;
+    }
+
+    .builder-paper.tpl-jake .b-contact {
+      font-size: 0.835rem;
+      color: #222222;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px 10px;
+    }
+
+    .builder-paper.tpl-jake .b-contact span:not(:last-child)::after {
+      content: " • ";
+      margin-left: 10px;
+      color: #666666;
+    }
+
+    .builder-paper.tpl-jake .b-sec-title {
+      font-size: 0.925rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #000000;
+      border-bottom: 1.5px solid #000000;
+      padding-bottom: 2px;
+      margin-bottom: 8px;
+    }
+
+    .builder-paper.tpl-jake .bp-job-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.875rem;
+    }
+
+    .builder-paper.tpl-jake .bp-job-title {
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .builder-paper.tpl-jake .bp-job-company {
+      font-style: italic;
+      color: #222222;
+    }
+
+    .builder-paper.tpl-jake .bp-job-dates {
+      font-size: 0.825rem;
+      color: #333333;
+    }
+
+    .builder-paper.tpl-jake .bp-bullets-list {
+      list-style-type: disc;
+      padding-left: 18px;
+      gap: 3px;
+      margin-top: 3px;
+    }
+
+    .builder-paper.tpl-jake .bp-bullets-list li {
+      font-size: 0.84rem;
+      line-height: 1.36;
+      color: #111111;
+    }
+
+    .builder-paper.tpl-jake .b-skill-pill {
+      font-size: 0.84rem;
+      color: #000000;
+      background: none;
+      padding: 0 4px;
+      border-radius: 0;
+      font-weight: 500;
+    }
+
+    .builder-paper.tpl-jake .b-skill-pill:not(:last-child)::after {
+      content: ", ";
+      margin-right: 2px;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 2: The McDowell CV / Apex Resume (FAANG-Proven)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-mcdowell {
+      font-family: var(--font-sans);
+      color: #0F172A;
+      line-height: 1.32;
+    }
+
+    .builder-paper.tpl-mcdowell .b-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1E3A8A;
+      margin-bottom: 14px;
+    }
+
+    .builder-paper.tpl-mcdowell .b-name {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+    }
+
+    .builder-paper.tpl-mcdowell .b-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2563EB;
+      margin-top: 2px;
+    }
+
+    .builder-paper.tpl-mcdowell .b-contact {
+      text-align: right;
+      font-size: 0.8rem;
+      color: #475569;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .builder-paper.tpl-mcdowell .b-sec-title {
+      color: #1E3A8A;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid #2563EB;
+      padding-bottom: 2px;
+      margin-bottom: 8px;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-job-title {
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-job-company {
+      color: #2563EB;
+      font-weight: 600;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-job-dates {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-bullets-list {
+      list-style-type: square;
+      padding-left: 16px;
+      gap: 3px;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-bullets-list li {
+      font-size: 0.825rem;
+      line-height: 1.34;
+      color: #1E293B;
+    }
+
+    .builder-paper.tpl-mcdowell .b-skill-pill {
+      font-family: var(--font-mono);
+      font-size: 0.775rem;
+      padding: 2px 7px;
+      background-color: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 3: ASG ATS Resume Template (Minimalist LaTeX)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-asg {
+      font-family: var(--font-serif);
+      color: #111827;
+      line-height: 1.36;
+    }
+
+    .builder-paper.tpl-asg .b-header {
+      text-align: center;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    .builder-paper.tpl-asg .b-name {
+      font-size: 1.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #111827;
+      text-transform: uppercase;
+    }
+
+    .builder-paper.tpl-asg .b-title {
+      font-size: 0.925rem;
+      font-style: italic;
+      color: #4B5563;
+      margin-bottom: 4px;
+    }
+
+    .builder-paper.tpl-asg .b-contact {
+      font-size: 0.8rem;
+      color: #4B5563;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+    }
+
+    .builder-paper.tpl-asg .b-sec-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #111827;
+      border-bottom: 0.75px solid #4B5563;
+      padding-bottom: 2px;
+      margin-bottom: 7px;
+    }
+
+    .builder-paper.tpl-asg .bp-job-title {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .builder-paper.tpl-asg .bp-job-company {
+      font-style: italic;
+      color: #374151;
+    }
+
+    .builder-paper.tpl-asg .bp-job-dates {
+      font-size: 0.8rem;
+      color: #4B5563;
+    }
+
+    .builder-paper.tpl-asg .bp-bullets-list {
+      list-style-type: circle;
+      padding-left: 17px;
+      gap: 3px;
+    }
+
+    .builder-paper.tpl-asg .bp-bullets-list li {
+      font-size: 0.825rem;
+      color: #1F2937;
+      line-height: 1.36;
+    }
+
+    .builder-paper.tpl-asg .b-skill-pill {
+      font-size: 0.8rem;
+      color: #1F2937;
+      background: none;
+      padding: 0 4px;
+    }
+
+    .builder-paper.tpl-asg .b-skill-pill:not(:last-child)::after {
+      content: " • ";
+      color: #9CA3AF;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 4: Universal Résumé Template (Web/Print Hybrid)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-universal {
+      font-family: var(--font-sans);
+      color: #0F172A;
+      line-height: 1.4;
+    }
+
+    .builder-paper.tpl-universal .b-header {
+      text-align: left;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 16px;
+    }
+
+    .builder-paper.tpl-universal .b-name {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+    }
+
+    .builder-paper.tpl-universal .b-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2563EB;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+
+    .builder-paper.tpl-universal .b-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 0.8rem;
+      color: #64748B;
+    }
+
+    .builder-paper.tpl-universal .b-sec-title {
+      font-size: 0.825rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #0F172A;
+      border-left: 3.5px solid #2563EB;
+      padding-left: 8px;
+      margin-bottom: 8px;
+    }
+
+    .builder-paper.tpl-universal .bp-job-title {
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .builder-paper.tpl-universal .bp-job-company {
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .builder-paper.tpl-universal .bp-job-dates {
+      font-size: 0.8rem;
+      color: #64748B;
+      font-weight: 500;
+    }
+
+    .builder-paper.tpl-universal .bp-bullets-list {
+      list-style-type: disc;
+      padding-left: 16px;
+      gap: 4px;
+    }
+
+    .builder-paper.tpl-universal .bp-bullets-list li {
+      font-size: 0.825rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .builder-paper.tpl-universal .b-skill-pill {
+      font-size: 0.775rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      background-color: #F8FAFC;
+      color: #334155;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 5: BelResumé (Static Site / Portfolio Resume)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-belresume {
+      font-family: var(--font-sans);
+      color: #111827;
+      line-height: 1.38;
+      border-top: 5px solid #4F46E5;
+      padding-top: 24px;
+    }
+
+    .builder-paper.tpl-belresume .b-header {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed #E0E7FF;
+    }
+
+    .builder-paper.tpl-belresume .b-name {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #1E1B4B;
+      letter-spacing: -0.01em;
+    }
+
+    .builder-paper.tpl-belresume .b-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #4F46E5;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+
+    .builder-paper.tpl-belresume .b-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 0.8rem;
+      color: #6B7280;
+    }
+
+    .builder-paper.tpl-belresume .b-sec-title {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background-color: #EEF2FF;
+      color: #4338CA;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .builder-paper.tpl-belresume .b-section {
+      border-left: 2px solid #EEF2FF;
+      padding-left: 14px;
+      margin-left: 2px;
+      margin-bottom: 16px;
+    }
+
+    .builder-paper.tpl-belresume .bp-job-title {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .builder-paper.tpl-belresume .bp-job-company {
+      font-weight: 600;
+      color: #4F46E5;
+    }
+
+    .builder-paper.tpl-belresume .bp-job-dates {
+      font-size: 0.8rem;
+      color: #6B7280;
+      font-weight: 500;
+    }
+
+    .builder-paper.tpl-belresume .bp-bullets-list {
+      list-style-type: square;
+      padding-left: 16px;
+      gap: 4px;
+    }
+
+    .builder-paper.tpl-belresume .bp-bullets-list li {
+      font-size: 0.825rem;
+      color: #374151;
+      line-height: 1.38;
+    }
+
+    .builder-paper.tpl-belresume .b-skill-pill {
+      font-size: 0.775rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      background-color: #4F46E5;
+      color: #FFFFFF;
+      border-radius: 12px;
+    }
+
+    .b-skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* --------------------------------------------------------------------------
+       Print Styles (Strict A4 Paper Output)
+       -------------------------------------------------------------------------- */
+    @media print {
+      body {
+        background: transparent !important;
+        overflow: visible !important;
+        height: auto !important;
+      }
+
+      .studio-header,
+      .studio-left-col,
+      .preview-floating-bar {
+        display: none !important;
+      }
+
+      .studio-workspace {
+        height: auto !important;
+        display: block !important;
+      }
+
+      .studio-right-col {
+        background: transparent !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        height: auto !important;
+        display: block !important;
+      }
+
+      .paper-canvas-wrap {
+        padding: 0 !important;
+        transform: none !important;
+      }
+
+      .builder-paper {
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+
+      @page {
+        size: A4;
+        margin: 1.2cm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Studio Top Navigation -->
+  <header class="studio-header">
+    <div class="studio-brand">
+      <a href="/" class="brand-logo-wrap" title="ResumeFit Home">
+        <img src="/static/logo.jpg" alt="Logo">
+        <span class="brand-name">ResumeFit</span>
+      </a>
+      <span class="brand-tag">Studio</span>
+      <a href="/" class="btn-back-analyzer" title="Switch to ATS Match Analyzer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Match Analyzer</span>
+      </a>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="studio-actions">
+      <button type="button" class="btn-studio btn-studio-ghost" id="btn-sample" title="Populate with realistic Senior Engineer profile">
+        ✨ Load Sample Profile
+      </button>
+      <button type="button" class="btn-studio btn-studio-ghost" id="btn-clear" title="Reset all fields">
+        🗑️ Clear
+      </button>
+      <button type="button" class="btn-studio btn-studio-primary" id="btn-docx" title="Download editable .docx">
+        📄 Download Word (.docx)
+      </button>
+      <button type="button" class="btn-studio btn-studio-success" id="btn-print" title="Print or save as PDF">
+        🖨️ Print / PDF
+      </button>
+      <button type="button" class="btn-studio btn-studio-ghost" id="btn-copy" title="Copy plaintext">
+        📋 Copy Text
+      </button>
+    </div>
+  </header>
+
+  <!-- Studio Workspace Grid -->
+  <main class="studio-workspace">
+    
+    <!-- Left Form Editor Column -->
+    <section class="studio-left-col" aria-label="Resume Form Editor">
+      
+      <!-- 5 Template Selector Card -->
+      <div class="tpl-cards-section">
+        <div class="tpl-header-row">
+          <div>
+            <h2 class="tpl-title">Choose Template</h2>
+            <p class="tpl-sub">Select from 5 proven ATS-friendly formats</p>
+          </div>
+        </div>
+
+        <div class="tpl-grid" role="radiogroup" aria-label="Resume Templates">
+          <!-- 1: Jake's Resume -->
+          <div class="tpl-card active" data-template="jake" role="radio" aria-checked="true" tabindex="0">
+            <span class="tpl-badge">01 • Overleaf 50k+</span>
+            <div class="tpl-name">Jake's Resume</div>
+            <div class="tpl-desc">The default choice on Overleaf. Single-column, 1-page, pure ATS clarity.</div>
+          </div>
+
+          <!-- 2: The McDowell CV / Apex -->
+          <div class="tpl-card" data-template="mcdowell" role="radio" aria-checked="false" tabindex="0">
+            <span class="tpl-badge">02 • FAANG-Proven</span>
+            <div class="tpl-name">McDowell / Apex</div>
+            <div class="tpl-desc">Cracking the Coding Interview layout. High-density, project-first.</div>
+          </div>
+
+          <!-- 3: ASG ATS Minimalist -->
+          <div class="tpl-card" data-template="asg" role="radio" aria-checked="false" tabindex="0">
+            <span class="tpl-badge">03 • Minimalist LaTeX</span>
+            <div class="tpl-name">ASG ATS Resume</div>
+            <div class="tpl-desc">Tinos serif font, exact alignment, thin section dividers, zero clutter.</div>
+          </div>
+
+          <!-- 4: Universal Résumé -->
+          <div class="tpl-card" data-template="universal" role="radio" aria-checked="false" tabindex="0">
+            <span class="tpl-badge">04 • Web/Print Hybrid</span>
+            <div class="tpl-name">Universal Résumé</div>
+            <div class="tpl-desc">Tailwind CSS pragmatic pick. Equal proportions on screen & print.</div>
+          </div>
+
+          <!-- 5: BelResumé -->
+          <div class="tpl-card" data-template="belresume" role="radio" aria-checked="false" tabindex="0">
+            <span class="tpl-badge">05 • Static Portfolio</span>
+            <div class="tpl-name">BelResumé</div>
+            <div class="tpl-desc">Zola & Tailwind modular resume with portfolio aesthetic & skill pills.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 1: Personal & Contact -->
+      <div class="editor-card">
+        <div class="card-head">
+          <span class="card-num">1</span>
+          <h3 class="card-title">Personal & Contact Details</h3>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="bf-name">Full Name *</label>
+            <input type="text" id="bf-name" class="input-field" placeholder="e.g. Alex Morgan">
+          </div>
+          <div class="form-group">
+            <label for="bf-title">Target Job Title</label>
+            <input type="text" id="bf-title" class="input-field" placeholder="e.g. Senior Software Engineer">
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="bf-email">Email Address</label>
+            <input type="email" id="bf-email" class="input-field" placeholder="alex.morgan@email.com">
+          </div>
+          <div class="form-group">
+            <label for="bf-phone">Phone Number</label>
+            <input type="tel" id="bf-phone" class="input-field" placeholder="+1 (555) 019-2834">
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="bf-location">Location</label>
+            <input type="text" id="bf-location" class="input-field" placeholder="San Francisco, CA">
+          </div>
+          <div class="form-group">
+            <label for="bf-linkedin">LinkedIn Handle</label>
+            <input type="text" id="bf-linkedin" class="input-field" placeholder="linkedin.com/in/alexmorgan">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bf-portfolio">GitHub / Portfolio URL</label>
+          <input type="text" id="bf-portfolio" class="input-field" placeholder="github.com/alexmorgan">
+        </div>
+      </div>
+
+      <!-- Section 2: Professional Summary -->
+      <div class="editor-card">
+        <div class="card-head">
+          <span class="card-num">2</span>
+          <h3 class="card-title">Professional Summary</h3>
+        </div>
+        <div class="form-group">
+          <label for="bf-summary">Executive Summary <span>(3-4 high-impact lines with core keywords)</span></label>
+          <textarea id="bf-summary" class="textarea-field" placeholder="Full-Stack Engineer with 6+ years experience architecting distributed systems..."></textarea>
+        </div>
+      </div>
+
+      <!-- Section 3: Skills -->
+      <div class="editor-card">
+        <div class="card-head">
+          <span class="card-num">3</span>
+          <h3 class="card-title">Core Competencies & Skills</h3>
+        </div>
+        <div class="form-group">
+          <label for="bf-skills">Technical Skills <span>(Comma separated)</span></label>
+          <textarea id="bf-skills" class="textarea-field" placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, AWS, GraphQL..."></textarea>
+          
+          <!-- Quick add skill suggestions -->
+          <div class="skill-pills-suggestions" id="skill-suggestions">
+            <span style="font-size: 0.7rem; color: #64748B; align-self: center;">Quick add:</span>
+            <span class="pill-sugg" data-skill="Python">+ Python</span>
+            <span class="pill-sugg" data-skill="TypeScript">+ TypeScript</span>
+            <span class="pill-sugg" data-skill="React">+ React</span>
+            <span class="pill-sugg" data-skill="FastAPI">+ FastAPI</span>
+            <span class="pill-sugg" data-skill="Node.js">+ Node.js</span>
+            <span class="pill-sugg" data-skill="PostgreSQL">+ PostgreSQL</span>
+            <span class="pill-sugg" data-skill="Docker">+ Docker</span>
+            <span class="pill-sugg" data-skill="AWS">+ AWS</span>
+            <span class="pill-sugg" data-skill="Kubernetes">+ Kubernetes</span>
+            <span class="pill-sugg" data-skill="CI/CD">+ CI/CD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Experience -->
+      <div class="editor-card">
+        <div class="card-head">
+          <span class="card-num">4</span>
+          <h3 class="card-title">Professional Experience</h3>
+        </div>
+        <div id="bf-experience-container" class="dynamic-list"></div>
+        <button type="button" class="btn-add-action" id="btn-add-experience">
+          + Add Work Experience
+        </button>
+      </div>
+
+      <!-- Section 5: Education -->
+      <div class="editor-card">
+        <div class="card-head">
+          <span class="card-num">5</span>
+          <h3 class="card-title">Education & Credentials</h3>
+        </div>
+        <div id="bf-education-container" class="dynamic-list"></div>
+        <button type="button" class="btn-add-action" id="btn-add-education">
+          + Add Education / Degree
+        </button>
+      </div>
+
+    </section>
+
+    <!-- Right Live Canvas Column -->
+    <section class="studio-right-col" id="studio-right-col" aria-label="Live Resume Preview Canvas">
+      <div class="preview-floating-bar">
+        <div class="preview-tag-indicator">
+          <span class="pulse-dot"></span>
+          <span>Live 1:1 Rendering • <strong id="preview-template-label">Jake's Resume</strong></span>
+        </div>
+        <div class="zoom-controls">
+          <button type="button" class="btn-zoom" id="btn-zoom-out" title="Zoom Out">−</button>
+          <span class="zoom-level-text" id="zoom-level-text">100%</span>
+          <button type="button" class="btn-zoom" id="btn-zoom-in" title="Zoom In">+</button>
+          <button type="button" class="btn-zoom" id="btn-zoom-fit" title="Fit to View">Fit</button>
+        </div>
+      </div>
+
+      <div class="paper-canvas-wrap" id="paper-canvas-wrap">
+        <article class="builder-paper tpl-jake" id="builder-paper">
+          <!-- Header -->
+          <header class="b-header">
+            <h1 class="b-name" id="bp-name">Alex Morgan</h1>
+            <div class="b-title" id="bp-title">Lead Software Engineer</div>
+            <div class="b-contact" id="bp-contact">
+              <span>alex.morgan@email.com</span>
+              <span>+1 (555) 234-5678</span>
+              <span>San Francisco, CA</span>
+              <span>linkedin.com/in/alexmorgan</span>
+              <span>github.com/alexmorgan</span>
+            </div>
+          </header>
+
+          <!-- Summary Section -->
+          <div class="b-section" id="bp-sec-summary">
+            <h2 class="b-sec-title">PROFESSIONAL SUMMARY</h2>
+            <p class="b-summary-text" id="bp-summary"></p>
+          </div>
+
+          <!-- Skills Section -->
+          <div class="b-section" id="bp-sec-skills">
+            <h2 class="b-sec-title">TECHNICAL SKILLS & COMPETENCIES</h2>
+            <div class="b-skills-wrap" id="bp-skills-wrap"></div>
+          </div>
+
+          <!-- Experience Section -->
+          <div class="b-section" id="bp-sec-experience">
+            <h2 class="b-sec-title">PROFESSIONAL EXPERIENCE</h2>
+            <div class="b-experience-list" id="bp-experience-list"></div>
+          </div>
+
+          <!-- Education Section -->
+          <div class="b-section" id="bp-sec-education">
+            <h2 class="b-sec-title">EDUCATION & CREDENTIALS</h2>
+            <div class="b-education-list" id="bp-education-list"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JavaScript Studio Engine -->
+  <script>
+    (function() {
+      'use strict';
+
+      // DOM Elements
+      const tplCards = document.querySelectorAll('.tpl-card');
+      const builderPaper = document.getElementById('builder-paper');
+      const paperCanvasWrap = document.getElementById('paper-canvas-wrap');
+      const previewTplLabel = document.getElementById('preview-template-label');
+
+      const bfName = document.getElementById('bf-name');
+      const bfTitle = document.getElementById('bf-title');
+      const bfEmail = document.getElementById('bf-email');
+      const bfPhone = document.getElementById('bf-phone');
+      const bfLocation = document.getElementById('bf-location');
+      const bfLinkedin = document.getElementById('bf-linkedin');
+      const bfPortfolio = document.getElementById('bf-portfolio');
+      const bfSummary = document.getElementById('bf-summary');
+      const bfSkills = document.getElementById('bf-skills');
+      const bfExpContainer = document.getElementById('bf-experience-container');
+      const bfEduContainer = document.getElementById('bf-education-container');
+
+      const btnAddExp = document.getElementById('btn-add-experience');
+      const btnAddEdu = document.getElementById('btn-add-education');
+      const btnSample = document.getElementById('btn-sample');
+      const btnClear = document.getElementById('btn-clear');
+      const btnDocx = document.getElementById('btn-docx');
+      const btnPrint = document.getElementById('btn-print');
+      const btnCopy = document.getElementById('btn-copy');
+
+      const btnZoomIn = document.getElementById('btn-zoom-in');
+      const btnZoomOut = document.getElementById('btn-zoom-out');
+      const btnZoomFit = document.getElementById('btn-zoom-fit');
+      const zoomLevelText = document.getElementById('zoom-level-text');
+
+      const bpName = document.getElementById('bp-name');
+      const bpTitle = document.getElementById('bp-title');
+      const bpContact = document.getElementById('bp-contact');
+      const bpSecSummary = document.getElementById('bp-sec-summary');
+      const bpSummary = document.getElementById('bp-summary');
+      const bpSecSkills = document.getElementById('bp-sec-skills');
+      const bpSkillsWrap = document.getElementById('bp-skills-wrap');
+      const bpSecExp = document.getElementById('bp-sec-experience');
+      const bpExpList = document.getElementById('bp-experience-list');
+      const bpSecEdu = document.getElementById('bp-sec-education');
+      const bpEduList = document.getElementById('bp-education-list');
+
+      const templateNames = {
+        jake: "Jake's Resume (The Default Choice)",
+        mcdowell: "The McDowell CV / Apex Resume (FAANG-Proven)",
+        asg: "ASG ATS Resume Template (Minimalist LaTeX)",
+        universal: "Universal Résumé Template (Web/Print Hybrid)",
+        belresume: "BelResumé (Static Site Resume)"
+      };
+
+      let activeTemplate = 'jake';
+      let currentZoom = 1.0;
+
+      // Zoom functionality
+      function setZoom(val) {
+        currentZoom = Math.min(Math.max(val, 0.5), 1.5);
+        if (paperCanvasWrap) {
+          paperCanvasWrap.style.transform = `scale(${currentZoom})`;
+          zoomLevelText.textContent = `${Math.round(currentZoom * 100)}%`;
+        }
+      }
+
+      if (btnZoomIn) btnZoomIn.addEventListener('click', () => setZoom(currentZoom + 0.1));
+      if (btnZoomOut) btnZoomOut.addEventListener('click', () => setZoom(currentZoom - 0.1));
+      if (btnZoomFit) btnZoomFit.addEventListener('click', () => {
+        const rightCol = document.getElementById('studio-right-col');
+        if (rightCol) {
+          const availWidth = rightCol.clientWidth - 64;
+          const targetZoom = Math.min(availWidth / 794, 1.0);
+          setZoom(targetZoom);
+        }
+      });
+
+      // Quick skill pills
+      const skillSuggestions = document.querySelectorAll('.pill-sugg');
+      skillSuggestions.forEach(pill => {
+        pill.addEventListener('click', () => {
+          const s = pill.getAttribute('data-skill');
+          if (!s) return;
+          const current = bfSkills.value.trim();
+          if (!current) {
+            bfSkills.value = s;
+          } else {
+            const arr = current.split(',').map(x => x.trim());
+            if (!arr.includes(s)) {
+              arr.push(s);
+              bfSkills.value = arr.join(', ');
+            }
+          }
+          updateLivePaper();
+        });
+      });
+
+      // Switch Template
+      function selectTemplate(key) {
+        if (!templateNames[key]) key = 'jake';
+        activeTemplate = key;
+
+        tplCards.forEach(card => {
+          const isMatch = card.getAttribute('data-template') === key;
+          card.classList.toggle('active', isMatch);
+          card.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        });
+
+        if (builderPaper) {
+          builderPaper.className = 'builder-paper tpl-' + key;
+        }
+
+        if (previewTplLabel) {
+          previewTplLabel.textContent = templateNames[key];
+        }
+      }
+
+      tplCards.forEach(card => {
+        card.addEventListener('click', () => {
+          selectTemplate(card.getAttribute('data-template'));
+        });
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectTemplate(card.getAttribute('data-template'));
+          }
+        });
+      });
+
+      // Experience Cards Builder
+      function addExperienceCard(data) {
+        const item = document.createElement('div');
+        item.className = 'dynamic-item';
+        item.innerHTML = `
+          <button type="button" class="btn-remove-item" title="Remove Role">✕</button>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Job Title</label>
+              <input type="text" class="input-field exp-title" placeholder="Lead Software Engineer" value="${escapeHtml(data.title || '')}">
+            </div>
+            <div class="form-group">
+              <label>Company / Organization</label>
+              <input type="text" class="input-field exp-company" placeholder="Acme Inc." value="${escapeHtml(data.company || '')}">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Dates</label>
+              <input type="text" class="input-field exp-dates" placeholder="2022 - Present" value="${escapeHtml(data.dates || '')}">
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" class="input-field exp-location" placeholder="San Francisco, CA" value="${escapeHtml(data.location || '')}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Key Achievements & Quantified Bullets</label>
+            <div class="bullets-container"></div>
+            <button type="button" class="btn-add-action btn-add-bullet" style="margin-top: 6px;">+ Add Bullet</button>
+          </div>
+        `;
+
+        const bContainer = item.querySelector('.bullets-container');
+        const btnAddB = item.querySelector('.btn-add-bullet');
+        const btnRemove = item.querySelector('.btn-remove-item');
+
+        btnRemove.addEventListener('click', () => {
+          item.remove();
+          updateLivePaper();
+        });
+
+        function addBulletRow(text) {
+          const row = document.createElement('div');
+          row.className = 'bullet-row';
+          row.innerHTML = `
+            <input type="text" class="input-field exp-bullet" placeholder="Architected microservices pipeline reducing latency by 45%..." value="${escapeHtml(text || '')}">
+            <button type="button" class="btn-remove-bullet" title="Remove bullet">✕</button>
+          `;
+          row.querySelector('.btn-remove-bullet').addEventListener('click', () => {
+            row.remove();
+            updateLivePaper();
+          });
+          row.querySelector('input').addEventListener('input', updateLivePaper);
+          bContainer.appendChild(row);
+        }
+
+        if (Array.isArray(data.bullets) && data.bullets.length > 0) {
+          data.bullets.forEach(b => addBulletRow(b));
+        } else {
+          addBulletRow('');
+        }
+
+        btnAddB.addEventListener('click', () => {
+          addBulletRow('');
+          updateLivePaper();
+        });
+
+        item.querySelectorAll('input').forEach(input => {
+          input.addEventListener('input', updateLivePaper);
+        });
+
+        bfExpContainer.appendChild(item);
+        updateLivePaper();
+      }
+
+      // Education Cards Builder
+      function addEducationCard(data) {
+        const item = document.createElement('div');
+        item.className = 'dynamic-item';
+        item.innerHTML = `
+          <button type="button" class="btn-remove-item" title="Remove Degree">✕</button>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Degree / Credential</label>
+              <input type="text" class="input-field edu-degree" placeholder="B.S. in Computer Science" value="${escapeHtml(data.degree || '')}">
+            </div>
+            <div class="form-group">
+              <label>University / Institution</label>
+              <input type="text" class="input-field edu-school" placeholder="Stanford University" value="${escapeHtml(data.school || '')}">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Year / Graduation</label>
+              <input type="text" class="input-field edu-year" placeholder="2016 - 2020" value="${escapeHtml(data.year || '')}">
+            </div>
+            <div class="form-group">
+              <label>Honors / GPA / Details</label>
+              <input type="text" class="input-field edu-details" placeholder="GPA: 3.9 • Magna Cum Laude" value="${escapeHtml(data.details || '')}">
+            </div>
+          </div>
+        `;
+
+        item.querySelector('.btn-remove-item').addEventListener('click', () => {
+          item.remove();
+          updateLivePaper();
+        });
+
+        item.querySelectorAll('input').forEach(input => {
+          input.addEventListener('input', updateLivePaper);
+        });
+
+        bfEduContainer.appendChild(item);
+        updateLivePaper();
+      }
+
+      if (btnAddExp) btnAddExp.addEventListener('click', () => addExperienceCard({}));
+      if (btnAddEdu) btnAddEdu.addEventListener('click', () => addEducationCard({}));
+
+      // Update Live Canvas in Real-Time
+      function updateLivePaper() {
+        if (!bpName) return;
+
+        // Name & Title
+        bpName.textContent = bfName.value.trim() || 'Your Name';
+        if (bfTitle.value.trim()) {
+          bpTitle.textContent = bfTitle.value.trim();
+          bpTitle.style.display = 'block';
+        } else {
+          bpTitle.style.display = 'none';
+        }
+
+        // Contact Items
+        const contacts = [];
+        if (bfEmail.value.trim()) contacts.push(bfEmail.value.trim());
+        if (bfPhone.value.trim()) contacts.push(bfPhone.value.trim());
+        if (bfLocation.value.trim()) contacts.push(bfLocation.value.trim());
+        if (bfLinkedin.value.trim()) contacts.push(bfLinkedin.value.trim());
+        if (bfPortfolio.value.trim()) contacts.push(bfPortfolio.value.trim());
+
+        if (contacts.length > 0) {
+          bpContact.innerHTML = contacts.map(c => `<span>${escapeHtml(c)}</span>`).join('');
+          bpContact.style.display = 'flex';
+        } else {
+          bpContact.style.display = 'none';
+        }
+
+        // Summary
+        if (bfSummary.value.trim()) {
+          bpSecSummary.style.display = 'block';
+          bpSummary.textContent = bfSummary.value.trim();
+        } else {
+          bpSecSummary.style.display = 'none';
+        }
+
+        // Skills
+        const skillsRaw = bfSkills.value.split(',').map(s => s.trim()).filter(Boolean);
+        if (skillsRaw.length > 0) {
+          bpSecSkills.style.display = 'block';
+          bpSkillsWrap.innerHTML = skillsRaw.map(s => `<span class="b-skill-pill">${escapeHtml(s)}</span>`).join('');
+        } else {
+          bpSecSkills.style.display = 'none';
+        }
+
+        // Experience
+        const expItems = bfExpContainer.querySelectorAll('.dynamic-item');
+        if (expItems.length > 0) {
+          bpSecExp.style.display = 'block';
+          let expHtml = '';
+          expItems.forEach(item => {
+            const title = item.querySelector('.exp-title').value.trim();
+            const company = item.querySelector('.exp-company').value.trim();
+            const dates = item.querySelector('.exp-dates').value.trim();
+            const loc = item.querySelector('.exp-location').value.trim();
+            const bullets = Array.from(item.querySelectorAll('.exp-bullet')).map(b => b.value.trim()).filter(Boolean);
+
+            if (title || company) {
+              expHtml += `
+                <div class="bp-exp-entry" style="margin-bottom: 12px;">
+                  <div class="bp-job-head">
+                    <div>
+                      <span class="bp-job-title">${escapeHtml(title || 'Position')}</span>
+                      ${company ? `<span class="bp-job-company"> — ${escapeHtml(company)}</span>` : ''}
+                    </div>
+                    <div class="bp-job-dates">${escapeHtml(dates)}${loc ? ` • ${escapeHtml(loc)}` : ''}</div>
+                  </div>
+                  ${bullets.length > 0 ? `
+                    <ul class="bp-bullets-list">
+                      ${bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+                    </ul>
+                  ` : ''}
+                </div>
+              `;
+            }
+          });
+          bpExpList.innerHTML = expHtml;
+        } else {
+          bpSecExp.style.display = 'none';
+        }
+
+        // Education
+        const eduItems = bfEduContainer.querySelectorAll('.dynamic-item');
+        if (eduItems.length > 0) {
+          bpSecEdu.style.display = 'block';
+          let eduHtml = '';
+          eduItems.forEach(item => {
+            const deg = item.querySelector('.edu-degree').value.trim();
+            const sch = item.querySelector('.edu-school').value.trim();
+            const yr = item.querySelector('.edu-year').value.trim();
+            const det = item.querySelector('.edu-details').value.trim();
+
+            if (deg || sch) {
+              eduHtml += `
+                <div class="bp-edu-entry" style="margin-bottom: 8px;">
+                  <div class="bp-job-head">
+                    <div>
+                      <span class="bp-job-title">${escapeHtml(deg || 'Degree')}</span>
+                      ${sch ? `<span class="bp-job-company"> — ${escapeHtml(sch)}</span>` : ''}
+                    </div>
+                    <div class="bp-job-dates">${escapeHtml(yr)}</div>
+                  </div>
+                  ${det ? `<div style="font-size: 0.8rem; color: #475569; margin-top: 2px;">${escapeHtml(det)}</div>` : ''}
+                </div>
+              `;
+            }
+          });
+          bpEduList.innerHTML = eduHtml;
+        } else {
+          bpSecEdu.style.display = 'none';
+        }
+      }
+
+      // Input Listeners
+      [bfName, bfTitle, bfEmail, bfPhone, bfLocation, bfLinkedin, bfPortfolio, bfSummary, bfSkills].forEach(input => {
+        if (input) input.addEventListener('input', updateLivePaper);
+      });
+
+      // Sample Profile Loader
+      function loadSampleProfile() {
+        bfName.value = 'Alex Morgan';
+        bfTitle.value = 'Senior Full-Stack Engineer';
+        bfEmail.value = 'alex.morgan@email.com';
+        bfPhone.value = '+1 (555) 234-5678';
+        bfLocation.value = 'San Francisco, CA';
+        bfLinkedin.value = 'linkedin.com/in/alexmorgan-dev';
+        bfPortfolio.value = 'github.com/alexmorgan-code';
+        bfSummary.value = 'Full-Stack Software Engineer with 6+ years of experience architecting high-throughput distributed systems, REST/GraphQL APIs, and responsive web applications. Proven track record of scaling platforms to 10M+ MAUs, reducing API latency by 45%, and leading engineering teams in modern CI/CD best practices.';
+        bfSkills.value = 'Python, FastAPI, TypeScript, React, Next.js, Node.js, PostgreSQL, Redis, Docker, Kubernetes, AWS (ECS, Lambda, S3), GraphQL, CI/CD Pipelines, System Design, Unit & Integration Testing';
+
+        bfExpContainer.innerHTML = '';
+        addExperienceCard({
+          title: 'Lead Full-Stack Engineer',
+          company: 'CloudScale Technologies',
+          dates: '2022 - Present',
+          location: 'San Francisco, CA',
+          bullets: [
+            'Architected real-time event-driven processing pipeline using FastAPI, Kafka, and Redis, reducing data lag by 60% across 5M daily events.',
+            'Led migration of monolithic Ruby backend to microservices on AWS ECS, improving 99th-percentile response time from 420ms to 95ms.',
+            'Engineered modular design system and TypeScript frontend components adopted across 4 product teams, cutting feature release time in half.',
+            'Mentored 5 junior/mid-level engineers through bi-weekly architectural reviews and implemented strict automated test coverage (>88%).'
+          ]
+        });
+
+        addExperienceCard({
+          title: 'Software Engineer',
+          company: 'NextGen Data Systems',
+          dates: '2019 - 2022',
+          location: 'Austin, TX',
+          bullets: [
+            'Built and maintained customer-facing analytics dashboards using React, Redux, and PostgreSQL, serving 250+ enterprise clients.',
+            'Optimized complex SQL queries and created composite indexes, eliminating database bottlenecks and cutting report generation from 18s to 1.2s.',
+            'Spearheaded automated GitHub Actions CI/CD pipelines, automating Docker builds and test validation with zero-downtime deployments.'
+          ]
+        });
+
+        bfEduContainer.innerHTML = '';
+        addEducationCard({
+          degree: 'B.S. in Computer Science',
+          school: 'University of Texas at Austin',
+          year: '2015 - 2019',
+          details: 'Magna Cum Laude • GPA: 3.85 / 4.0'
+        });
+
+        updateLivePaper();
+      }
+
+      btnSample.addEventListener('click', loadSampleProfile);
+
+      // Clear Form
+      btnClear.addEventListener('click', () => {
+        if (!confirm('Are you sure you want to clear all resume fields?')) return;
+        [bfName, bfTitle, bfEmail, bfPhone, bfLocation, bfLinkedin, bfPortfolio, bfSummary, bfSkills].forEach(inp => {
+          if (inp) inp.value = '';
+        });
+        bfExpContainer.innerHTML = '';
+        bfEduContainer.innerHTML = '';
+        updateLivePaper();
+      });
+
+      // Print / PDF
+      btnPrint.addEventListener('click', () => {
+        window.print();
+      });
+
+      // Export Word (.docx)
+      btnDocx.addEventListener('click', async () => {
+        const resumePayload = {
+          full_name: bfName.value.trim() || 'Alex Morgan',
+          target_role: bfTitle.value.trim() || 'Software Engineer',
+          contact_info: [bfEmail.value, bfPhone.value, bfLocation.value, bfLinkedin.value, bfPortfolio.value].filter(Boolean).join(' | '),
+          professional_summary: bfSummary.value.trim(),
+          skills: bfSkills.value.split(',').map(s => s.trim()).filter(Boolean),
+          experience: [],
+          education: []
+        };
+
+        const expItems = bfExpContainer.querySelectorAll('.dynamic-item');
+        expItems.forEach(item => {
+          resumePayload.experience.push({
+            title: item.querySelector('.exp-title').value.trim(),
+            company: item.querySelector('.exp-company').value.trim(),
+            dates: item.querySelector('.exp-dates').value.trim(),
+            location: item.querySelector('.exp-location').value.trim(),
+            bullets: Array.from(item.querySelectorAll('.exp-bullet')).map(b => b.value.trim()).filter(Boolean)
+          });
+        });
+
+        const eduItems = bfEduContainer.querySelectorAll('.dynamic-item');
+        eduItems.forEach(item => {
+          resumePayload.education.push({
+            degree: item.querySelector('.edu-degree').value.trim(),
+            school: item.querySelector('.edu-school').value.trim(),
+            year: item.querySelector('.edu-year').value.trim(),
+            details: item.querySelector('.edu-details').value.trim()
+          });
+        });
+
+        const origBtnText = btnDocx.textContent;
+        btnDocx.textContent = '⏳ Generating DOCX...';
+        btnDocx.disabled = true;
+
+        try {
+          const resp = await fetch('/api/download-resume-docx', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ resume_data: resumePayload })
+          });
+
+          if (!resp.ok) {
+            throw new Error('Server returned ' + resp.status);
+          }
+
+          const blob = await resp.blob();
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          const cleanName = (resumePayload.full_name || 'Resume').replace(/[^a-zA-Z0-9_-]/g, '_');
+          a.download = `${cleanName}_${activeTemplate.toUpperCase()}_Resume.docx`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(downloadUrl);
+        } catch (err) {
+          alert('Could not generate .docx file: ' + err.message);
+        } finally {
+          btnDocx.textContent = origBtnText;
+          btnDocx.disabled = false;
+        }
+      });
+
+      // Copy Text
+      btnCopy.addEventListener('click', async () => {
+        let plainText = `${bfName.value.toUpperCase()}\n`;
+        if (bfTitle.value) plainText += `${bfTitle.value}\n`;
+        const contacts = [bfEmail.value, bfPhone.value, bfLocation.value, bfLinkedin.value, bfPortfolio.value].filter(Boolean).join(' | ');
+        if (contacts) plainText += `${contacts}\n\n`;
+
+        if (bfSummary.value) {
+          plainText += `PROFESSIONAL SUMMARY\n${bfSummary.value}\n\n`;
+        }
+
+        if (bfSkills.value) {
+          plainText += `TECHNICAL SKILLS\n${bfSkills.value}\n\n`;
+        }
+
+        const expItems = bfExpContainer.querySelectorAll('.dynamic-item');
+        if (expItems.length > 0) {
+          plainText += `PROFESSIONAL EXPERIENCE\n`;
+          expItems.forEach(item => {
+            const title = item.querySelector('.exp-title').value.trim();
+            const company = item.querySelector('.exp-company').value.trim();
+            const dates = item.querySelector('.exp-dates').value.trim();
+            plainText += `${title} — ${company} (${dates})\n`;
+            item.querySelectorAll('.exp-bullet').forEach(b => {
+              if (b.value.trim()) plainText += `• ${b.value.trim()}\n`;
+            });
+            plainText += `\n`;
+          });
+        }
+
+        const eduItems = bfEduContainer.querySelectorAll('.dynamic-item');
+        if (eduItems.length > 0) {
+          plainText += `EDUCATION\n`;
+          eduItems.forEach(item => {
+            plainText += `${item.querySelector('.edu-degree').value.trim()} — ${item.querySelector('.edu-school').value.trim()} (${item.querySelector('.edu-year').value.trim()})\n`;
+          });
+        }
+
+        try {
+          await navigator.clipboard.writeText(plainText);
+          const orig = btnCopy.textContent;
+          btnCopy.textContent = '✓ Copied!';
+          setTimeout(() => { btnCopy.textContent = orig; }, 2000);
+        } catch (e) {
+          alert('Failed to copy to clipboard.');
+        }
+      });
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      // Check if template requested in hash
+      if (window.location.hash) {
+        const hash = window.location.hash.replace('#', '');
+        if (templateNames[hash]) selectTemplate(hash);
+      }
+
+      // Load initial sample profile
+      loadSampleProfile();
+
+    })();
+  </script>
+</body>
+</html>

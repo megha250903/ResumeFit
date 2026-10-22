@@ -1998,6 +1998,1147 @@
         padding: 0 !important;
         max-width: 100% !important;
       }
+
+      /* Print rules when printing from Builder tab */
+      .main-mode-switcher,
+      .tpl-selection-panel,
+      .builder-form-col,
+      .preview-toolbar,
+      .preview-mode-tag {
+        display: none !important;
+      }
+
+      body.mode-builder-active #view-analyzer {
+        display: none !important;
+      }
+
+      body.mode-builder-active .builder-workspace-grid {
+        display: block !important;
+      }
+
+      body.mode-builder-active .preview-sticky-wrap {
+        background: transparent !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+
+      body.mode-builder-active .builder-paper-canvas {
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 0 !important;
+      }
+
+      body.mode-builder-active .builder-paper {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+    }
+
+    /* ==========================================================================
+       Main Application Mode Switcher (Analyzer vs Builder)
+       ========================================================================== */
+    .main-mode-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .mode-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 24px;
+      background-color: var(--color-surface);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-ink-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mode-tab-btn:hover {
+      border-color: var(--color-blue);
+      color: var(--color-blue);
+      background-color: var(--color-blue-tint);
+    }
+
+    .mode-tab-btn.active {
+      background-color: var(--color-blue);
+      border-color: var(--color-blue);
+      color: #FFFFFF;
+      box-shadow: 0 6px 20px rgba(27, 42, 74, 0.28);
+    }
+
+    .mode-badge-new {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.04em;
+    }
+
+    /* ==========================================================================
+       Resume Builder & 5 Professional Templates
+       ========================================================================== */
+    .builder-view-container {
+      margin-top: 10px;
+    }
+
+    .tpl-selection-panel {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tpl-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tpl-panel-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-ink);
+    }
+
+    .tpl-panel-sub {
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+      margin-top: 2px;
+    }
+
+    .tpl-quick-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-builder-tool {
+      padding: 7px 14px;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-builder-tool:hover {
+      background-color: var(--color-blue-tint);
+      border-color: var(--color-blue);
+      color: var(--color-blue);
+    }
+
+    /* Template Cards Grid */
+    .tpl-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .tpl-card {
+      background-color: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+
+    .tpl-card:hover {
+      border-color: var(--color-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(12, 16, 51, 0.08);
+    }
+
+    .tpl-card.active {
+      border-color: var(--color-blue);
+      background-color: var(--color-surface);
+      box-shadow: 0 0 0 2px var(--color-blue), 0 8px 24px rgba(27, 42, 74, 0.15);
+    }
+
+    .tpl-card-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-blue);
+    }
+
+    .tpl-card-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      line-height: 1.25;
+    }
+
+    .tpl-card-desc {
+      font-size: 0.725rem;
+      color: var(--color-ink-muted);
+      line-height: 1.35;
+    }
+
+    /* Mini Template Thumbnail Previews */
+    .tpl-card-preview {
+      height: 60px;
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow: hidden;
+    }
+
+    .thumb-line {
+      height: 3px;
+      border-radius: 2px;
+      background-color: #CBD5E1;
+    }
+
+    .thumb-name {
+      height: 5px;
+      width: 50%;
+      margin: 0 auto 3px;
+      background-color: #1B2A4A;
+    }
+
+    .thumb-name.left {
+      margin: 0 0 3px 0;
+    }
+
+    .thumb-sub {
+      width: 70%;
+      margin: 0 auto;
+      height: 2px;
+    }
+
+    .thumb-divider {
+      height: 1px;
+      background-color: #1B2A4A;
+      margin: 2px 0;
+    }
+
+    .thumb-double-rule {
+      height: 3px;
+      border-top: 1px solid #111;
+      border-bottom: 1px solid #111;
+      margin: 2px 0;
+    }
+
+    .thumb-tags {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 2px;
+    }
+
+    .thumb-tags span {
+      height: 4px;
+      width: 14px;
+      background-color: #2563EB;
+      border-radius: 2px;
+    }
+
+    .thumb-sidebar {
+      position: absolute;
+      left: 12px;
+      top: 36px;
+      width: 4px;
+      height: 54px;
+      background-color: #2563EB;
+      border-radius: 2px;
+    }
+
+    .thumb-dense-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 2px;
+    }
+
+    .thumb-dense-grid span {
+      height: 3px;
+      background-color: #94A3B8;
+      border-radius: 1px;
+    }
+
+    /* Builder Split Workspace Layout */
+    .builder-workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .builder-form-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .builder-accordion-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .builder-sec-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .builder-sec-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: var(--color-blue);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .builder-sec-header h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 0;
+    }
+
+    .builder-form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: var(--color-ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .builder-input,
+    .builder-textarea {
+      width: 100%;
+      background-color: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-ink);
+      transition: all var(--transition);
+    }
+
+    .builder-input:focus,
+    .builder-textarea:focus {
+      outline: none;
+      border-color: var(--color-blue);
+      background-color: #FFFFFF;
+      box-shadow: 0 0 0 3px var(--color-blue-tint);
+    }
+
+    .btn-add-item {
+      padding: 4px 10px;
+      font-size: 0.775rem;
+      font-weight: 700;
+      background-color: var(--color-blue-tint);
+      color: var(--color-blue);
+      border: 1px solid var(--color-blue);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-add-item:hover {
+      background-color: var(--color-blue);
+      color: #FFFFFF;
+    }
+
+    /* Dynamic Items (Jobs & Education) */
+    .dynamic-items-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dynamic-item-card {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      position: relative;
+    }
+
+    .btn-remove-item {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #EF4444;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .bullet-input-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .btn-remove-bullet {
+      background: none;
+      border: none;
+      color: var(--color-ink-soft);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-remove-bullet:hover {
+      color: #EF4444;
+    }
+
+    .btn-add-bullet {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-blue);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+    }
+
+    .btn-add-bullet:hover {
+      text-decoration: underline;
+    }
+
+    /* Builder Right Column: Preview */
+    .builder-preview-col {
+      position: sticky;
+      top: 80px;
+    }
+
+    .preview-sticky-wrap {
+      background: linear-gradient(180deg, #E2E8F0 0%, #CBD5E1 100%);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .preview-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      background-color: #FFFFFF;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .preview-mode-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--color-blue);
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--color-match);
+    }
+
+    .preview-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-preview-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      background-color: var(--color-surface);
+      color: var(--color-ink);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.775rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-preview-action:hover {
+      border-color: var(--color-blue);
+      color: var(--color-blue);
+    }
+
+    .btn-preview-primary {
+      background-color: var(--color-blue);
+      color: #FFFFFF;
+      border-color: var(--color-blue);
+    }
+
+    .btn-preview-primary:hover {
+      background-color: #0d1a33;
+      color: #FFFFFF;
+    }
+
+    /* The Live Canvas & Paper */
+    .builder-paper-canvas {
+      max-height: 75vh;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .builder-paper {
+      background-color: #FFFFFF;
+      width: 100%;
+      min-height: 840px;
+      padding: 40px 48px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      border-radius: 2px;
+      color: #1E293B;
+      font-size: 0.875rem;
+      line-height: 1.45;
+      transition: all 0.2s ease;
+    }
+
+    /* Common Document Components inside Builder Paper */
+    .b-header {
+      margin-bottom: 16px;
+    }
+
+    .b-name {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .b-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .b-contact {
+      font-size: 0.8125rem;
+      color: #64748B;
+      margin-top: 4px;
+    }
+
+    .b-section {
+      margin-bottom: 16px;
+    }
+
+    .b-sec-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin: 0 0 8px 0;
+    }
+
+    .b-summary-text {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .b-skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .b-experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .bp-job-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .bp-job-title {
+      font-weight: 700;
+    }
+
+    .bp-job-company {
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .bp-job-meta {
+      font-size: 0.8rem;
+      color: #64748B;
+      font-style: italic;
+    }
+
+    .bp-bullets-list {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .bp-bullets-list li {
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .b-education-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bp-edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.85rem;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 1: Jake's Resume (The Default Choice - Overleaf 50k+ Forks)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-jake {
+      font-family: 'Times New Roman', 'Nimbus Roman No9 L', Times, serif;
+      color: #000000;
+      line-height: 1.35;
+    }
+
+    .builder-paper.tpl-jake .b-header {
+      text-align: center;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+    }
+
+    .builder-paper.tpl-jake .b-name {
+      font-size: 1.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #000000;
+      margin-bottom: 3px;
+    }
+
+    .builder-paper.tpl-jake .b-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #222222;
+      margin-bottom: 5px;
+    }
+
+    .builder-paper.tpl-jake .b-contact {
+      font-size: 0.825rem;
+      color: #333333;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 10px;
+    }
+
+    .builder-paper.tpl-jake .b-contact span:not(:last-child)::after {
+      content: " • ";
+      margin-left: 10px;
+      color: #777777;
+    }
+
+    .builder-paper.tpl-jake .b-sec-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #000000;
+      border-bottom: 1.5px solid #000000;
+      padding-bottom: 2px;
+      margin-bottom: 8px;
+    }
+
+    .builder-paper.tpl-jake .bp-job-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.875rem;
+    }
+
+    .builder-paper.tpl-jake .bp-job-title {
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .builder-paper.tpl-jake .bp-job-company {
+      font-style: italic;
+      color: #222222;
+    }
+
+    .builder-paper.tpl-jake .bp-job-dates {
+      font-size: 0.825rem;
+      color: #333333;
+    }
+
+    .builder-paper.tpl-jake .bp-bullets-list {
+      list-style-type: disc;
+      padding-left: 18px;
+      gap: 3px;
+      margin-top: 4px;
+    }
+
+    .builder-paper.tpl-jake .bp-bullets-list li {
+      font-size: 0.835rem;
+      line-height: 1.38;
+      color: #111111;
+    }
+
+    .builder-paper.tpl-jake .b-skill-pill {
+      font-size: 0.825rem;
+      color: #000000;
+      background: none;
+      padding: 0 4px;
+      border-radius: 0;
+      font-weight: 500;
+    }
+
+    .builder-paper.tpl-jake .b-skill-pill:not(:last-child)::after {
+      content: ", ";
+      margin-right: 2px;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 2: The McDowell CV / Apex Resume (FAANG-Proven)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-mcdowell {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #0F172A;
+      line-height: 1.32;
+    }
+
+    .builder-paper.tpl-mcdowell .b-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1E3A8A;
+      margin-bottom: 14px;
+    }
+
+    .builder-paper.tpl-mcdowell .b-name {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+    }
+
+    .builder-paper.tpl-mcdowell .b-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2563EB;
+      margin-top: 2px;
+    }
+
+    .builder-paper.tpl-mcdowell .b-contact {
+      text-align: right;
+      font-size: 0.8rem;
+      color: #475569;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .builder-paper.tpl-mcdowell .b-sec-title {
+      color: #1E3A8A;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid #2563EB;
+      padding-bottom: 2px;
+      margin-bottom: 8px;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-job-title {
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-job-company {
+      color: #2563EB;
+      font-weight: 600;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-job-dates {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-bullets-list {
+      list-style-type: square;
+      padding-left: 16px;
+      gap: 3px;
+    }
+
+    .builder-paper.tpl-mcdowell .bp-bullets-list li {
+      font-size: 0.825rem;
+      line-height: 1.34;
+      color: #1E293B;
+    }
+
+    .builder-paper.tpl-mcdowell .b-skill-pill {
+      font-family: monospace, sans-serif;
+      font-size: 0.775rem;
+      padding: 2px 7px;
+      background-color: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 3: ASG ATS Resume Template (Minimalist LaTeX)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-asg {
+      font-family: 'Tinos', 'Georgia', 'Times New Roman', serif;
+      color: #111827;
+      line-height: 1.36;
+    }
+
+    .builder-paper.tpl-asg .b-header {
+      text-align: center;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    .builder-paper.tpl-asg .b-name {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #111827;
+      text-transform: uppercase;
+    }
+
+    .builder-paper.tpl-asg .b-title {
+      font-size: 0.925rem;
+      font-style: italic;
+      color: #4B5563;
+      margin-bottom: 4px;
+    }
+
+    .builder-paper.tpl-asg .b-contact {
+      font-size: 0.8rem;
+      color: #4B5563;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+    }
+
+    .builder-paper.tpl-asg .b-sec-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #111827;
+      border-bottom: 0.75px solid #4B5563;
+      padding-bottom: 2px;
+      margin-bottom: 7px;
+    }
+
+    .builder-paper.tpl-asg .bp-job-title {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .builder-paper.tpl-asg .bp-job-company {
+      font-style: italic;
+      color: #374151;
+    }
+
+    .builder-paper.tpl-asg .bp-job-dates {
+      font-size: 0.8rem;
+      color: #4B5563;
+    }
+
+    .builder-paper.tpl-asg .bp-bullets-list {
+      list-style-type: circle;
+      padding-left: 17px;
+      gap: 3px;
+    }
+
+    .builder-paper.tpl-asg .bp-bullets-list li {
+      font-size: 0.825rem;
+      color: #1F2937;
+      line-height: 1.36;
+    }
+
+    .builder-paper.tpl-asg .b-skill-pill {
+      font-size: 0.8rem;
+      color: #1F2937;
+      background: none;
+      padding: 0 4px;
+    }
+
+    .builder-paper.tpl-asg .b-skill-pill:not(:last-child)::after {
+      content: " • ";
+      color: #9CA3AF;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 4: Universal Résumé Template (Web/Print Hybrid)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-universal {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #0F172A;
+      line-height: 1.4;
+    }
+
+    .builder-paper.tpl-universal .b-header {
+      text-align: left;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 16px;
+    }
+
+    .builder-paper.tpl-universal .b-name {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+    }
+
+    .builder-paper.tpl-universal .b-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #2563EB;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+
+    .builder-paper.tpl-universal .b-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 0.8rem;
+      color: #64748B;
+    }
+
+    .builder-paper.tpl-universal .b-sec-title {
+      font-size: 0.825rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #0F172A;
+      border-left: 3.5px solid #2563EB;
+      padding-left: 8px;
+      margin-bottom: 8px;
+    }
+
+    .builder-paper.tpl-universal .bp-job-title {
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .builder-paper.tpl-universal .bp-job-company {
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .builder-paper.tpl-universal .bp-job-dates {
+      font-size: 0.8rem;
+      color: #64748B;
+      font-weight: 500;
+    }
+
+    .builder-paper.tpl-universal .bp-bullets-list {
+      list-style-type: disc;
+      padding-left: 16px;
+      gap: 4px;
+    }
+
+    .builder-paper.tpl-universal .bp-bullets-list li {
+      font-size: 0.825rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .builder-paper.tpl-universal .b-skill-pill {
+      font-size: 0.775rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      background-color: #F8FAFC;
+      color: #334155;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+    }
+
+    /* --------------------------------------------------------------------------
+       TEMPLATE 5: BelResumé (Static Site / Portfolio Resume)
+       -------------------------------------------------------------------------- */
+    .builder-paper.tpl-belresume {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #111827;
+      line-height: 1.38;
+      border-top: 5px solid #4F46E5;
+      padding-top: 24px;
+    }
+
+    .builder-paper.tpl-belresume .b-header {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed #E0E7FF;
+    }
+
+    .builder-paper.tpl-belresume .b-name {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #1E1B4B;
+      letter-spacing: -0.01em;
+    }
+
+    .builder-paper.tpl-belresume .b-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #4F46E5;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+
+    .builder-paper.tpl-belresume .b-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 0.8rem;
+      color: #6B7280;
+    }
+
+    .builder-paper.tpl-belresume .b-sec-title {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background-color: #EEF2FF;
+      color: #4338CA;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .builder-paper.tpl-belresume .b-section {
+      border-left: 2px solid #EEF2FF;
+      padding-left: 14px;
+      margin-left: 2px;
+      margin-bottom: 16px;
+    }
+
+    .builder-paper.tpl-belresume .bp-job-title {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .builder-paper.tpl-belresume .bp-job-company {
+      font-weight: 600;
+      color: #4F46E5;
+    }
+
+    .builder-paper.tpl-belresume .bp-job-dates {
+      font-size: 0.8rem;
+      color: #6B7280;
+      font-weight: 500;
+    }
+
+    .builder-paper.tpl-belresume .bp-bullets-list {
+      list-style-type: square;
+      padding-left: 16px;
+      gap: 4px;
+    }
+
+    .builder-paper.tpl-belresume .bp-bullets-list li {
+      font-size: 0.825rem;
+      color: #374151;
+      line-height: 1.38;
+    }
+
+    .builder-paper.tpl-belresume .b-skill-pill {
+      font-size: 0.775rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      background-color: #4F46E5;
+      color: #FFFFFF;
+      border-radius: 12px;
     }
 
     /* ==========================================================================
@@ -2360,7 +3501,8 @@
       </a>
       <ul class="nav-links">
         <li><a href="#how-it-works" class="nav-link">How it works</a></li>
-        <li><a href="#tool" class="nav-btn">Start free scan</a></li>
+        <li><a href="#tool" class="nav-link" id="nav-link-analyzer">ATS Scan</a></li>
+        <li><a href="/builder" class="nav-btn" id="nav-btn-builder">✨ Create Resume</a></li>
       </ul>
     </div>
   </header>
@@ -2387,8 +3529,8 @@
               requirements, bullet edits that increase callbacks, and a personalized outreach email.
             </p>
             <div class="hero-actions">
-              <a href="#tool" class="btn-hero-primary">Scan your resume now</a>
-              <a href="#how-it-works" class="btn-hero-secondary">See how it works</a>
+              <a href="#tool" class="btn-hero-primary" id="hero-btn-scan">Scan your resume now</a>
+              <a href="/builder" class="btn-hero-secondary" id="hero-btn-builder">✨ Create Resume (5 Templates)</a>
             </div>
             <div class="hero-trust">
               <div class="hero-trust-item">
@@ -2508,20 +3650,45 @@
     <!-- Tool Section -->
     <section id="tool" class="tool-section" aria-labelledby="tool-heading">
       <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">Free analysis</div>
-          <h2 id="tool-heading" class="section-title">Compare your resume against any role</h2>
-          <p class="section-sub">Paste both documents below to identify gaps and tailor your application in seconds.</p>
+
+        <!-- Main Mode Switcher: ATS Scan vs Resume Builder -->
+        <div class="main-mode-switcher" role="tablist" aria-label="Tool mode selection">
+          <button type="button" role="tab" id="btn-mode-analyzer" class="mode-tab-btn active" aria-selected="true" aria-controls="view-analyzer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Match Analyzer</span>
+          </button>
+          <a href="/builder" class="mode-tab-btn" id="btn-mode-builder" style="text-decoration: none;" title="Open Resume Studio (5 Templates)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>✨ Create Resume (5 Templates)</span>
+            <span class="mode-badge-new">5 Pro Templates</span>
+          </a>
         </div>
 
-        <!-- Recent Scans History Bar -->
-        <div id="history-bar" class="history-bar" aria-label="Recent scans history">
-          <span class="history-label">Recent scans:</span>
-          <div id="history-chips" class="history-chips"></div>
-        </div>
+        <!-- View 1: Match Analyzer (ATS Scan & Tailoring) -->
+        <div id="view-analyzer">
+          <div class="section-header">
+            <div class="section-eyebrow">Free analysis</div>
+            <h2 id="tool-heading" class="section-title">Compare your resume against any role</h2>
+            <p class="section-sub">Paste both documents below to identify gaps and tailor your application in seconds.</p>
+          </div>
 
-        <div class="tool-card">
-          <form id="analyze-form" novalidate>
+          <!-- Recent Scans History Bar -->
+          <div id="history-bar" class="history-bar" aria-label="Recent scans history">
+            <span class="history-label">Recent scans:</span>
+            <div id="history-chips" class="history-chips"></div>
+          </div>
+
+          <div class="tool-card">
+            <form id="analyze-form" novalidate>
             <div class="tool-grid">
 
               <!-- Panel 1: Resume Input -->
@@ -2849,8 +4016,293 @@
               <p class="email-note">Tip: Formatted as a professional 1-page cover letter (300 words). Edit bracketed placeholders before submitting.</p>
             </div>
           </div>
-
+          <!-- closes tool-card -->
         </div>
+        </div>
+        <!-- End View 1: Match Analyzer / closes view-analyzer -->
+
+        <!-- View 2: Create Resume Builder (5 Pro Templates + Split Live Editor) -->
+        <div id="view-builder" class="builder-view-container" style="display: none;">
+          <!-- 1. Template Selection Bar & Quick Actions -->
+          <div class="tpl-selection-panel">
+            <div class="tpl-panel-header">
+              <div>
+                <h3 class="tpl-panel-title">Choose Professional Resume Template</h3>
+                <p class="tpl-panel-sub">Select from 5 ATS-tested formats engineered for typography, visual hierarchy, and recruiter readability.</p>
+              </div>
+              <div class="tpl-quick-tools">
+                <a href="/builder" target="_blank" rel="noopener noreferrer" class="btn-builder-tool" style="text-decoration: none; background: var(--color-blue); color: #FFFFFF; border-color: var(--color-blue); font-weight: 700;" title="Open full page editor in new browser tab">
+                  🚀 Open Full Page Studio ↗
+                </a>
+                <button type="button" class="btn-builder-tool" id="btn-builder-sample" title="Pre-fill form with a realistic engineering profile">
+                  ✨ Load Sample Profile
+                </button>
+                <button type="button" class="btn-builder-tool" id="btn-builder-clear" title="Reset all fields to blank slate">
+                  🗑️ Clear Form
+                </button>
+              </div>
+            </div>
+
+            <!-- 5 Template Selection Cards Grid -->
+            <div class="tpl-cards-grid" role="radiogroup" aria-label="Resume Templates">
+              <!-- Template 1: Jake's Resume (The Default Choice) -->
+              <div class="tpl-card active" data-template="jake" role="radio" aria-checked="true" tabindex="0">
+                <span class="tpl-card-badge">01 • Most-Forked Overleaf</span>
+                <div class="tpl-card-preview" aria-hidden="true">
+                  <div class="thumb-line thumb-name"></div>
+                  <div class="thumb-line thumb-sub"></div>
+                  <div class="thumb-divider"></div>
+                  <div class="thumb-line" style="width: 90%;"></div>
+                  <div class="thumb-line" style="width: 75%;"></div>
+                </div>
+                <div class="tpl-card-name">Jake's Resume</div>
+                <div class="tpl-card-desc">The default choice on Overleaf (50k+ forks). Single-column, 1-page, pure ATS clarity.</div>
+              </div>
+
+              <!-- Template 2: The McDowell CV / Apex Resume -->
+              <div class="tpl-card" data-template="mcdowell" role="radio" aria-checked="false" tabindex="0">
+                <span class="tpl-card-badge">02 • FAANG-Proven</span>
+                <div class="tpl-card-preview" aria-hidden="true">
+                  <div class="thumb-line thumb-name left"></div>
+                  <div class="thumb-tags">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="thumb-line" style="width: 88%;"></div>
+                  <div class="thumb-line" style="width: 72%;"></div>
+                </div>
+                <div class="tpl-card-name">The McDowell CV / Apex</div>
+                <div class="tpl-card-desc">Derived from Cracking the Coding Interview. High-density, project-first, lands Google & Meta roles.</div>
+              </div>
+
+              <!-- Template 3: ASG ATS Resume Template -->
+              <div class="tpl-card" data-template="asg" role="radio" aria-checked="false" tabindex="0">
+                <span class="tpl-card-badge">03 • Minimalist LaTeX</span>
+                <div class="tpl-card-preview" aria-hidden="true">
+                  <div class="thumb-line thumb-name"></div>
+                  <div class="thumb-double-rule"></div>
+                  <div class="thumb-line" style="width: 92%;"></div>
+                  <div class="thumb-line" style="width: 80%;"></div>
+                </div>
+                <div class="tpl-card-name">ASG ATS Resume</div>
+                <div class="tpl-card-desc">Clean, exact serif layout for experienced engineers. Tinos font, thin section dividers, zero clutter.</div>
+              </div>
+
+              <!-- Template 4: Universal Résumé Template -->
+              <div class="tpl-card" data-template="universal" role="radio" aria-checked="false" tabindex="0">
+                <span class="tpl-card-badge">04 • Web/Print Hybrid</span>
+                <div class="tpl-card-preview" aria-hidden="true" style="position: relative;">
+                  <div class="thumb-sidebar"></div>
+                  <div class="thumb-line thumb-name left" style="margin-left: 8px;"></div>
+                  <div class="thumb-line" style="width: 75%; margin-left: 8px;"></div>
+                  <div class="thumb-line" style="width: 85%; margin-left: 8px;"></div>
+                </div>
+                <div class="tpl-card-name">Universal Résumé</div>
+                <div class="tpl-card-desc">Tailwind CSS pragmatic pick. Identical proportions on screen & print, scannable tags, formal layout.</div>
+              </div>
+
+              <!-- Template 5: BelResumé (Static Site Resume) -->
+              <div class="tpl-card" data-template="belresume" role="radio" aria-checked="false" tabindex="0">
+                <span class="tpl-card-badge">05 • Static Portfolio</span>
+                <div class="tpl-card-preview" aria-hidden="true">
+                  <div class="thumb-dense-grid">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+                  <div class="thumb-line" style="width: 100%;"></div>
+                  <div class="thumb-line" style="width: 90%;"></div>
+                </div>
+                <div class="tpl-card-name">BelResumé (Static Site)</div>
+                <div class="tpl-card-desc">Zola & Tailwind modular resume with portfolio aesthetic, independent section modules, and clean chips.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Split Workspace Grid: Left Form Editor, Right Live Paper Canvas -->
+          <div class="builder-workspace-grid">
+            
+            <!-- Left Column: Form Editor -->
+            <div class="builder-form-col">
+              
+              <!-- Card 1: Personal & Contact Information -->
+              <div class="builder-accordion-card">
+                <div class="builder-sec-header">
+                  <span class="builder-sec-num">1</span>
+                  <h4>Personal & Contact Details</h4>
+                </div>
+                <div class="builder-form-fields">
+                  <div class="form-row-2">
+                    <div class="form-group">
+                      <label for="bf-name">Full Name *</label>
+                      <input type="text" id="bf-name" class="builder-input" placeholder="e.g. Alex Morgan" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                      <label for="bf-title">Target Job Title</label>
+                      <input type="text" id="bf-title" class="builder-input" placeholder="e.g. Senior Software Engineer">
+                    </div>
+                  </div>
+                  <div class="form-row-2">
+                    <div class="form-group">
+                      <label for="bf-email">Email Address</label>
+                      <input type="email" id="bf-email" class="builder-input" placeholder="alex.morgan@email.com" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                      <label for="bf-phone">Phone Number</label>
+                      <input type="tel" id="bf-phone" class="builder-input" placeholder="+1 (555) 019-2834" autocomplete="tel">
+                    </div>
+                  </div>
+                  <div class="form-row-2">
+                    <div class="form-group">
+                      <label for="bf-location">Location</label>
+                      <input type="text" id="bf-location" class="builder-input" placeholder="San Francisco, CA (or Remote)">
+                    </div>
+                    <div class="form-group">
+                      <label for="bf-linkedin">LinkedIn URL / Handle</label>
+                      <input type="text" id="bf-linkedin" class="builder-input" placeholder="linkedin.com/in/alexmorgan">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="bf-portfolio">Portfolio / GitHub / Website</label>
+                    <input type="text" id="bf-portfolio" class="builder-input" placeholder="github.com/alexmorgan or alexmorgan.dev">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Professional Summary -->
+              <div class="builder-accordion-card">
+                <div class="builder-sec-header">
+                  <span class="builder-sec-num">2</span>
+                  <h4>Professional Summary</h4>
+                </div>
+                <div class="form-group">
+                  <label for="bf-summary">Executive Summary (2-4 Sentences)</label>
+                  <textarea id="bf-summary" class="builder-textarea" rows="4" placeholder="Results-driven Software Engineer with 6+ years building scalable distributed microservices, REST APIs, and responsive web applications. Track record of improving system uptime to 99.99% and accelerating release velocity by 40%."></textarea>
+                </div>
+              </div>
+
+              <!-- Card 3: Core Skills -->
+              <div class="builder-accordion-card">
+                <div class="builder-sec-header">
+                  <span class="builder-sec-num">3</span>
+                  <h4>Core Skills & Technologies</h4>
+                </div>
+                <div class="form-group">
+                  <label for="bf-skills">Comma-Separated Skills (ATS Keywords)</label>
+                  <textarea id="bf-skills" class="builder-textarea" rows="3" placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, Kubernetes, AWS, Redis, GraphQL, CI/CD, System Design"></textarea>
+                  <span style="font-size: 0.725rem; color: var(--color-ink-muted); margin-top: 4px;">Separate with commas. The selected template automatically formats them into stylish badges or clean lists.</span>
+                </div>
+              </div>
+
+              <!-- Card 4: Work Experience -->
+              <div class="builder-accordion-card">
+                <div class="builder-sec-header" style="justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="builder-sec-num">4</span>
+                    <h4>Work Experience</h4>
+                  </div>
+                  <button type="button" class="btn-add-item" id="btn-add-experience">+ Add Position</button>
+                </div>
+                <div id="bf-experience-container" class="dynamic-items-container">
+                  <!-- Experience cards populated dynamically via JS -->
+                </div>
+              </div>
+
+              <!-- Card 5: Education -->
+              <div class="builder-accordion-card">
+                <div class="builder-sec-header" style="justify-content: space-between;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="builder-sec-num">5</span>
+                    <h4>Education & Credentials</h4>
+                  </div>
+                  <button type="button" class="btn-add-item" id="btn-add-education">+ Add Degree</button>
+                </div>
+                <div id="bf-education-container" class="dynamic-items-container">
+                  <!-- Education cards populated dynamically via JS -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Live Paper Canvas -->
+            <div class="builder-preview-col">
+              <div class="preview-sticky-wrap">
+                <div class="preview-toolbar">
+                  <div class="preview-mode-tag">
+                    <span class="tag-dot"></span>
+                    <span id="preview-template-label">Modern Executive</span> (Live Preview)
+                  </div>
+                  <div class="preview-actions">
+                    <button type="button" class="btn-preview-action btn-preview-primary" id="btn-builder-docx" title="Download ATS formatted Word document">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                      </svg>
+                      <span>Download .DOCX</span>
+                    </button>
+                    <button type="button" class="btn-preview-action" id="btn-builder-print" title="Print or save as PDF">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                      </svg>
+                      <span>Print / PDF</span>
+                    </button>
+                    <button type="button" class="btn-preview-action" id="btn-builder-copy" title="Copy plaintext resume">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                      <span id="btn-builder-copy-text">Copy Text</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Canvas Wrapper -->
+                <div class="builder-paper-canvas">
+                  <div id="builder-paper" class="builder-paper tpl-executive">
+                    
+                    <!-- Paper Header -->
+                    <div class="b-header">
+                      <h1 class="b-name" id="bp-name">Alex Morgan</h1>
+                      <div class="b-title" id="bp-title">Senior Software Engineer</div>
+                      <div class="b-header-rule"></div>
+                      <div class="b-contact" id="bp-contact">
+                        alex.morgan@email.com • +1 (555) 019-2834 • San Francisco, CA • linkedin.com/in/alexmorgan • github.com/alexmorgan
+                      </div>
+                    </div>
+
+                    <!-- Summary Section -->
+                    <div class="b-section" id="bp-sec-summary">
+                      <h3 class="b-sec-title">PROFESSIONAL SUMMARY</h3>
+                      <p class="b-summary-text" id="bp-summary"></p>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <div class="b-section" id="bp-sec-skills">
+                      <h3 class="b-sec-title">CORE COMPETENCIES</h3>
+                      <div class="b-skills-wrap" id="bp-skills-wrap"></div>
+                    </div>
+
+                    <!-- Experience Section -->
+                    <div class="b-section" id="bp-sec-experience">
+                      <h3 class="b-sec-title">PROFESSIONAL EXPERIENCE</h3>
+                      <div class="b-experience-list" id="bp-experience-list"></div>
+                    </div>
+
+                    <!-- Education Section -->
+                    <div class="b-section" id="bp-sec-education">
+                      <h3 class="b-sec-title">EDUCATION & CREDENTIALS</h3>
+                      <div class="b-education-list" id="bp-education-list"></div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- End View 2: Create Resume Builder -->
       </div>
     </section>
   </main>
@@ -3990,6 +5442,750 @@
       }
 
       initBookmarklet();
+
+      // ======================================================================
+      // Interactive Resume Builder & 5 Professional Templates Module
+      // ======================================================================
+      function initResumeBuilder() {
+        const btnModeAnalyzer = document.getElementById('btn-mode-analyzer');
+        const btnModeBuilder = document.getElementById('btn-mode-builder');
+        const viewAnalyzer = document.getElementById('view-analyzer');
+        const viewBuilder = document.getElementById('view-builder');
+        const navLinkAnalyzer = document.getElementById('nav-link-analyzer');
+        const navBtnBuilder = document.getElementById('nav-btn-builder');
+        const heroBtnScan = document.getElementById('hero-btn-scan');
+        const heroBtnBuilder = document.getElementById('hero-btn-builder');
+
+        const tplCards = document.querySelectorAll('.tpl-card');
+        const builderPaper = document.getElementById('builder-paper');
+        const previewTplLabel = document.getElementById('preview-template-label');
+
+        const bfName = document.getElementById('bf-name');
+        const bfTitle = document.getElementById('bf-title');
+        const bfEmail = document.getElementById('bf-email');
+        const bfPhone = document.getElementById('bf-phone');
+        const bfLocation = document.getElementById('bf-location');
+        const bfLinkedin = document.getElementById('bf-linkedin');
+        const bfPortfolio = document.getElementById('bf-portfolio');
+        const bfSummary = document.getElementById('bf-summary');
+        const bfSkills = document.getElementById('bf-skills');
+        const bfExpContainer = document.getElementById('bf-experience-container');
+        const bfEduContainer = document.getElementById('bf-education-container');
+
+        const btnAddExp = document.getElementById('btn-add-experience');
+        const btnAddEdu = document.getElementById('btn-add-education');
+        const btnSample = document.getElementById('btn-builder-sample');
+        const btnClear = document.getElementById('btn-builder-clear');
+
+        const btnDocx = document.getElementById('btn-builder-docx');
+        const btnPrint = document.getElementById('btn-builder-print');
+        const btnCopy = document.getElementById('btn-builder-copy');
+        const btnCopyText = document.getElementById('btn-builder-copy-text');
+
+        const bpName = document.getElementById('bp-name');
+        const bpTitle = document.getElementById('bp-title');
+        const bpContact = document.getElementById('bp-contact');
+        const bpSecSummary = document.getElementById('bp-sec-summary');
+        const bpSummary = document.getElementById('bp-summary');
+        const bpSecSkills = document.getElementById('bp-sec-skills');
+        const bpSkillsWrap = document.getElementById('bp-skills-wrap');
+        const bpSecExp = document.getElementById('bp-sec-experience');
+        const bpExpList = document.getElementById('bp-experience-list');
+        const bpSecEdu = document.getElementById('bp-sec-education');
+        const bpEduList = document.getElementById('bp-education-list');
+
+        let fullBuilderPlainText = '';
+
+        // Mode Switching
+        function setAppMode(mode, shouldScroll) {
+          if (mode === 'builder') {
+            if (viewAnalyzer) viewAnalyzer.style.display = 'none';
+            if (viewBuilder) viewBuilder.style.display = 'block';
+            if (btnModeAnalyzer) {
+              btnModeAnalyzer.classList.remove('active');
+              btnModeAnalyzer.setAttribute('aria-selected', 'false');
+            }
+            if (btnModeBuilder) {
+              btnModeBuilder.classList.add('active');
+              btnModeBuilder.setAttribute('aria-selected', 'true');
+            }
+            document.body.classList.add('mode-builder-active');
+          } else {
+            if (viewAnalyzer) viewAnalyzer.style.display = 'block';
+            if (viewBuilder) viewBuilder.style.display = 'none';
+            if (btnModeAnalyzer) {
+              btnModeAnalyzer.classList.add('active');
+              btnModeAnalyzer.setAttribute('aria-selected', 'true');
+            }
+            if (btnModeBuilder) {
+              btnModeBuilder.classList.remove('active');
+              btnModeBuilder.setAttribute('aria-selected', 'false');
+            }
+            document.body.classList.remove('mode-builder-active');
+          }
+
+          if (shouldScroll) {
+            const toolEl = document.getElementById('tool');
+            if (toolEl) toolEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+
+        if (btnModeAnalyzer) btnModeAnalyzer.addEventListener('click', () => setAppMode('analyzer', false));
+        if (navLinkAnalyzer) navLinkAnalyzer.addEventListener('click', () => setAppMode('analyzer', true));
+        if (heroBtnScan) heroBtnScan.addEventListener('click', () => setAppMode('analyzer', true));
+
+        // If user enters with #builder hash, redirect to /builder in same tab
+        if (window.location.hash === '#builder') {
+          window.location.href = '/builder';
+        }
+        window.addEventListener('hashchange', () => {
+          if (window.location.hash === '#builder') {
+            window.location.href = '/builder';
+          } else if (window.location.hash === '#tool') {
+            setAppMode('analyzer', true);
+          }
+        });
+
+        // 5 Templates Switching
+        const templateNames = {
+          jake: "Jake's Resume (The Default Choice)",
+          mcdowell: "The McDowell CV / Apex Resume (FAANG-Proven)",
+          asg: "ASG ATS Resume Template (Minimalist LaTeX)",
+          universal: "Universal Résumé Template (Web/Print Hybrid)",
+          belresume: "BelResumé (Static Site Resume)"
+        };
+
+        function selectTemplate(tplKey) {
+          if (!templateNames[tplKey]) tplKey = 'jake';
+          tplCards.forEach(card => {
+            const isMatch = card.getAttribute('data-template') === tplKey;
+            card.classList.toggle('active', isMatch);
+            card.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+          });
+          if (builderPaper) {
+            builderPaper.className = 'builder-paper tpl-' + tplKey;
+          }
+          if (previewTplLabel) {
+            previewTplLabel.textContent = templateNames[tplKey];
+          }
+        }
+
+        tplCards.forEach(card => {
+          card.addEventListener('click', () => {
+            const key = card.getAttribute('data-template');
+            selectTemplate(key);
+          });
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              selectTemplate(card.getAttribute('data-template'));
+            }
+          });
+        });
+
+        // Dynamic Experience Positions
+        function addExperienceCard(data) {
+          data = data || {};
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+
+          const removeBtn = document.createElement('button');
+          removeBtn.type = 'button';
+          removeBtn.className = 'btn-remove-item';
+          removeBtn.title = 'Remove position';
+          removeBtn.textContent = '✕';
+          removeBtn.addEventListener('click', () => {
+            card.remove();
+            updateLivePaper();
+          });
+          card.appendChild(removeBtn);
+
+          const row1 = document.createElement('div');
+          row1.className = 'form-row-2';
+          row1.style.marginBottom = '8px';
+
+          const gTitle = document.createElement('div');
+          gTitle.className = 'form-group';
+          const lblTitle = document.createElement('label');
+          lblTitle.textContent = 'Job Title';
+          const inpTitle = document.createElement('input');
+          inpTitle.type = 'text';
+          inpTitle.className = 'builder-input exp-input-title';
+          inpTitle.placeholder = 'e.g. Lead Software Engineer';
+          inpTitle.value = data.title || '';
+          inpTitle.addEventListener('input', updateLivePaper);
+          gTitle.appendChild(lblTitle);
+          gTitle.appendChild(inpTitle);
+
+          const gComp = document.createElement('div');
+          gComp.className = 'form-group';
+          const lblComp = document.createElement('label');
+          lblComp.textContent = 'Company Name';
+          const inpComp = document.createElement('input');
+          inpComp.type = 'text';
+          inpComp.className = 'builder-input exp-input-company';
+          inpComp.placeholder = 'e.g. Stripe';
+          inpComp.value = data.company || '';
+          inpComp.addEventListener('input', updateLivePaper);
+          gComp.appendChild(lblComp);
+          gComp.appendChild(inpComp);
+
+          row1.appendChild(gTitle);
+          row1.appendChild(gComp);
+          card.appendChild(row1);
+
+          const row2 = document.createElement('div');
+          row2.className = 'form-row-2';
+          row2.style.marginBottom = '8px';
+
+          const gDates = document.createElement('div');
+          gDates.className = 'form-group';
+          const lblDates = document.createElement('label');
+          lblDates.textContent = 'Dates / Duration';
+          const inpDates = document.createElement('input');
+          inpDates.type = 'text';
+          inpDates.className = 'builder-input exp-input-dates';
+          inpDates.placeholder = 'e.g. 2022 - Present';
+          inpDates.value = data.dates || '';
+          inpDates.addEventListener('input', updateLivePaper);
+          gDates.appendChild(lblDates);
+          gDates.appendChild(inpDates);
+
+          const gLoc = document.createElement('div');
+          gLoc.className = 'form-group';
+          const lblLoc = document.createElement('label');
+          lblLoc.textContent = 'Location';
+          const inpLoc = document.createElement('input');
+          inpLoc.type = 'text';
+          inpLoc.className = 'builder-input exp-input-location';
+          inpLoc.placeholder = 'e.g. San Francisco, CA (or Remote)';
+          inpLoc.value = data.location || '';
+          inpLoc.addEventListener('input', updateLivePaper);
+          gLoc.appendChild(lblLoc);
+          gLoc.appendChild(inpLoc);
+
+          row2.appendChild(gDates);
+          row2.appendChild(gLoc);
+          card.appendChild(row2);
+
+          const bulletsWrap = document.createElement('div');
+          bulletsWrap.className = 'form-group';
+          const lblBullets = document.createElement('label');
+          lblBullets.textContent = 'Bullet Achievements & Impact';
+          bulletsWrap.appendChild(lblBullets);
+
+          const bulletsList = document.createElement('div');
+          bulletsList.className = 'bullet-inputs-container';
+          bulletsWrap.appendChild(bulletsList);
+
+          function addBulletInput(val) {
+            const brow = document.createElement('div');
+            brow.className = 'bullet-input-row';
+            const binp = document.createElement('input');
+            binp.type = 'text';
+            binp.className = 'builder-input exp-input-bullet';
+            binp.placeholder = '• Quantified result or achievement (e.g. Scaled API to 10M requests/day)...';
+            binp.value = val || '';
+            binp.addEventListener('input', updateLivePaper);
+
+            const bremove = document.createElement('button');
+            bremove.type = 'button';
+            bremove.className = 'btn-remove-bullet';
+            bremove.textContent = '✕';
+            bremove.title = 'Remove bullet';
+            bremove.addEventListener('click', () => {
+              brow.remove();
+              updateLivePaper();
+            });
+
+            brow.appendChild(binp);
+            brow.appendChild(bremove);
+            bulletsList.appendChild(brow);
+          }
+
+          const initialBullets = (Array.isArray(data.bullets) && data.bullets.length > 0)
+            ? data.bullets
+            : [''];
+          initialBullets.forEach(b => addBulletInput(b));
+
+          const addBulletBtn = document.createElement('button');
+          addBulletBtn.type = 'button';
+          addBulletBtn.className = 'btn-add-bullet';
+          addBulletBtn.textContent = '+ Add bullet achievement';
+          addBulletBtn.addEventListener('click', () => {
+            addBulletInput('');
+            updateLivePaper();
+          });
+          bulletsWrap.appendChild(addBulletBtn);
+
+          card.appendChild(bulletsWrap);
+          if (bfExpContainer) bfExpContainer.appendChild(card);
+          updateLivePaper();
+        }
+
+        // Dynamic Education Credentials
+        function addEducationCard(data) {
+          data = data || {};
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+
+          const removeBtn = document.createElement('button');
+          removeBtn.type = 'button';
+          removeBtn.className = 'btn-remove-item';
+          removeBtn.title = 'Remove education';
+          removeBtn.textContent = '✕';
+          removeBtn.addEventListener('click', () => {
+            card.remove();
+            updateLivePaper();
+          });
+          card.appendChild(removeBtn);
+
+          const row1 = document.createElement('div');
+          row1.className = 'form-row-2';
+          row1.style.marginBottom = '8px';
+
+          const gDeg = document.createElement('div');
+          gDeg.className = 'form-group';
+          const lblDeg = document.createElement('label');
+          lblDeg.textContent = 'Degree & Major';
+          const inpDeg = document.createElement('input');
+          inpDeg.type = 'text';
+          inpDeg.className = 'builder-input edu-input-degree';
+          inpDeg.placeholder = 'e.g. B.S. in Computer Science';
+          inpDeg.value = data.degree || '';
+          inpDeg.addEventListener('input', updateLivePaper);
+          gDeg.appendChild(lblDeg);
+          gDeg.appendChild(inpDeg);
+
+          const gSch = document.createElement('div');
+          gSch.className = 'form-group';
+          const lblSch = document.createElement('label');
+          lblSch.textContent = 'University / School';
+          const inpSch = document.createElement('input');
+          inpSch.type = 'text';
+          inpSch.className = 'builder-input edu-input-school';
+          inpSch.placeholder = 'e.g. Stanford University';
+          inpSch.value = data.school || '';
+          inpSch.addEventListener('input', updateLivePaper);
+          gSch.appendChild(lblSch);
+          gSch.appendChild(inpSch);
+
+          row1.appendChild(gDeg);
+          row1.appendChild(gSch);
+          card.appendChild(row1);
+
+          const row2 = document.createElement('div');
+          row2.className = 'form-row-2';
+
+          const gYr = document.createElement('div');
+          gYr.className = 'form-group';
+          const lblYr = document.createElement('label');
+          lblYr.textContent = 'Graduation Year';
+          const inpYr = document.createElement('input');
+          inpYr.type = 'text';
+          inpYr.className = 'builder-input edu-input-year';
+          inpYr.placeholder = 'e.g. 2016 - 2020';
+          inpYr.value = data.year || '';
+          inpYr.addEventListener('input', updateLivePaper);
+          gYr.appendChild(lblYr);
+          gYr.appendChild(inpYr);
+
+          const gHonors = document.createElement('div');
+          gHonors.className = 'form-group';
+          const lblHonors = document.createElement('label');
+          lblHonors.textContent = 'Honors / GPA / Minor';
+          const inpHonors = document.createElement('input');
+          inpHonors.type = 'text';
+          inpHonors.className = 'builder-input edu-input-honors';
+          inpHonors.placeholder = 'e.g. Magna Cum Laude • GPA 3.9/4.0';
+          inpHonors.value = data.details || '';
+          inpHonors.addEventListener('input', updateLivePaper);
+          gHonors.appendChild(lblHonors);
+          gHonors.appendChild(inpHonors);
+
+          row2.appendChild(gYr);
+          row2.appendChild(gHonors);
+          card.appendChild(row2);
+
+          if (bfEduContainer) bfEduContainer.appendChild(card);
+          updateLivePaper();
+        }
+
+        // Live Paper Rendering (Real-time synchronization)
+        function updateLivePaper() {
+          if (!builderPaper) return;
+
+          const nameVal = bfName ? (bfName.value.trim() || 'Alex Morgan') : 'Alex Morgan';
+          const titleVal = bfTitle ? (bfTitle.value.trim() || 'Senior Software Engineer') : 'Senior Software Engineer';
+          if (bpName) bpName.textContent = nameVal;
+          if (bpTitle) bpTitle.textContent = titleVal;
+
+          const email = bfEmail ? bfEmail.value.trim() : '';
+          const phone = bfPhone ? bfPhone.value.trim() : '';
+          const loc = bfLocation ? bfLocation.value.trim() : '';
+          const linkedin = bfLinkedin ? bfLinkedin.value.trim() : '';
+          const portfolio = bfPortfolio ? bfPortfolio.value.trim() : '';
+          const contactParts = [email, phone, loc, linkedin, portfolio].filter(Boolean);
+          if (bpContact) {
+            bpContact.textContent = contactParts.length > 0 ? contactParts.join(' • ') : 'alex.morgan@email.com • +1 (555) 019-2834 • San Francisco, CA';
+          }
+
+          const ptLines = [];
+          ptLines.push(nameVal);
+          if (titleVal) ptLines.push(titleVal);
+          if (contactParts.length) ptLines.push(contactParts.join(' | '));
+          ptLines.push('\n');
+
+          // Summary
+          const summaryVal = bfSummary ? bfSummary.value.trim() : '';
+          if (bpSummary && bpSecSummary) {
+            if (summaryVal) {
+              bpSummary.textContent = summaryVal;
+              bpSecSummary.style.display = 'block';
+              ptLines.push('PROFESSIONAL SUMMARY:');
+              ptLines.push(summaryVal);
+              ptLines.push('\n');
+            } else {
+              bpSecSummary.style.display = 'none';
+            }
+          }
+
+          // Skills
+          const skillsVal = bfSkills ? bfSkills.value.trim() : '';
+          if (bpSkillsWrap && bpSecSkills) {
+            bpSkillsWrap.innerHTML = '';
+            if (skillsVal) {
+              bpSecSkills.style.display = 'block';
+              const skillsArr = skillsVal.split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
+              skillsArr.forEach(s => {
+                const pill = document.createElement('span');
+                pill.className = 'b-skill-pill';
+                pill.textContent = s;
+                bpSkillsWrap.appendChild(pill);
+              });
+              ptLines.push('CORE SKILLS:');
+              ptLines.push(skillsArr.join(' • '));
+              ptLines.push('\n');
+            } else {
+              bpSecSkills.style.display = 'none';
+            }
+          }
+
+          // Experience
+          if (bpExpList && bpSecExp) {
+            bpExpList.innerHTML = '';
+            const expCards = bfExpContainer ? bfExpContainer.querySelectorAll('.dynamic-item-card') : [];
+            if (expCards.length > 0) {
+              bpSecExp.style.display = 'block';
+              ptLines.push('PROFESSIONAL EXPERIENCE:');
+
+              expCards.forEach(card => {
+                const title = (card.querySelector('.exp-input-title')?.value || '').trim();
+                const comp = (card.querySelector('.exp-input-company')?.value || '').trim();
+                const dates = (card.querySelector('.exp-input-dates')?.value || '').trim();
+                const loc = (card.querySelector('.exp-input-location')?.value || '').trim();
+                const bulletInputs = card.querySelectorAll('.exp-input-bullet');
+                const bullets = [];
+                bulletInputs.forEach(bi => {
+                  const bText = bi.value.trim();
+                  if (bText) bullets.push(bText);
+                });
+
+                if (!title && !comp && !bullets.length) return;
+
+                const jobEl = document.createElement('div');
+                jobEl.className = 'bp-job-item';
+
+                const headEl = document.createElement('div');
+                headEl.className = 'bp-job-head';
+
+                const leftEl = document.createElement('div');
+                const titleEl = document.createElement('span');
+                titleEl.className = 'bp-job-title';
+                titleEl.textContent = title || 'Position';
+                leftEl.appendChild(titleEl);
+
+                if (comp) {
+                  const compEl = document.createElement('span');
+                  compEl.className = 'bp-job-company';
+                  compEl.textContent = ' | ' + comp;
+                  leftEl.appendChild(compEl);
+                }
+                headEl.appendChild(leftEl);
+
+                const rightParts = [dates, loc].filter(Boolean);
+                if (rightParts.length) {
+                  const metaEl = document.createElement('span');
+                  metaEl.className = 'bp-job-meta';
+                  metaEl.textContent = rightParts.join(' — ');
+                  headEl.appendChild(metaEl);
+                }
+
+                jobEl.appendChild(headEl);
+
+                let ptJobHead = title;
+                if (comp) ptJobHead += ' | ' + comp;
+                if (rightParts.length) ptJobHead += ' (' + rightParts.join(', ') + ')';
+                ptLines.push(ptJobHead);
+
+                if (bullets.length > 0) {
+                  const ul = document.createElement('ul');
+                  ul.className = 'bp-bullets-list';
+                  bullets.forEach(b => {
+                    const li = document.createElement('li');
+                    li.textContent = b;
+                    ul.appendChild(li);
+                    ptLines.push('  • ' + b);
+                  });
+                  jobEl.appendChild(ul);
+                }
+                ptLines.push('');
+                bpExpList.appendChild(jobEl);
+              });
+            } else {
+              bpSecExp.style.display = 'none';
+            }
+          }
+
+          // Education
+          if (bpEduList && bpSecEdu) {
+            bpEduList.innerHTML = '';
+            const eduCards = bfEduContainer ? bfEduContainer.querySelectorAll('.dynamic-item-card') : [];
+            if (eduCards.length > 0) {
+              bpSecEdu.style.display = 'block';
+              ptLines.push('EDUCATION & CREDENTIALS:');
+
+              eduCards.forEach(card => {
+                const deg = (card.querySelector('.edu-input-degree')?.value || '').trim();
+                const sch = (card.querySelector('.edu-input-school')?.value || '').trim();
+                const yr = (card.querySelector('.edu-input-year')?.value || '').trim();
+                const honors = (card.querySelector('.edu-input-honors')?.value || '').trim();
+
+                if (!deg && !sch) return;
+
+                const eduEl = document.createElement('div');
+                eduEl.className = 'bp-edu-item';
+
+                const leftEl = document.createElement('div');
+                const degEl = document.createElement('strong');
+                degEl.textContent = deg || 'Degree';
+                leftEl.appendChild(degEl);
+
+                if (sch) {
+                  const schEl = document.createElement('span');
+                  schEl.textContent = ' — ' + sch;
+                  leftEl.appendChild(schEl);
+                }
+
+                if (honors) {
+                  const hEl = document.createElement('span');
+                  hEl.style.color = '#64748B';
+                  hEl.style.fontSize = '0.8rem';
+                  hEl.textContent = ' (' + honors + ')';
+                  leftEl.appendChild(hEl);
+                }
+                eduEl.appendChild(leftEl);
+
+                if (yr) {
+                  const yrEl = document.createElement('span');
+                  yrEl.style.color = '#64748B';
+                  yrEl.textContent = yr;
+                  eduEl.appendChild(yrEl);
+                }
+
+                let ptEdu = deg;
+                if (sch) ptEdu += ' — ' + sch;
+                if (yr) ptEdu += ' (' + yr + ')';
+                if (honors) ptEdu += ' [' + honors + ']';
+                ptLines.push(ptEdu);
+
+                bpEduList.appendChild(eduEl);
+              });
+            } else {
+              bpSecEdu.style.display = 'none';
+            }
+          }
+
+          fullBuilderPlainText = ptLines.join('\n');
+        }
+
+        // Attach Realtime Event Listeners
+        [bfName, bfTitle, bfEmail, bfPhone, bfLocation, bfLinkedin, bfPortfolio, bfSummary, bfSkills].forEach(inp => {
+          if (inp) inp.addEventListener('input', updateLivePaper);
+        });
+
+        if (btnAddExp) btnAddExp.addEventListener('click', () => addExperienceCard({}));
+        if (btnAddEdu) btnAddEdu.addEventListener('click', () => addEducationCard({}));
+
+        // Load Sample Profile
+        function loadSampleProfile() {
+          if (bfName) bfName.value = 'Alex Morgan';
+          if (bfTitle) bfTitle.value = 'Senior Full-Stack Engineer';
+          if (bfEmail) bfEmail.value = 'alex.morgan@email.com';
+          if (bfPhone) bfPhone.value = '+1 (555) 234-5678';
+          if (bfLocation) bfLocation.value = 'San Francisco, CA';
+          if (bfLinkedin) bfLinkedin.value = 'linkedin.com/in/alexmorgan-dev';
+          if (bfPortfolio) bfPortfolio.value = 'github.com/alexmorgan-code';
+          if (bfSummary) bfSummary.value = 'Full-Stack Software Engineer with 6+ years of experience architecting high-throughput distributed systems, REST/GraphQL APIs, and responsive web applications. Proven track record of scaling platforms to 10M+ MAUs, reducing API latency by 45%, and mentoring engineering teams in modern CI/CD best practices.';
+          if (bfSkills) bfSkills.value = 'Python, FastAPI, TypeScript, React, Next.js, Node.js, PostgreSQL, Redis, Docker, Kubernetes, AWS (ECS, Lambda, S3), GraphQL, CI/CD Pipelines, System Design, Unit & Integration Testing';
+
+          if (bfExpContainer) bfExpContainer.innerHTML = '';
+          addExperienceCard({
+            title: 'Lead Full-Stack Engineer',
+            company: 'CloudScale Technologies',
+            dates: '2022 - Present',
+            location: 'San Francisco, CA',
+            bullets: [
+              'Architected real-time event-driven processing pipeline using FastAPI, Kafka, and Redis, reducing data lag by 60% across 5M daily events.',
+              'Led migration of monolithic Ruby backend to microservices on AWS ECS, improving 99th-percentile response time from 420ms to 95ms.',
+              'Engineered modular design system and TypeScript frontend components adopted across 4 product teams, cutting feature release time in half.',
+              'Mentored 5 junior/mid-level engineers through bi-weekly architectural reviews and implemented strict automated test coverage (>88%).'
+            ]
+          });
+
+          addExperienceCard({
+            title: 'Software Engineer',
+            company: 'NextGen Data Systems',
+            dates: '2019 - 2022',
+            location: 'Austin, TX',
+            bullets: [
+              'Built and maintained customer-facing analytics dashboards using React, Redux, and PostgreSQL, serving 250+ enterprise clients.',
+              'Optimized complex SQL queries and created composite indexes, eliminating database bottlenecks and cutting report generation from 18s to 1.2s.',
+              'Spearheaded automated GitHub Actions CI/CD pipelines, automating Docker builds and test validation with zero-downtime deployments.'
+            ]
+          });
+
+          if (bfEduContainer) bfEduContainer.innerHTML = '';
+          addEducationCard({
+            degree: 'B.S. in Computer Science',
+            school: 'University of Texas at Austin',
+            year: '2015 - 2019',
+            details: 'Magna Cum Laude • GPA: 3.85 / 4.0'
+          });
+
+          updateLivePaper();
+        }
+
+        // Clear Form
+        function clearBuilderForm() {
+          if (!confirm('Are you sure you want to clear all resume fields?')) return;
+          [bfName, bfTitle, bfEmail, bfPhone, bfLocation, bfLinkedin, bfPortfolio, bfSummary, bfSkills].forEach(inp => {
+            if (inp) inp.value = '';
+          });
+          if (bfExpContainer) bfExpContainer.innerHTML = '';
+          if (bfEduContainer) bfEduContainer.innerHTML = '';
+          updateLivePaper();
+        }
+
+        if (btnSample) btnSample.addEventListener('click', loadSampleProfile);
+        if (btnClear) btnClear.addEventListener('click', clearBuilderForm);
+
+        // DOCX Export Download
+        async function downloadBuilderDocx() {
+          if (!btnDocx) return;
+          const origHtml = btnDocx.innerHTML;
+          btnDocx.disabled = true;
+          btnDocx.innerHTML = 'Generating...';
+
+          try {
+            const expCards = bfExpContainer ? bfExpContainer.querySelectorAll('.dynamic-item-card') : [];
+            const experience = [];
+            expCards.forEach(card => {
+              const title = (card.querySelector('.exp-input-title')?.value || '').trim();
+              const company = (card.querySelector('.exp-input-company')?.value || '').trim();
+              const dates = (card.querySelector('.exp-input-dates')?.value || '').trim();
+              const location = (card.querySelector('.exp-input-location')?.value || '').trim();
+              const bullets = [];
+              card.querySelectorAll('.exp-input-bullet').forEach(bi => {
+                if (bi.value.trim()) bullets.push(bi.value.trim());
+              });
+              if (title || company) {
+                experience.push({ title, company, dates, location, bullets });
+              }
+            });
+
+            const eduCards = bfEduContainer ? bfEduContainer.querySelectorAll('.dynamic-item-card') : [];
+            const education = [];
+            eduCards.forEach(card => {
+              const degree = (card.querySelector('.edu-input-degree')?.value || '').trim();
+              const school = (card.querySelector('.edu-input-school')?.value || '').trim();
+              const year = (card.querySelector('.edu-input-year')?.value || '').trim();
+              const details = (card.querySelector('.edu-input-honors')?.value || '').trim();
+              if (degree || school) {
+                education.push({ degree, school, year, details });
+              }
+            });
+
+            const skillsRaw = bfSkills ? bfSkills.value.trim() : '';
+            const skillsList = skillsRaw.split(/[,;\n]+/).map(s => s.trim()).filter(Boolean);
+
+            const payload = {
+              resume_data: {
+                full_name: bfName ? (bfName.value.trim() || 'Alex Morgan') : 'Alex Morgan',
+                target_role: bfTitle ? bfTitle.value.trim() : '',
+                contact_info: {
+                  email: bfEmail ? bfEmail.value.trim() : '',
+                  phone: bfPhone ? bfPhone.value.trim() : '',
+                  location: bfLocation ? bfLocation.value.trim() : '',
+                  linkedin: bfLinkedin ? bfLinkedin.value.trim() : '',
+                  portfolio: bfPortfolio ? bfPortfolio.value.trim() : ''
+                },
+                professional_summary: bfSummary ? bfSummary.value.trim() : '',
+                skills: skillsList,
+                experience: experience,
+                education: education
+              }
+            };
+
+            const res = await fetch('/api/download-resume-docx', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) throw new Error('Download failed');
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            const safeName = (payload.resume_data.full_name || 'Resume').replace(/[^a-zA-Z0-9_-]/g, '_');
+            a.download = `${safeName}_Resume.docx`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+          } catch (err) {
+            alert('Could not download Word document. Please ensure the server is running.');
+          } finally {
+            btnDocx.disabled = false;
+            btnDocx.innerHTML = origHtml;
+          }
+        }
+
+        if (btnDocx) btnDocx.addEventListener('click', downloadBuilderDocx);
+        if (btnPrint) btnPrint.addEventListener('click', () => window.print());
+
+        if (btnCopy) {
+          btnCopy.addEventListener('click', async () => {
+            if (!fullBuilderPlainText) return;
+            try {
+              await navigator.clipboard.writeText(fullBuilderPlainText);
+              if (btnCopyText) {
+                btnCopyText.textContent = 'Copied!';
+                setTimeout(() => { btnCopyText.textContent = 'Copy Text'; }, 2000);
+              }
+            } catch (e) {
+              alert('Unable to copy text to clipboard.');
+            }
+          });
+        }
+
+        // Initialize sample profile on startup
+        loadSampleProfile();
+      }
+
+      initResumeBuilder();
 
       // ======================================================================
       // SplitType: Kinetic Typography Staggered Reveal

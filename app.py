@@ -791,4 +791,9 @@ def home():
     return FileResponse("static/index.html")
 
 
+@app.get("/builder")
+def builder_page():
+    return FileResponse("static/builder.html")
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
