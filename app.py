@@ -37,14 +37,18 @@ Rules:
 - Score only from evidence in the resume. Never invent skills or experience.
 - "score" is 0-100: how well the resume matches this job (likelihood of passing first screening). It is not a hiring guarantee.
 - The email may only mention experience that appears in the resume. Under 170 words, confident and specific, using the placeholders [Hiring Manager] and [Your Name].
-- "improvements" are concrete edits (add a keyword, rewrite a bullet with a metric, add a section). Only suggest adding things the candidate could truthfully claim; if a skill is missing, say "learn or build" it instead.
+- "improvements" are concrete, high-impact edits. For each improvement:
+  * "original": quote the exact existing bullet or phrase from the candidate's resume (or "New section/bullet" if not present).
+  * "revised": write the exact, ready-to-paste optimized bullet point using strong action verbs, quantifiable metrics, and relevant keywords from the job description that the candidate could truthfully claim.
+  * "change": one short headline describing the modification.
+  * "why": 1 concise sentence explaining why this upgrade passes ATS filters and impresses hiring teams.
 
 Return ONLY JSON, no other text, in this shape:
 {"score":number,"verdict":"one short sentence","summary":"2-3 sentences explaining the score",
 "matched":["..."],"missing":["..."],"experience_fit":"one sentence",
-"improvements":[{"change":"...","why":"..."}],
+"improvements":[{"change":"...","original":"...","revised":"...","why":"..."}],
 "email":{"subject":"...","body":"..."}}
-Give 5 to 8 improvements, ordered by impact."""
+Give 4 to 6 improvements, ordered by impact."""
 
 
 def extract_text(filename: str, data: bytes) -> str:

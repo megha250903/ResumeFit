@@ -1101,51 +1101,216 @@
     .improvements-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      margin-top: 18px;
+      gap: 20px;
+      margin-top: 20px;
     }
 
-    .improvement-item {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 16px;
-      padding: 16px 20px;
+    .improvement-card {
       background-color: var(--color-bg);
-      border: 1px solid var(--color-border-subtle);
+      border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
-      align-items: start;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .improvement-card:hover {
+      border-color: var(--color-blue);
+      box-shadow: 0 4px 16px rgba(12, 16, 51, 0.06);
+    }
+
+    .imp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .imp-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .imp-badge {
-      width: 28px;
-      height: 28px;
+      padding: 3px 10px;
       background-color: var(--color-blue);
       color: #FFFFFF;
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 0.875rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
+      font-size: 0.8125rem;
+      border-radius: var(--radius-pill);
     }
 
-    .imp-content b {
-      display: block;
-      font-size: 0.9375rem;
+    .imp-headline {
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--color-ink);
-      margin-bottom: 4px;
-      line-height: 1.4;
     }
 
-    .imp-content span {
-      display: block;
+    .imp-diff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .imp-diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .diff-box {
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
       font-size: 0.875rem;
-      color: var(--color-ink-muted);
       line-height: 1.5;
+      position: relative;
+    }
+
+    .diff-box-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .diff-original {
+      background-color: #F8F9FC;
+      border: 1px solid var(--color-border);
+      color: var(--color-ink-muted);
+    }
+
+    .diff-original .diff-box-label {
+      color: var(--color-ink-soft);
+    }
+
+    .diff-revised {
+      background-color: #FFFFFF;
+      border: 1.5px solid var(--color-match-border);
+      color: var(--color-ink);
+      box-shadow: 0 2px 8px rgba(14, 122, 85, 0.08);
+    }
+
+    .diff-revised .diff-box-label {
+      color: var(--color-match);
+    }
+
+    .diff-content {
+      font-weight: 500;
+    }
+
+    .imp-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .imp-why {
+      font-size: 0.8125rem;
+      color: var(--color-ink-muted);
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .btn-copy-bullet {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-match);
+      background-color: var(--color-match-bg);
+      border: 1px solid var(--color-match-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-copy-bullet:hover {
+      background-color: var(--color-match);
+      color: #FFFFFF;
+    }
+
+    .btn-copy-bullet.copied {
+      background-color: var(--color-match);
+      color: #FFFFFF;
+    }
+
+    /* Recent Scans History Bar */
+    .history-bar {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .history-bar.has-items {
+      display: flex;
+    }
+
+    .history-label {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--color-ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .history-chips {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .history-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .history-chip:hover {
+      background-color: var(--color-blue-tint);
+      border-color: var(--color-blue);
+      color: var(--color-blue);
+    }
+
+    .history-chip-score {
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
     }
 
     /* Outreach Email Section */
@@ -1494,6 +1659,12 @@
           <div class="section-eyebrow">Free analysis</div>
           <h2 id="tool-heading" class="section-title">Compare your resume against any role</h2>
           <p class="section-sub">Paste both documents below to identify gaps and tailor your application in seconds.</p>
+        </div>
+
+        <!-- Recent Scans History Bar -->
+        <div id="history-bar" class="history-bar" aria-label="Recent scans history">
+          <span class="history-label">Recent scans:</span>
+          <div id="history-chips" class="history-chips"></div>
         </div>
 
         <div class="tool-card">
@@ -2065,23 +2236,76 @@
           });
         }
 
-        // Improvements List
+        // Improvements List (Before vs. After Diff Cards with 1-Click Copy)
         improvementsList.replaceChildren();
         const improvements = Array.isArray(data.improvements) ? data.improvements : [];
         if (improvements.length === 0) {
           improvementsList.appendChild(createEl('p', 'chip-empty', 'No specific revisions suggested.'));
         } else {
           improvements.forEach((imp, idx) => {
-            const item = createEl('div', 'improvement-item');
-            const badge = createEl('div', 'imp-badge', String(idx + 1));
-            const content = createEl('div', 'imp-content');
-            const changeHeading = createEl('b', null, imp.change || 'Suggested update');
-            const whyText = createEl('span', null, imp.why || '');
-            content.appendChild(changeHeading);
-            content.appendChild(whyText);
-            item.appendChild(badge);
-            item.appendChild(content);
-            improvementsList.appendChild(item);
+            const card = createEl('div', 'improvement-card');
+
+            // Header: Priority Badge + Change Title
+            const header = createEl('div', 'imp-header');
+            const titleGroup = createEl('div', 'imp-title-group');
+            const badge = createEl('span', 'imp-badge', '#' + (idx + 1) + (idx === 0 ? ' Highest impact' : ' Priority'));
+            const headline = createEl('span', 'imp-headline', imp.change || 'Targeted bullet optimization');
+            titleGroup.appendChild(badge);
+            titleGroup.appendChild(headline);
+            header.appendChild(titleGroup);
+            card.appendChild(header);
+
+            // Diff Grid (Before vs After)
+            const diffGrid = createEl('div', 'imp-diff-grid');
+
+            // Original Box
+            const origBox = createEl('div', 'diff-box diff-original');
+            const origLabel = createEl('div', 'diff-box-label', 'Current wording in resume:');
+            const origText = imp.original || 'General gap / not explicitly stated';
+            const origContent = createEl('div', 'diff-content', origText);
+            origBox.appendChild(origLabel);
+            origBox.appendChild(origContent);
+            diffGrid.appendChild(origBox);
+
+            // Revised Box (Tailored Upgrade)
+            const revBox = createEl('div', 'diff-box diff-revised');
+            const revLabel = createEl('div', 'diff-box-label', 'Tailored upgrade (ready to paste):');
+            const revText = imp.revised || imp.change || '';
+            const revContent = createEl('div', 'diff-content', revText);
+            revBox.appendChild(revLabel);
+            revBox.appendChild(revContent);
+            diffGrid.appendChild(revBox);
+
+            card.appendChild(diffGrid);
+
+            // Footer: Why + 1-Click Copy
+            const footer = createEl('div', 'imp-footer');
+            const whyText = imp.why ? ('Why this helps: ' + imp.why) : '';
+            const why = createEl('div', 'imp-why', whyText);
+            footer.appendChild(why);
+
+            if (revText) {
+              const copyBulletBtn = createEl('button', 'btn-copy-bullet');
+              copyBulletBtn.type = 'button';
+              copyBulletBtn.textContent = 'Copy revised bullet';
+              copyBulletBtn.addEventListener('click', async () => {
+                try {
+                  await navigator.clipboard.writeText(revText);
+                  copyBulletBtn.classList.add('copied');
+                  copyBulletBtn.textContent = 'Copied to clipboard!';
+                } catch {
+                  copyBulletBtn.textContent = 'Copied!';
+                }
+                setTimeout(() => {
+                  copyBulletBtn.classList.remove('copied');
+                  copyBulletBtn.textContent = 'Copy revised bullet';
+                }, 2000);
+              });
+              footer.appendChild(copyBulletBtn);
+            }
+
+            card.appendChild(footer);
+            improvementsList.appendChild(card);
           });
         }
 
@@ -2093,10 +2317,72 @@
         emailBody.textContent = body;
         fullEmailText = 'Subject: ' + subject + '\n\n' + body;
 
+        // Save scan to Local History
+        saveScanToHistory({
+          score: score,
+          role: subject.replace(/^Application:\s*/i, '').trim() || 'Scanned Role',
+          verdict: data.verdict || '',
+          data: data,
+          timestamp: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+        });
+
         // Show Results and Scroll
         resultsSection.classList.add('visible');
         resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+
+      // History Management
+      function saveScanToHistory(item) {
+        try {
+          const raw = localStorage.getItem('resumefit_history');
+          let history = raw ? JSON.parse(raw) : [];
+          // Prepend and limit to 5
+          history = [item, ...history.filter(h => h.role !== item.role)].slice(0, 5);
+          localStorage.setItem('resumefit_history', JSON.stringify(history));
+          renderHistoryBar();
+        } catch (e) {
+          // Ignore localStorage errors in private browsing
+        }
+      }
+
+      function renderHistoryBar() {
+        const historyBar = document.getElementById('history-bar');
+        const historyChips = document.getElementById('history-chips');
+        if (!historyBar || !historyChips) return;
+
+        try {
+          const raw = localStorage.getItem('resumefit_history');
+          const history = raw ? JSON.parse(raw) : [];
+          if (!history || history.length === 0) {
+            historyBar.classList.remove('has-items');
+            return;
+          }
+
+          historyChips.replaceChildren();
+          history.forEach(scan => {
+            const chip = createEl('button', 'history-chip');
+            chip.type = 'button';
+
+            const scoreBadge = createEl('span', 'history-chip-score', scan.score + '%');
+            const title = createEl('span', null, scan.role + ' (' + scan.timestamp + ')');
+
+            chip.appendChild(scoreBadge);
+            chip.appendChild(title);
+
+            chip.addEventListener('click', () => {
+              renderResults(scan.data);
+            });
+
+            historyChips.appendChild(chip);
+          });
+
+          historyBar.classList.add('has-items');
+        } catch (e) {
+          // Ignore
+        }
+      }
+
+      renderHistoryBar();
 
       // Copy Email to Clipboard
       btnCopyEmail.addEventListener('click', async () => {
