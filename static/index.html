@@ -714,8 +714,17 @@
     }
 
     @keyframes pulsePip {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.85); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.45;
+        transform: scale(0.85);
+      }
     }
 
     /* ==========================================================================
@@ -3412,13 +3421,13 @@
       transform: translate(-50%, -50%);
       opacity: 0;
       transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-radius 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                  background-color 0.22s ease,
-                  border-color 0.22s ease,
-                  box-shadow 0.22s ease,
-                  opacity 0.2s ease,
-                  transform 0.15s ease;
+        height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        opacity 0.2s ease,
+        transform 0.15s ease;
       will-change: left, top, transform;
       box-shadow: 0 0 12px rgba(255, 216, 61, 0.4);
     }
@@ -3944,9 +3953,11 @@
         grid-template-columns: 1fr;
         padding: 32px 24px;
       }
+
       .final-cta-card {
         padding: 36px 20px;
       }
+
       .final-cta-title {
         font-size: 1.7rem;
       }
@@ -3966,7 +3977,8 @@
   <header class="site-nav">
     <div class="container nav-inner">
       <a href="#" class="brand" aria-label="ResumeFit home">
-        <img src="/logo.jpg" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='/static/logo.jpg';}" alt="ResumeFit logo" class="brand-img">
+        <img src="/logo.jpg" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='/static/logo.jpg';}"
+          alt="ResumeFit logo" class="brand-img">
         <span class="brand-name">ResumeFit</span>
       </a>
       <ul class="nav-links">
@@ -3997,7 +4009,9 @@
               Know your odds. Craft your resume. <em>Get hired.</em>
             </h1>
             <p class="hero-sub">
-              Dual-engine career platform: Compare your existing resume against any job description for an instant match score, missing skills, and bullet rewrites — or build an authentic ATS-proof resume with 5 battle-tested engineering templates.
+              Dual-engine career platform: Compare your existing resume against any job description for an instant match
+              score, missing skills, and bullet rewrites — or build an authentic ATS-proof resume with 5 battle-tested
+              engineering templates.
             </p>
             <div class="hero-actions">
               <a href="#tool" class="btn-hero-primary" id="hero-btn-scan">🎯 Scan your resume now</a>
@@ -4087,7 +4101,8 @@
                 <span class="step-tag">Step 1</span>
               </div>
               <h3 class="step-heading">Provide your resume</h3>
-              <p class="step-desc">Upload your PDF, DOCX, or plain text file. Prefer to paste directly? Switch to the text
+              <p class="step-desc">Upload your PDF, DOCX, or plain text file. Prefer to paste directly? Switch to the
+                text
                 editor with one click.</p>
             </div>
 
@@ -4097,7 +4112,8 @@
                 <span class="step-tag">Step 2</span>
               </div>
               <h3 class="step-heading">Paste job description or link</h3>
-              <p class="step-desc">Copy the full posting or import any job posting URL. ResumeFit extracts the required technical skills and core responsibilities.</p>
+              <p class="step-desc">Copy the full posting or import any job posting URL. ResumeFit extracts the required
+                technical skills and core responsibilities.</p>
             </div>
 
             <div class="step-card">
@@ -4106,7 +4122,8 @@
                 <span class="step-tag">Step 3</span>
               </div>
               <h3 class="step-heading">Get targeted revisions</h3>
-              <p class="step-desc">Receive a 0–100 relevance score, detected skill gaps, high-impact bullet edits, and an
+              <p class="step-desc">Receive a 0–100 relevance score, detected skill gaps, high-impact bullet edits, and
+                an
                 outreach note ready to send.</p>
             </div>
           </div>
@@ -4114,7 +4131,10 @@
           <!-- Right Column: 3D Product Workflow Showcase Graphic -->
           <div class="how-visual-col">
             <div class="showcase-card-wrapper">
-              <img src="/workflow-showcase.png" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='/static/workflow-showcase.png';}" alt="ResumeFit 3D workflow diagram showing drag-and-drop file upload, match score analytics graph, candidate verification, and AI recommendations" class="showcase-img" width="1200" height="750" loading="lazy">
+              <img src="/workflow-showcase.png"
+                onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='/static/workflow-showcase.png';}"
+                alt="ResumeFit 3D workflow diagram showing drag-and-drop file upload, match score analytics graph, candidate verification, and AI recommendations"
+                class="showcase-img" width="1200" height="750" loading="lazy">
               <div class="showcase-badge-pill" aria-hidden="true">
                 <span class="showcase-pip"></span>
                 <span>AI Screening Workflow</span>
@@ -4131,7 +4151,8 @@
         <div class="section-header tpl-showcase-header">
           <div class="section-eyebrow">Engineered for 100% ATS Pass Rate</div>
           <h2 id="templates-heading" class="section-title">5 Battle-Tested Resume Templates</h2>
-          <p class="section-sub">Standard single-column typographic hierarchies designed to pass Workday, Greenhouse, Lever, and Taleo with maximum signal density.</p>
+          <p class="section-sub">Standard single-column typographic hierarchies designed to pass Workday, Greenhouse,
+            Lever, and Taleo with maximum signal density.</p>
         </div>
 
         <div class="tpl-showcase-grid">
@@ -4154,7 +4175,8 @@
               <div class="mm-line" style="width: 75%;"></div>
             </div>
             <h3 class="tpl-showcase-title">Jake's Resume</h3>
-            <p class="tpl-showcase-desc">The default choice on Overleaf. Deliberately stripped of icons, multi-column tables, and unparsed noise. Fast recruiter scan speed.</p>
+            <p class="tpl-showcase-desc">The default choice on Overleaf. Deliberately stripped of icons, multi-column
+              tables, and unparsed noise. Fast recruiter scan speed.</p>
             <div class="tpl-tags-row">
               <span class="tpl-tag-item">Single-Column</span>
               <span class="tpl-tag-item">Ultra-Safe</span>
@@ -4162,7 +4184,9 @@
             </div>
             <a href="/builder?template=jake" class="btn-tpl-launch">
               <span>Use Jake's Template</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </a>
           </div>
 
@@ -4188,7 +4212,8 @@
               <div class="mm-line" style="width: 90%;"></div>
             </div>
             <h3 class="tpl-showcase-title">The McDowell CV / Apex</h3>
-            <p class="tpl-showcase-desc">Derived from Cracking the Coding Interview. High-density, project-first layout engineered to showcase technical impact at Google &amp; Meta.</p>
+            <p class="tpl-showcase-desc">Derived from Cracking the Coding Interview. High-density, project-first layout
+              engineered to showcase technical impact at Google &amp; Meta.</p>
             <div class="tpl-tags-row">
               <span class="tpl-tag-item">High Signal</span>
               <span class="tpl-tag-item">FAANG-Tested</span>
@@ -4196,7 +4221,9 @@
             </div>
             <a href="/builder?template=mcdowell" class="btn-tpl-launch">
               <span>Use McDowell Template</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </a>
           </div>
 
@@ -4221,7 +4248,8 @@
               <div class="mm-line" style="width: 82%;"></div>
             </div>
             <h3 class="tpl-showcase-title">ASG ATS Resume</h3>
-            <p class="tpl-showcase-desc">Classic editorial LaTeX aesthetic with Tinos serif typography, compact section dividers, and zero distraction for systems and DevOps leads.</p>
+            <p class="tpl-showcase-desc">Classic editorial LaTeX aesthetic with Tinos serif typography, compact section
+              dividers, and zero distraction for systems and DevOps leads.</p>
             <div class="tpl-tags-row">
               <span class="tpl-tag-item">Editorial Serif</span>
               <span class="tpl-tag-item">Zero Clutter</span>
@@ -4229,7 +4257,9 @@
             </div>
             <a href="/builder?template=asg" class="btn-tpl-launch">
               <span>Use ASG Template</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </a>
           </div>
 
@@ -4253,7 +4283,8 @@
               <div class="mm-line" style="width: 75%;"></div>
             </div>
             <h3 class="tpl-showcase-title">Universal Résumé</h3>
-            <p class="tpl-showcase-desc">Modern web/print hybrid. Equal proportions on screen and paper with dedicated technical competency matrix and clean date alignments.</p>
+            <p class="tpl-showcase-desc">Modern web/print hybrid. Equal proportions on screen and paper with dedicated
+              technical competency matrix and clean date alignments.</p>
             <div class="tpl-tags-row">
               <span class="tpl-tag-item">Full-Stack</span>
               <span class="tpl-tag-item">Skill Matrix</span>
@@ -4261,7 +4292,9 @@
             </div>
             <a href="/builder?template=universal" class="btn-tpl-launch">
               <span>Use Universal Template</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </a>
           </div>
 
@@ -4286,7 +4319,8 @@
               <div class="mm-line" style="width: 70%;"></div>
             </div>
             <h3 class="tpl-showcase-title">BelResumé</h3>
-            <p class="tpl-showcase-desc">Zola &amp; Tailwind-inspired modular architecture with international corporate polish, timeline markers, and bilingual-ready field structures.</p>
+            <p class="tpl-showcase-desc">Zola &amp; Tailwind-inspired modular architecture with international corporate
+              polish, timeline markers, and bilingual-ready field structures.</p>
             <div class="tpl-tags-row">
               <span class="tpl-tag-item">International</span>
               <span class="tpl-tag-item">Timeline Grid</span>
@@ -4294,7 +4328,9 @@
             </div>
             <a href="/builder?template=belresume" class="btn-tpl-launch">
               <span>Use BelResumé Template</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </a>
           </div>
         </div>
@@ -4307,12 +4343,15 @@
         <div class="studio-banner-card">
           <div class="studio-banner-copy">
             <h3>Ready to build your ATS-compliant resume?</h3>
-            <p>Switch to our dedicated full-page Resume Studio. Enjoy a live 1:1 A4 canvas with Zoom controls, dynamic experience &amp; education cards, quick-tap skill pills, and instant Word (.docx) &amp; PDF downloads.</p>
+            <p>Switch to our dedicated full-page Resume Studio. Enjoy a live 1:1 A4 canvas with Zoom controls, dynamic
+              experience &amp; education cards, quick-tap skill pills, and instant Word (.docx) &amp; PDF downloads.</p>
           </div>
           <div class="studio-banner-actions">
             <a href="/builder" class="btn-banner-studio">
               <span>✨ Open Resume Studio</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </a>
           </div>
         </div>
@@ -4325,15 +4364,19 @@
 
         <!-- Main Mode Switcher: ATS Scan vs Resume Builder -->
         <div class="main-mode-switcher" role="tablist" aria-label="Tool mode selection">
-          <button type="button" role="tab" id="btn-mode-analyzer" class="mode-tab-btn active" aria-selected="true" aria-controls="view-analyzer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button type="button" role="tab" id="btn-mode-analyzer" class="mode-tab-btn active" aria-selected="true"
+            aria-controls="view-analyzer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
             <span>Match Analyzer</span>
           </button>
-          <a href="/builder" class="mode-tab-btn" id="btn-mode-builder" style="text-decoration: none;" title="Open Resume Studio (5 Templates)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <a href="/builder" class="mode-tab-btn" id="btn-mode-builder" style="text-decoration: none;"
+            title="Open Resume Studio (5 Templates)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
               <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -4350,7 +4393,8 @@
           <div class="section-header">
             <div class="section-eyebrow">Free analysis</div>
             <h2 id="tool-heading" class="section-title">Compare your resume against any role</h2>
-            <p class="section-sub">Paste both documents below to identify gaps and tailor your application in seconds.</p>
+            <p class="section-sub">Paste both documents below to identify gaps and tailor your application in seconds.
+            </p>
           </div>
 
           <!-- Recent Scans History Bar -->
@@ -4361,346 +4405,379 @@
 
           <div class="tool-card">
             <form id="analyze-form" novalidate>
-            <div class="tool-grid">
+              <div class="tool-grid">
 
-              <!-- Panel 1: Resume Input -->
-              <div class="panel">
-                <div class="panel-head">
-                  <span class="panel-label">1. Your resume</span>
-                  <div class="tab-switch" role="tablist" aria-label="Resume input mode">
-                    <button type="button" role="tab" id="tab-file" class="tab-btn active" aria-selected="true"
-                      aria-controls="view-file">Upload file</button>
-                    <button type="button" role="tab" id="tab-text" class="tab-btn" aria-selected="false"
-                      aria-controls="view-text">Paste text</button>
-                  </div>
-                </div>
-
-                <!-- File Upload View -->
-                <div id="view-file" role="tabpanel" aria-labelledby="tab-file">
-                  <div class="dropzone" id="dropzone" tabindex="0" role="button"
-                    aria-label="Upload resume file, drag and drop or browse">
-                    <input type="file" id="file-input" class="sr-only" accept=".pdf,.docx,.txt" aria-hidden="true">
-                    <div class="drop-icon" aria-hidden="true">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="17 8 12 3 7 8"></polyline>
-                        <line x1="12" y1="3" x2="12" y2="15"></line>
-                      </svg>
-                    </div>
-                    <div class="drop-primary">Choose a file or drag it here</div>
-                    <div class="drop-sub">PDF, DOCX, or TXT up to 5 MB</div>
-
-                    <div class="file-pill" id="file-pill">
-                      <span class="file-name" id="file-name">filename.pdf</span>
-                      <button type="button" class="file-remove" id="file-remove"
-                        aria-label="Remove uploaded file">Remove</button>
+                <!-- Panel 1: Resume Input -->
+                <div class="panel">
+                  <div class="panel-head">
+                    <span class="panel-label">1. Your resume</span>
+                    <div class="tab-switch" role="tablist" aria-label="Resume input mode">
+                      <button type="button" role="tab" id="tab-file" class="tab-btn active" aria-selected="true"
+                        aria-controls="view-file">Upload file</button>
+                      <button type="button" role="tab" id="tab-text" class="tab-btn" aria-selected="false"
+                        aria-controls="view-text">Paste text</button>
                     </div>
                   </div>
-                </div>
 
-                <!-- Textarea View -->
-                <div id="view-text" role="tabpanel" aria-labelledby="tab-text" hidden>
-                  <label for="resume-text" class="sr-only">Resume text content</label>
-                  <textarea id="resume-text" class="tool-textarea"
-                    placeholder="Paste your resume text here (experience, skills, projects, education)..."></textarea>
-                </div>
+                  <!-- File Upload View -->
+                  <div id="view-file" role="tabpanel" aria-labelledby="tab-file">
+                    <div class="dropzone" id="dropzone" tabindex="0" role="button"
+                      aria-label="Upload resume file, drag and drop or browse">
+                      <input type="file" id="file-input" class="sr-only" accept=".pdf,.docx,.txt" aria-hidden="true">
+                      <div class="drop-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="17 8 12 3 7 8"></polyline>
+                          <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                      </div>
+                      <div class="drop-primary">Choose a file or drag it here</div>
+                      <div class="drop-sub">PDF, DOCX, or TXT up to 5 MB</div>
 
-                <div class="panel-footer">
-                  <span id="resume-hint">Select a file or switch to paste mode</span>
-                  <span id="resume-counter" class="counter">0 chars</span>
-                </div>
-              </div>
-
-              <!-- Panel 2: Job Description Input -->
-              <div class="panel">
-                <div class="panel-head">
-                  <label for="jd-text" class="panel-label">2. Target job description</label>
-                  <div class="tab-switch" role="tablist" aria-label="Job description input mode">
-                    <button type="button" role="tab" id="tab-jd-text" class="tab-btn active" aria-selected="true"
-                      aria-controls="view-jd-text">Paste text</button>
-                    <button type="button" role="tab" id="tab-jd-url" class="tab-btn" aria-selected="false"
-                      aria-controls="view-jd-url">Import link 🔗</button>
-                  </div>
-                </div>
-
-                <!-- Textarea View -->
-                <div id="view-jd-text" role="tabpanel" aria-labelledby="tab-jd-text">
-                  <textarea id="jd-text" class="tool-textarea"
-                    placeholder="Paste the entire job posting here, including required qualifications, preferred skills, and core responsibilities..."></textarea>
-                  <!-- Smart URL Detection banner if user pastes URL into textarea -->
-                  <div id="jd-url-detected" class="jd-url-detected" style="display: none;">
-                    <span id="jd-url-detected-text">🔗 Job link detected in text!</span>
-                    <button type="button" id="btn-auto-fetch-jd" class="btn-chip-fetch">Fetch full job description</button>
-                  </div>
-                  <div id="jd-inline-status" class="url-status" style="margin-top: 8px;"></div>
-                </div>
-
-                <!-- URL Import View -->
-                <div id="view-jd-url" role="tabpanel" aria-labelledby="tab-jd-url" hidden>
-                  <div class="url-import-card">
-                    <div class="url-input-wrap">
-                      <svg class="url-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                      </svg>
-                      <input type="url" id="jd-url-input" class="url-input" placeholder="Paste LinkedIn, Greenhouse, Lever, or career page link...">
-                      <button type="button" id="btn-fetch-url" class="btn-fetch-url">
-                        <span id="btn-fetch-label">Fetch Job</span>
-                      </button>
-                    </div>
-                    <div id="url-status" class="url-status" role="status" aria-live="polite"></div>
-                    <div class="url-import-tips">
-                      <span class="url-tip-badge">Supported:</span>
-                      <span>LinkedIn, Greenhouse, Lever, Workday, Ashby, and company career pages.</span>
-                    </div>
-
-                    <!-- Zero-Install Co-Pilot Bookmarklet -->
-                    <div class="bookmarklet-promo" style="margin-top: 14px; padding: 14px 16px; background: rgba(37, 99, 235, 0.06); border: 1.5px dashed var(--color-blue); border-radius: var(--radius-sm);">
-                      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                        <div style="max-width: 280px;">
-                          <strong style="color: var(--color-blue); font-size: 0.875rem; display: flex; align-items: center; gap: 6px;">
-                            <span>⚡ Zero-Install Co-Pilot (Bookmarklet)</span>
-                          </strong>
-                          <p style="font-size: 0.775rem; color: var(--color-ink-muted); margin: 3px 0 0 0; line-height: 1.4;">
-                            No Chrome extension needed! Drag this button to your bookmarks bar. Click it on <b>Indeed</b> or <b>LinkedIn</b> to write recruiter emails right on the page.
-                          </p>
-                        </div>
-                        <a id="btn-drag-bookmarklet" href="#" class="btn-bookmarklet" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--color-blue); color: #FFFFFF; font-size: 0.8125rem; font-weight: 700; border-radius: var(--radius-pill); text-decoration: none; cursor: grab; box-shadow: 0 2px 8px rgba(27,42,74,0.25);" title="Drag me to your Bookmarks Bar (Ctrl + Shift + B)">
-                          <span>⭐ ResumeFit Co-Pilot</span>
-                        </a>
+                      <div class="file-pill" id="file-pill">
+                        <span class="file-name" id="file-name">filename.pdf</span>
+                        <button type="button" class="file-remove" id="file-remove"
+                          aria-label="Remove uploaded file">Remove</button>
                       </div>
                     </div>
                   </div>
+
+                  <!-- Textarea View -->
+                  <div id="view-text" role="tabpanel" aria-labelledby="tab-text" hidden>
+                    <label for="resume-text" class="sr-only">Resume text content</label>
+                    <textarea id="resume-text" class="tool-textarea"
+                      placeholder="Paste your resume text here (experience, skills, projects, education)..."></textarea>
+                  </div>
+
+                  <div class="panel-footer">
+                    <span id="resume-hint">Select a file or switch to paste mode</span>
+                    <span id="resume-counter" class="counter">0 chars</span>
+                  </div>
                 </div>
 
-                <div class="panel-footer">
-                  <span id="jd-hint">Minimum 80 characters needed</span>
-                  <span id="jd-counter" class="counter">0 chars</span>
+                <!-- Panel 2: Job Description Input -->
+                <div class="panel">
+                  <div class="panel-head">
+                    <label for="jd-text" class="panel-label">2. Target job description</label>
+                    <div class="tab-switch" role="tablist" aria-label="Job description input mode">
+                      <button type="button" role="tab" id="tab-jd-text" class="tab-btn active" aria-selected="true"
+                        aria-controls="view-jd-text">Paste text</button>
+                      <button type="button" role="tab" id="tab-jd-url" class="tab-btn" aria-selected="false"
+                        aria-controls="view-jd-url">Import link 🔗</button>
+                    </div>
+                  </div>
+
+                  <!-- Textarea View -->
+                  <div id="view-jd-text" role="tabpanel" aria-labelledby="tab-jd-text">
+                    <textarea id="jd-text" class="tool-textarea"
+                      placeholder="Paste the entire job posting here, including required qualifications, preferred skills, and core responsibilities..."></textarea>
+                    <!-- Smart URL Detection banner if user pastes URL into textarea -->
+                    <div id="jd-url-detected" class="jd-url-detected" style="display: none;">
+                      <span id="jd-url-detected-text">🔗 Job link detected in text!</span>
+                      <button type="button" id="btn-auto-fetch-jd" class="btn-chip-fetch">Fetch full job
+                        description</button>
+                    </div>
+                    <div id="jd-inline-status" class="url-status" style="margin-top: 8px;"></div>
+                  </div>
+
+                  <!-- URL Import View -->
+                  <div id="view-jd-url" role="tabpanel" aria-labelledby="tab-jd-url" hidden>
+                    <div class="url-import-card">
+                      <div class="url-input-wrap">
+                        <svg class="url-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" aria-hidden="true">
+                          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        <input type="url" id="jd-url-input" class="url-input"
+                          placeholder="Paste LinkedIn, Greenhouse, Lever, or career page link...">
+                        <button type="button" id="btn-fetch-url" class="btn-fetch-url">
+                          <span id="btn-fetch-label">Fetch Job</span>
+                        </button>
+                      </div>
+                      <div id="url-status" class="url-status" role="status" aria-live="polite"></div>
+                      <div class="url-import-tips">
+                        <span class="url-tip-badge">Supported:</span>
+                        <span>LinkedIn, Greenhouse, Lever, Workday, Ashby, and company career pages.</span>
+                      </div>
+
+                      <!-- Zero-Install Co-Pilot Bookmarklet -->
+                      <div class="bookmarklet-promo"
+                        style="margin-top: 14px; padding: 14px 16px; background: rgba(37, 99, 235, 0.06); border: 1.5px dashed var(--color-blue); border-radius: var(--radius-sm);">
+                        <div
+                          style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                          <div style="max-width: 280px;">
+                            <strong
+                              style="color: var(--color-blue); font-size: 0.875rem; display: flex; align-items: center; gap: 6px;">
+                              <span>⚡ Zero-Install Co-Pilot (Bookmarklet)</span>
+                            </strong>
+                            <p
+                              style="font-size: 0.775rem; color: var(--color-ink-muted); margin: 3px 0 0 0; line-height: 1.4;">
+                              No Chrome extension needed! Drag this button to your bookmarks bar. Click it on
+                              <b>Indeed</b> or <b>LinkedIn</b> to write recruiter emails right on the page.
+                            </p>
+                          </div>
+                          <a id="btn-drag-bookmarklet" href="#" class="btn-bookmarklet"
+                            style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--color-blue); color: #FFFFFF; font-size: 0.8125rem; font-weight: 700; border-radius: var(--radius-pill); text-decoration: none; cursor: grab; box-shadow: 0 2px 8px rgba(27,42,74,0.25);"
+                            title="Drag me to your Bookmarks Bar (Ctrl + Shift + B)">
+                            <span>⭐ ResumeFit Co-Pilot</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel-footer">
+                    <span id="jd-hint">Minimum 80 characters needed</span>
+                    <span id="jd-counter" class="counter">0 chars</span>
+                  </div>
                 </div>
+
               </div>
 
-            </div>
-
-            <!-- Form Action & Live Status -->
-            <div class="tool-actions">
-              <button type="submit" id="btn-submit" class="btn-analyze">
-                <span>Analyze resume match</span>
-              </button>
-
-              <div class="progress-box" id="progress-box" aria-live="polite">
-                <div class="spinner" aria-hidden="true"></div>
-                <div class="progress-msg" id="progress-msg">Parsing resume details...</div>
-              </div>
-
-              <div class="alert-error" id="alert-error" role="alert">
-                <b id="error-title">Submission issue</b>
-                <span id="error-desc">Please check your inputs and try again.</span>
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <!-- Results Output Area -->
-        <div id="results" class="results-container" aria-live="polite">
-
-          <!-- Score Banner -->
-          <div class="results-banner">
-            <div class="gauge-wrapper">
-              <svg class="gauge-svg" viewBox="0 0 140 140" aria-hidden="true">
-                <circle class="gauge-bg" cx="70" cy="70" r="60"></circle>
-                <circle class="gauge-fill" id="gauge-fill" cx="70" cy="70" r="60"></circle>
-              </svg>
-              <div class="gauge-label">
-                <span class="gauge-number" id="result-score">0%</span>
-                <span class="gauge-caption">Match</span>
-              </div>
-            </div>
-
-            <div class="banner-body">
-              <div class="banner-eyebrow" id="result-badge">Moderate match</div>
-              <h3 class="banner-verdict" id="result-verdict">Strong foundation with two specific skill gaps.</h3>
-              <p class="banner-summary" id="result-summary">Summary breakdown here.</p>
-              <p class="banner-fit" id="result-fit">Experience fit description here.</p>
-              <div class="banner-actions" style="margin-top: 14px; margin-bottom: 8px; display: flex; gap: 10px; flex-wrap: wrap;">
-                <a href="#card-tailored-cv" class="btn-jump-cv" id="btn-jump-cv">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                  <span>View Generated Tailored CV ↓</span>
-                </a>
-                <button type="button" class="btn-jump-download" id="btn-quick-download-docx">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                  <span>Download .DOCX</span>
+              <!-- Form Action & Live Status -->
+              <div class="tool-actions">
+                <button type="submit" id="btn-submit" class="btn-analyze">
+                  <span>Analyze resume match</span>
                 </button>
+
+                <div class="progress-box" id="progress-box" aria-live="polite">
+                  <div class="spinner" aria-hidden="true"></div>
+                  <div class="progress-msg" id="progress-msg">Parsing resume details...</div>
+                </div>
+
+                <div class="alert-error" id="alert-error" role="alert">
+                  <b id="error-title">Submission issue</b>
+                  <span id="error-desc">Please check your inputs and try again.</span>
+                </div>
               </div>
-              <p class="banner-disclaimer">Note: This is an estimated relevance match score to guide your preparation,
-                not a hiring guarantee.</p>
-            </div>
+            </form>
           </div>
 
-          <!-- Skills Matched vs Missing -->
-          <div class="skills-grid">
+          <!-- Results Output Area -->
+          <div id="results" class="results-container" aria-live="polite">
+
+            <!-- Score Banner -->
+            <div class="results-banner">
+              <div class="gauge-wrapper">
+                <svg class="gauge-svg" viewBox="0 0 140 140" aria-hidden="true">
+                  <circle class="gauge-bg" cx="70" cy="70" r="60"></circle>
+                  <circle class="gauge-fill" id="gauge-fill" cx="70" cy="70" r="60"></circle>
+                </svg>
+                <div class="gauge-label">
+                  <span class="gauge-number" id="result-score">0%</span>
+                  <span class="gauge-caption">Match</span>
+                </div>
+              </div>
+
+              <div class="banner-body">
+                <div class="banner-eyebrow" id="result-badge">Moderate match</div>
+                <h3 class="banner-verdict" id="result-verdict">Strong foundation with two specific skill gaps.</h3>
+                <p class="banner-summary" id="result-summary">Summary breakdown here.</p>
+                <p class="banner-fit" id="result-fit">Experience fit description here.</p>
+                <div class="banner-actions"
+                  style="margin-top: 14px; margin-bottom: 8px; display: flex; gap: 10px; flex-wrap: wrap;">
+                  <a href="#card-tailored-cv" class="btn-jump-cv" id="btn-jump-cv">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>View Generated Tailored CV ↓</span>
+                  </a>
+                  <button type="button" class="btn-jump-download" id="btn-quick-download-docx">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Download .DOCX</span>
+                  </button>
+                </div>
+                <p class="banner-disclaimer">Note: This is an estimated relevance match score to guide your preparation,
+                  not a hiring guarantee.</p>
+              </div>
+            </div>
+
+            <!-- Skills Matched vs Missing -->
+            <div class="skills-grid">
+              <div class="results-card">
+                <div class="card-title">
+                  <span>Matched qualifications</span>
+                  <span class="chip chip-match" id="count-matched">0</span>
+                </div>
+                <p class="card-sub">Skills and requirements already clearly supported by your resume.</p>
+                <div class="chips-flow" id="matched-chips"></div>
+              </div>
+
+              <div class="results-card">
+                <div class="card-title">
+                  <span>Important missing gaps</span>
+                  <span class="chip chip-gap" id="count-missing">0</span>
+                </div>
+                <p class="card-sub">Key terms or responsibilities from the job post not detected in your resume.</p>
+                <div class="chips-flow" id="missing-chips"></div>
+              </div>
+            </div>
+
+            <!-- Prioritized Improvements -->
+            <div class="results-card improvements-card">
+              <div class="card-title">Recommended resume improvements</div>
+              <p class="card-sub">Concrete, high-impact edits ordered by priority. Update your resume bullets with
+                verifiable evidence before submitting.</p>
+              <div class="improvements-list" id="improvements-list"></div>
+            </div>
+
+            <!-- Complete Tailored Resume (CV) Generator -->
+            <div class="results-card cv-generator-card" id="card-tailored-cv">
+              <div class="cv-card-header">
+                <div>
+                  <div class="cv-badge-row">
+                    <span class="chip chip-match" style="padding: 4px 10px; font-weight: 700;">★ GENERATED CV</span>
+                    <span class="cv-tag">ATS-Optimized</span>
+                    <span class="cv-tag">Job-Tailored</span>
+                  </div>
+                  <h3 class="card-title" style="margin-top: 6px; font-size: 1.25rem;">Complete Tailored Resume (CV)</h3>
+                  <p class="card-sub" style="margin-bottom: 0;">
+                    Fully rewritten resume incorporating your target role, core competencies, and high-impact metric
+                    bullets aligned with the job requirements.
+                  </p>
+                </div>
+                <div class="cv-action-buttons">
+                  <button type="button" class="btn-cv-action btn-cv-primary" id="btn-download-docx"
+                    title="Download editable Word document">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Download .DOCX</span>
+                  </button>
+                  <button type="button" class="btn-cv-action" id="btn-print-cv" title="Print or save as PDF">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                      <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                    <span>Print / PDF</span>
+                  </button>
+                  <button type="button" class="btn-cv-action" id="btn-copy-cv"
+                    title="Copy entire resume text to clipboard">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span id="btn-copy-cv-text">Copy Full Text</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Paper Sheet Preview -->
+              <div class="resume-sheet-wrapper">
+                <div class="resume-sheet" id="resume-sheet">
+                  <!-- Header -->
+                  <div class="sheet-header">
+                    <h1 class="sheet-name" id="sheet-name">[Your Name]</h1>
+                    <div class="sheet-contact" id="sheet-contact">[Email | Phone | Location | LinkedIn]</div>
+                    <div class="sheet-role" id="sheet-role">TARGET PROFESSIONAL ROLE</div>
+                  </div>
+
+                  <!-- Professional Summary -->
+                  <div class="sheet-section">
+                    <h4 class="sheet-sec-title">PROFESSIONAL SUMMARY</h4>
+                    <p class="sheet-summary-text" id="sheet-summary"></p>
+                  </div>
+
+                  <!-- Core Competencies -->
+                  <div class="sheet-section">
+                    <h4 class="sheet-sec-title">CORE COMPETENCIES & TECHNICAL SKILLS</h4>
+                    <div class="sheet-skills" id="sheet-skills"></div>
+                  </div>
+
+                  <!-- Experience -->
+                  <div class="sheet-section">
+                    <h4 class="sheet-sec-title">PROFESSIONAL EXPERIENCE</h4>
+                    <div class="sheet-experience" id="sheet-experience"></div>
+                  </div>
+
+                  <!-- Education -->
+                  <div class="sheet-section">
+                    <h4 class="sheet-sec-title">EDUCATION & CREDENTIALS</h4>
+                    <div class="sheet-education" id="sheet-education"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Outreach Email -->
+            <!-- Outreach Email & Cover Letter Section -->
             <div class="results-card">
-              <div class="card-title">
-                <span>Matched qualifications</span>
-                <span class="chip chip-match" id="count-matched">0</span>
-              </div>
-              <p class="card-sub">Skills and requirements already clearly supported by your resume.</p>
-              <div class="chips-flow" id="matched-chips"></div>
-            </div>
-
-            <div class="results-card">
-              <div class="card-title">
-                <span>Important missing gaps</span>
-                <span class="chip chip-gap" id="count-missing">0</span>
-              </div>
-              <p class="card-sub">Key terms or responsibilities from the job post not detected in your resume.</p>
-              <div class="chips-flow" id="missing-chips"></div>
-            </div>
-          </div>
-
-          <!-- Prioritized Improvements -->
-          <div class="results-card improvements-card">
-            <div class="card-title">Recommended resume improvements</div>
-            <p class="card-sub">Concrete, high-impact edits ordered by priority. Update your resume bullets with
-              verifiable evidence before submitting.</p>
-            <div class="improvements-list" id="improvements-list"></div>
-          </div>
-
-          <!-- Complete Tailored Resume (CV) Generator -->
-          <div class="results-card cv-generator-card" id="card-tailored-cv">
-            <div class="cv-card-header">
-              <div>
-                <div class="cv-badge-row">
-                  <span class="chip chip-match" style="padding: 4px 10px; font-weight: 700;">★ GENERATED CV</span>
-                  <span class="cv-tag">ATS-Optimized</span>
-                  <span class="cv-tag">Job-Tailored</span>
+              <div class="email-header-row">
+                <div class="tab-switch" role="tablist" aria-label="Application outreach format">
+                  <button type="button" role="tab" id="tab-outreach-email" class="tab-btn active" aria-selected="true"
+                    aria-controls="view-outreach-email">Recruiter Email (150w)</button>
+                  <button type="button" role="tab" id="tab-cover-letter" class="tab-btn" aria-selected="false"
+                    aria-controls="view-cover-letter">Full Cover Letter (1 Page)</button>
                 </div>
-                <h3 class="card-title" style="margin-top: 6px; font-size: 1.25rem;">Complete Tailored Resume (CV)</h3>
-                <p class="card-sub" style="margin-bottom: 0;">
-                  Fully rewritten resume incorporating your target role, core competencies, and high-impact metric bullets aligned with the job requirements.
-                </p>
-              </div>
-              <div class="cv-action-buttons">
-                <button type="button" class="btn-cv-action btn-cv-primary" id="btn-download-docx" title="Download editable Word document">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
-                  <span>Download .DOCX</span>
-                </button>
-                <button type="button" class="btn-cv-action" id="btn-print-cv" title="Print or save as PDF">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                    <rect x="6" y="14" width="12" height="8"></rect>
-                  </svg>
-                  <span>Print / PDF</span>
-                </button>
-                <button type="button" class="btn-cv-action" id="btn-copy-cv" title="Copy entire resume text to clipboard">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button type="button" class="btn-copy" id="btn-copy-letter">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                   </svg>
-                  <span id="btn-copy-cv-text">Copy Full Text</span>
+                  <span id="copy-text">Copy email text</span>
                 </button>
               </div>
-            </div>
 
-            <!-- Paper Sheet Preview -->
-            <div class="resume-sheet-wrapper">
-              <div class="resume-sheet" id="resume-sheet">
-                <!-- Header -->
-                <div class="sheet-header">
-                  <h1 class="sheet-name" id="sheet-name">[Your Name]</h1>
-                  <div class="sheet-contact" id="sheet-contact">[Email | Phone | Location | LinkedIn]</div>
-                  <div class="sheet-role" id="sheet-role">TARGET PROFESSIONAL ROLE</div>
+              <!-- View: Outreach Email -->
+              <div id="view-outreach-email" role="tabpanel" aria-labelledby="tab-outreach-email">
+                <div class="email-preview">
+                  <div class="email-field">
+                    <strong>Subject:</strong>
+                    <span class="email-subject-text" id="email-subject">Application: Role</span>
+                  </div>
+                  <div class="email-body-text" id="email-body">Email body text will appear here.</div>
                 </div>
+                <p class="email-note">Tip: Personalize the placeholders like [Hiring Manager] and [Your Name] before
+                  sending.</p>
+              </div>
 
-                <!-- Professional Summary -->
-                <div class="sheet-section">
-                  <h4 class="sheet-sec-title">PROFESSIONAL SUMMARY</h4>
-                  <p class="sheet-summary-text" id="sheet-summary"></p>
+              <!-- View: Full Cover Letter -->
+              <div id="view-cover-letter" role="tabpanel" aria-labelledby="tab-cover-letter" hidden>
+                <div class="email-preview">
+                  <div class="email-field">
+                    <strong>Header / Subject:</strong>
+                    <span class="email-subject-text" id="cover-letter-subject">Application for Role</span>
+                  </div>
+                  <div class="email-body-text" id="cover-letter-body">Cover letter text will appear here.</div>
                 </div>
-
-                <!-- Core Competencies -->
-                <div class="sheet-section">
-                  <h4 class="sheet-sec-title">CORE COMPETENCIES & TECHNICAL SKILLS</h4>
-                  <div class="sheet-skills" id="sheet-skills"></div>
-                </div>
-
-                <!-- Experience -->
-                <div class="sheet-section">
-                  <h4 class="sheet-sec-title">PROFESSIONAL EXPERIENCE</h4>
-                  <div class="sheet-experience" id="sheet-experience"></div>
-                </div>
-
-                <!-- Education -->
-                <div class="sheet-section">
-                  <h4 class="sheet-sec-title">EDUCATION & CREDENTIALS</h4>
-                  <div class="sheet-education" id="sheet-education"></div>
-                </div>
+                <p class="email-note">Tip: Formatted as a professional 1-page cover letter (300 words). Edit bracketed
+                  placeholders before submitting.</p>
               </div>
             </div>
+            <!-- closes tool-card -->
           </div>
-
-          <!-- Outreach Email -->
-          <!-- Outreach Email & Cover Letter Section -->
-          <div class="results-card">
-            <div class="email-header-row">
-              <div class="tab-switch" role="tablist" aria-label="Application outreach format">
-                <button type="button" role="tab" id="tab-outreach-email" class="tab-btn active" aria-selected="true"
-                  aria-controls="view-outreach-email">Recruiter Email (150w)</button>
-                <button type="button" role="tab" id="tab-cover-letter" class="tab-btn" aria-selected="false"
-                  aria-controls="view-cover-letter">Full Cover Letter (1 Page)</button>
-              </div>
-              <button type="button" class="btn-copy" id="btn-copy-letter">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  aria-hidden="true">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-                <span id="copy-text">Copy email text</span>
-              </button>
-            </div>
-
-            <!-- View: Outreach Email -->
-            <div id="view-outreach-email" role="tabpanel" aria-labelledby="tab-outreach-email">
-              <div class="email-preview">
-                <div class="email-field">
-                  <strong>Subject:</strong>
-                  <span class="email-subject-text" id="email-subject">Application: Role</span>
-                </div>
-                <div class="email-body-text" id="email-body">Email body text will appear here.</div>
-              </div>
-              <p class="email-note">Tip: Personalize the placeholders like [Hiring Manager] and [Your Name] before sending.</p>
-            </div>
-
-            <!-- View: Full Cover Letter -->
-            <div id="view-cover-letter" role="tabpanel" aria-labelledby="tab-cover-letter" hidden>
-              <div class="email-preview">
-                <div class="email-field">
-                  <strong>Header / Subject:</strong>
-                  <span class="email-subject-text" id="cover-letter-subject">Application for Role</span>
-                </div>
-                <div class="email-body-text" id="cover-letter-body">Cover letter text will appear here.</div>
-              </div>
-              <p class="email-note">Tip: Formatted as a professional 1-page cover letter (300 words). Edit bracketed placeholders before submitting.</p>
-            </div>
-          </div>
-          <!-- closes tool-card -->
-        </div>
         </div>
         <!-- End View 1: Match Analyzer / closes view-analyzer -->
 
         <!-- Studio Quick Launch Banner within Tool section -->
-        <div class="tool-studio-prompt" style="margin-top: 40px; padding: 28px 32px; background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; box-shadow: var(--shadow-sm);">
+        <div class="tool-studio-prompt"
+          style="margin-top: 40px; padding: 28px 32px; background: #FFFFFF; border: 1px solid var(--color-border); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; box-shadow: var(--shadow-sm);">
           <div>
-            <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-blue); margin-bottom: 4px;">Need a fresh, ATS-compliant resume to test?</div>
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--color-ink);">Launch Resume Studio (5 Pro Templates)</h3>
-            <p style="font-size: 0.95rem; color: var(--color-ink-muted); margin: 0;">Build an authentic ATS-proof resume from scratch on a live 1:1 A4 canvas with one-click Word (.docx) &amp; PDF export.</p>
+            <div
+              style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-blue); margin-bottom: 4px;">
+              Need a fresh, ATS-compliant resume to test?</div>
+            <h3
+              style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--color-ink);">
+              Launch Resume Studio (5 Pro Templates)</h3>
+            <p style="font-size: 0.95rem; color: var(--color-ink-muted); margin: 0;">Build an authentic ATS-proof resume
+              from scratch on a live 1:1 A4 canvas with one-click Word (.docx) &amp; PDF export.</p>
           </div>
-          <a href="/builder" class="btn-hero-secondary" style="white-space: nowrap; padding: 12px 24px; border-radius: var(--radius-pill); font-weight: 700; text-decoration: none;">
+          <a href="/builder" class="btn-hero-secondary"
+            style="white-space: nowrap; padding: 12px 24px; border-radius: var(--radius-pill); font-weight: 700; text-decoration: none;">
             ✨ Open Studio ➔
           </a>
         </div>
@@ -4712,16 +4789,21 @@
             <div class="tpl-panel-header">
               <div>
                 <h3 class="tpl-panel-title">Choose Professional Resume Template</h3>
-                <p class="tpl-panel-sub">Select from 5 ATS-tested formats engineered for typography, visual hierarchy, and recruiter readability.</p>
+                <p class="tpl-panel-sub">Select from 5 ATS-tested formats engineered for typography, visual hierarchy,
+                  and recruiter readability.</p>
               </div>
               <div class="tpl-quick-tools">
-                <a href="/builder" target="_blank" rel="noopener noreferrer" class="btn-builder-tool" style="text-decoration: none; background: var(--color-blue); color: #FFFFFF; border-color: var(--color-blue); font-weight: 700;" title="Open full page editor in new browser tab">
+                <a href="/builder" target="_blank" rel="noopener noreferrer" class="btn-builder-tool"
+                  style="text-decoration: none; background: var(--color-blue); color: #FFFFFF; border-color: var(--color-blue); font-weight: 700;"
+                  title="Open full page editor in new browser tab">
                   🚀 Open Full Page Studio ↗
                 </a>
-                <button type="button" class="btn-builder-tool" id="btn-builder-sample" title="Pre-fill form with a realistic engineering profile">
+                <button type="button" class="btn-builder-tool" id="btn-builder-sample"
+                  title="Pre-fill form with a realistic engineering profile">
                   ✨ Load Sample Profile
                 </button>
-                <button type="button" class="btn-builder-tool" id="btn-builder-clear" title="Reset all fields to blank slate">
+                <button type="button" class="btn-builder-tool" id="btn-builder-clear"
+                  title="Reset all fields to blank slate">
                   🗑️ Clear Form
                 </button>
               </div>
@@ -4740,7 +4822,8 @@
                   <div class="thumb-line" style="width: 75%;"></div>
                 </div>
                 <div class="tpl-card-name">Jake's Resume</div>
-                <div class="tpl-card-desc">The default choice on Overleaf (50k+ forks). Single-column, 1-page, pure ATS clarity.</div>
+                <div class="tpl-card-desc">The default choice on Overleaf (50k+ forks). Single-column, 1-page, pure ATS
+                  clarity.</div>
               </div>
 
               <!-- Template 2: The McDowell CV / Apex Resume -->
@@ -4755,7 +4838,8 @@
                   <div class="thumb-line" style="width: 72%;"></div>
                 </div>
                 <div class="tpl-card-name">The McDowell CV / Apex</div>
-                <div class="tpl-card-desc">Derived from Cracking the Coding Interview. High-density, project-first, lands Google & Meta roles.</div>
+                <div class="tpl-card-desc">Derived from Cracking the Coding Interview. High-density, project-first,
+                  lands Google & Meta roles.</div>
               </div>
 
               <!-- Template 3: ASG ATS Resume Template -->
@@ -4768,7 +4852,8 @@
                   <div class="thumb-line" style="width: 80%;"></div>
                 </div>
                 <div class="tpl-card-name">ASG ATS Resume</div>
-                <div class="tpl-card-desc">Clean, exact serif layout for experienced engineers. Tinos font, thin section dividers, zero clutter.</div>
+                <div class="tpl-card-desc">Clean, exact serif layout for experienced engineers. Tinos font, thin section
+                  dividers, zero clutter.</div>
               </div>
 
               <!-- Template 4: Universal Résumé Template -->
@@ -4781,7 +4866,8 @@
                   <div class="thumb-line" style="width: 85%; margin-left: 8px;"></div>
                 </div>
                 <div class="tpl-card-name">Universal Résumé</div>
-                <div class="tpl-card-desc">Tailwind CSS pragmatic pick. Identical proportions on screen & print, scannable tags, formal layout.</div>
+                <div class="tpl-card-desc">Tailwind CSS pragmatic pick. Identical proportions on screen & print,
+                  scannable tags, formal layout.</div>
               </div>
 
               <!-- Template 5: BelResumé (Static Site Resume) -->
@@ -4795,17 +4881,18 @@
                   <div class="thumb-line" style="width: 90%;"></div>
                 </div>
                 <div class="tpl-card-name">BelResumé (Static Site)</div>
-                <div class="tpl-card-desc">Zola & Tailwind modular resume with portfolio aesthetic, independent section modules, and clean chips.</div>
+                <div class="tpl-card-desc">Zola & Tailwind modular resume with portfolio aesthetic, independent section
+                  modules, and clean chips.</div>
               </div>
             </div>
           </div>
 
           <!-- Split Workspace Grid: Left Form Editor, Right Live Paper Canvas -->
           <div class="builder-workspace-grid">
-            
+
             <!-- Left Column: Form Editor -->
             <div class="builder-form-col">
-              
+
               <!-- Card 1: Personal & Contact Information -->
               <div class="builder-accordion-card">
                 <div class="builder-sec-header">
@@ -4816,36 +4903,43 @@
                   <div class="form-row-2">
                     <div class="form-group">
                       <label for="bf-name">Full Name *</label>
-                      <input type="text" id="bf-name" class="builder-input" placeholder="e.g. Alex Morgan" autocomplete="name">
+                      <input type="text" id="bf-name" class="builder-input" placeholder="e.g. Alex Morgan"
+                        autocomplete="name">
                     </div>
                     <div class="form-group">
                       <label for="bf-title">Target Job Title</label>
-                      <input type="text" id="bf-title" class="builder-input" placeholder="e.g. Senior Software Engineer">
+                      <input type="text" id="bf-title" class="builder-input"
+                        placeholder="e.g. Senior Software Engineer">
                     </div>
                   </div>
                   <div class="form-row-2">
                     <div class="form-group">
                       <label for="bf-email">Email Address</label>
-                      <input type="email" id="bf-email" class="builder-input" placeholder="alex.morgan@email.com" autocomplete="email">
+                      <input type="email" id="bf-email" class="builder-input" placeholder="alex.morgan@email.com"
+                        autocomplete="email">
                     </div>
                     <div class="form-group">
                       <label for="bf-phone">Phone Number</label>
-                      <input type="tel" id="bf-phone" class="builder-input" placeholder="+1 (555) 019-2834" autocomplete="tel">
+                      <input type="tel" id="bf-phone" class="builder-input" placeholder="+1 (555) 019-2834"
+                        autocomplete="tel">
                     </div>
                   </div>
                   <div class="form-row-2">
                     <div class="form-group">
                       <label for="bf-location">Location</label>
-                      <input type="text" id="bf-location" class="builder-input" placeholder="San Francisco, CA (or Remote)">
+                      <input type="text" id="bf-location" class="builder-input"
+                        placeholder="San Francisco, CA (or Remote)">
                     </div>
                     <div class="form-group">
                       <label for="bf-linkedin">LinkedIn URL / Handle</label>
-                      <input type="text" id="bf-linkedin" class="builder-input" placeholder="linkedin.com/in/alexmorgan">
+                      <input type="text" id="bf-linkedin" class="builder-input"
+                        placeholder="linkedin.com/in/alexmorgan">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="bf-portfolio">Portfolio / GitHub / Website</label>
-                    <input type="text" id="bf-portfolio" class="builder-input" placeholder="github.com/alexmorgan or alexmorgan.dev">
+                    <input type="text" id="bf-portfolio" class="builder-input"
+                      placeholder="github.com/alexmorgan or alexmorgan.dev">
                   </div>
                 </div>
               </div>
@@ -4858,7 +4952,8 @@
                 </div>
                 <div class="form-group">
                   <label for="bf-summary">Executive Summary (2-4 Sentences)</label>
-                  <textarea id="bf-summary" class="builder-textarea" rows="4" placeholder="Results-driven Software Engineer with 6+ years building scalable distributed microservices, REST APIs, and responsive web applications. Track record of improving system uptime to 99.99% and accelerating release velocity by 40%."></textarea>
+                  <textarea id="bf-summary" class="builder-textarea" rows="4"
+                    placeholder="Results-driven Software Engineer with 6+ years building scalable distributed microservices, REST APIs, and responsive web applications. Track record of improving system uptime to 99.99% and accelerating release velocity by 40%."></textarea>
                 </div>
               </div>
 
@@ -4870,8 +4965,10 @@
                 </div>
                 <div class="form-group">
                   <label for="bf-skills">Comma-Separated Skills (ATS Keywords)</label>
-                  <textarea id="bf-skills" class="builder-textarea" rows="3" placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, Kubernetes, AWS, Redis, GraphQL, CI/CD, System Design"></textarea>
-                  <span style="font-size: 0.725rem; color: var(--color-ink-muted); margin-top: 4px;">Separate with commas. The selected template automatically formats them into stylish badges or clean lists.</span>
+                  <textarea id="bf-skills" class="builder-textarea" rows="3"
+                    placeholder="Python, FastAPI, TypeScript, React, PostgreSQL, Docker, Kubernetes, AWS, Redis, GraphQL, CI/CD, System Design"></textarea>
+                  <span style="font-size: 0.725rem; color: var(--color-ink-muted); margin-top: 4px;">Separate with
+                    commas. The selected template automatically formats them into stylish badges or clean lists.</span>
                 </div>
               </div>
 
@@ -4914,24 +5011,30 @@
                     <span id="preview-template-label">Modern Executive</span> (Live Preview)
                   </div>
                   <div class="preview-actions">
-                    <button type="button" class="btn-preview-action btn-preview-primary" id="btn-builder-docx" title="Download ATS formatted Word document">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <button type="button" class="btn-preview-action btn-preview-primary" id="btn-builder-docx"
+                      title="Download ATS formatted Word document">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                         <polyline points="7 10 12 15 17 10"></polyline>
                         <line x1="12" y1="15" x2="12" y2="3"></line>
                       </svg>
                       <span>Download .DOCX</span>
                     </button>
-                    <button type="button" class="btn-preview-action" id="btn-builder-print" title="Print or save as PDF">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <button type="button" class="btn-preview-action" id="btn-builder-print"
+                      title="Print or save as PDF">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
                         <polyline points="6 9 6 2 18 2 18 9"></polyline>
                         <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                         <rect x="6" y="14" width="12" height="8"></rect>
                       </svg>
                       <span>Print / PDF</span>
                     </button>
-                    <button type="button" class="btn-preview-action" id="btn-builder-copy" title="Copy plaintext resume">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <button type="button" class="btn-preview-action" id="btn-builder-copy"
+                      title="Copy plaintext resume">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                       </svg>
@@ -4943,14 +5046,15 @@
                 <!-- Canvas Wrapper -->
                 <div class="builder-paper-canvas">
                   <div id="builder-paper" class="builder-paper tpl-executive">
-                    
+
                     <!-- Paper Header -->
                     <div class="b-header">
                       <h1 class="b-name" id="bp-name">Alex Morgan</h1>
                       <div class="b-title" id="bp-title">Senior Software Engineer</div>
                       <div class="b-header-rule"></div>
                       <div class="b-contact" id="bp-contact">
-                        alex.morgan@email.com • +1 (555) 019-2834 • San Francisco, CA • linkedin.com/in/alexmorgan • github.com/alexmorgan
+                        alex.morgan@email.com • +1 (555) 019-2834 • San Francisco, CA • linkedin.com/in/alexmorgan •
+                        github.com/alexmorgan
                       </div>
                     </div>
 
@@ -4996,7 +5100,8 @@
         <div class="section-header" style="text-align: center; max-width: 700px; margin: 0 auto;">
           <div class="section-eyebrow">The ATS Reality Check</div>
           <h2 id="matrix-heading" class="section-title">Why 75% of resumes get filtered out</h2>
-          <p class="section-sub">Applicant Tracking Systems (Workday, Greenhouse, Lever) don't read resumes like humans. Here is how ResumeFit guarantees clean parsing.</p>
+          <p class="section-sub">Applicant Tracking Systems (Workday, Greenhouse, Lever) don't read resumes like humans.
+            Here is how ResumeFit guarantees clean parsing.</p>
         </div>
 
         <div class="matrix-grid">
@@ -5009,19 +5114,23 @@
             <ul class="matrix-list">
               <li>
                 <span class="matrix-icon">✕</span>
-                <span><strong>Multi-column tables:</strong> ATS parsers read columns horizontally across lines, garbling job titles, dates, and companies into gibberish.</span>
+                <span><strong>Multi-column tables:</strong> ATS parsers read columns horizontally across lines, garbling
+                  job titles, dates, and companies into gibberish.</span>
               </li>
               <li>
                 <span class="matrix-icon">✕</span>
-                <span><strong>Skill rating bars &amp; graphs:</strong> Visual percentages or dots are completely invisible to text parsers, dropping your core skills.</span>
+                <span><strong>Skill rating bars &amp; graphs:</strong> Visual percentages or dots are completely
+                  invisible to text parsers, dropping your core skills.</span>
               </li>
               <li>
                 <span class="matrix-icon">✕</span>
-                <span><strong>Headers, footers &amp; text boxes:</strong> Critical contact information placed in Word headers is discarded by 60% of legacy ATS tools.</span>
+                <span><strong>Headers, footers &amp; text boxes:</strong> Critical contact information placed in Word
+                  headers is discarded by 60% of legacy ATS tools.</span>
               </li>
               <li>
                 <span class="matrix-icon">✕</span>
-                <span><strong>Generic responsibility bullets:</strong> Listing duties ("Responsible for code") instead of quantifiable metric outcomes lowers match confidence.</span>
+                <span><strong>Generic responsibility bullets:</strong> Listing duties ("Responsible for code") instead
+                  of quantifiable metric outcomes lowers match confidence.</span>
               </li>
             </ul>
           </div>
@@ -5035,19 +5144,23 @@
             <ul class="matrix-list">
               <li>
                 <span class="matrix-icon">✓</span>
-                <span><strong>Pure single-column flow:</strong> Standard top-to-bottom typographic hierarchy that every parser extracts with 100% accuracy.</span>
+                <span><strong>Pure single-column flow:</strong> Standard top-to-bottom typographic hierarchy that every
+                  parser extracts with 100% accuracy.</span>
               </li>
               <li>
                 <span class="matrix-icon">✓</span>
-                <span><strong>Semantic keyword density:</strong> Hard skills and tool stacks extracted and organized in scannable, standardized sections.</span>
+                <span><strong>Semantic keyword density:</strong> Hard skills and tool stacks extracted and organized in
+                  scannable, standardized sections.</span>
               </li>
               <li>
                 <span class="matrix-icon">✓</span>
-                <span><strong>Metric-driven bullet optimization:</strong> Action verb + quantified impact + target tech stack formulas that beat keyword filters.</span>
+                <span><strong>Metric-driven bullet optimization:</strong> Action verb + quantified impact + target tech
+                  stack formulas that beat keyword filters.</span>
               </li>
               <li>
                 <span class="matrix-icon">✓</span>
-                <span><strong>Universal Word (.docx) &amp; A4 PDF export:</strong> OpenXML and standard page styling render identically on screen, printer, and recruiter screens.</span>
+                <span><strong>Universal Word (.docx) &amp; A4 PDF export:</strong> OpenXML and standard page styling
+                  render identically on screen, printer, and recruiter screens.</span>
               </li>
             </ul>
           </div>
@@ -5068,50 +5181,72 @@
           <div class="faq-item">
             <button type="button" class="faq-question">
               <span>How does the ATS Match Score work?</span>
-              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </button>
             <div class="faq-answer">
-              ResumeFit compares the semantic content and hard skills in your resume against the target job posting. It evaluates keyword density, required technical proficiencies, role scope, and achievement phrasing to calculate a realistic 0–100 match percentage.
+              ResumeFit compares the semantic content and hard skills in your resume against the target job posting. It
+              evaluates keyword density, required technical proficiencies, role scope, and achievement phrasing to
+              calculate a realistic 0–100 match percentage.
             </div>
           </div>
 
           <div class="faq-item">
             <button type="button" class="faq-question">
               <span>Which resume template is best for software engineers?</span>
-              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </button>
             <div class="faq-answer">
-              <strong>Jake's Resume</strong> is the universal safe pick for students and engineers (50,000+ forks on Overleaf). If you have senior impact and open-source projects, <strong>The McDowell CV / Apex</strong> is explicitly engineered for FAANG (Google, Meta, Amazon) engineering screenings.
+              <strong>Jake's Resume</strong> is the universal safe pick for students and engineers (50,000+ forks on
+              Overleaf). If you have senior impact and open-source projects, <strong>The McDowell CV / Apex</strong> is
+              explicitly engineered for FAANG (Google, Meta, Amazon) engineering screenings.
             </div>
           </div>
 
           <div class="faq-item">
             <button type="button" class="faq-question">
               <span>Can I download both Microsoft Word (.docx) and PDF?</span>
-              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </button>
             <div class="faq-answer">
-              Yes! Resume Studio generates genuine Microsoft Word (.docx) documents using server-side OpenXML styling. You can also print directly to PDF with pixel-perfect 1-page A4 print styling without margin overflow.
+              Yes! Resume Studio generates genuine Microsoft Word (.docx) documents using server-side OpenXML styling.
+              You can also print directly to PDF with pixel-perfect 1-page A4 print styling without margin overflow.
             </div>
           </div>
 
           <div class="faq-item">
             <button type="button" class="faq-question">
               <span>Is my resume data private and secure?</span>
-              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </button>
             <div class="faq-answer">
-              Absolutely. We do not store your resume, parsed text, or personal details in any database. Analysis runs in memory and is discarded immediately after your session completes.
+              Absolutely. We do not store your resume, parsed text, or personal details in any database. Analysis runs
+              in memory and is discarded immediately after your session completes.
             </div>
           </div>
 
           <div class="faq-item">
             <button type="button" class="faq-question">
               <span>Do I need to create an account or pay to use this?</span>
-              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </button>
             <div class="faq-answer">
-              No sign-up or credit card required. ResumeFit is completely free and accessible directly from your browser.
+              No sign-up or credit card required. ResumeFit is completely free and accessible directly from your
+              browser.
             </div>
           </div>
         </div>
@@ -5123,10 +5258,14 @@
       <div class="container">
         <div class="final-cta-card">
           <h2 class="final-cta-title">Ready to land more recruiter callbacks?</h2>
-          <p class="final-cta-sub">Audit your resume in seconds or build an ATS-certified resume tailored for top tech companies.</p>
+          <p class="final-cta-sub">Audit your resume in seconds or build an ATS-certified resume tailored for top tech
+            companies.</p>
           <div class="final-cta-actions">
-            <a href="#tool" class="btn-hero-primary" style="padding: 16px 32px; font-size: 1.05rem;">🎯 Scan Your Resume Odds</a>
-            <a href="/builder" class="btn-hero-secondary" style="padding: 16px 32px; font-size: 1.05rem;">✨ Open Resume Studio (5 Templates)</a>
+            <a href="#tool" class="btn-hero-primary" style="padding: 16px 32px; font-size: 1.05rem;">Scan Your Resume
+              Odds</a>
+            <a href="/builder" class="btn-hero-primary" style="padding: 16px 32px; font-size: 1.05rem;">Open Resume
+              Studio (5 Templates)</a>
+
           </div>
         </div>
       </div>
@@ -5134,51 +5273,74 @@
   </main>
 
   <!-- Footer -->
-  <footer class="site-footer" style="padding: 60px 0 36px; border-top: 1px solid var(--color-border); background: #FFFFFF;">
+  <footer class="site-footer"
+    style="padding: 60px 0 36px; border-top: 1px solid var(--color-border); background: #FFFFFF;">
     <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
         <div>
           <div class="footer-brand" style="margin-bottom: 14px; display: flex; align-items: center; gap: 10px;">
-            <img src="/logo.jpg" onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='/static/logo.jpg';}" alt="ResumeFit" class="brand-img" style="width:28px;height:28px; border-radius: 6px;">
-            <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--color-ink);">ResumeFit</span>
+            <img src="/logo.jpg"
+              onerror="if(!this.dataset.retried){this.dataset.retried=1;this.src='/static/logo.jpg';}" alt="ResumeFit"
+              class="brand-img" style="width:28px;height:28px; border-radius: 6px;">
+            <span
+              style="font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--color-ink);">ResumeFit</span>
           </div>
           <p style="font-size: 0.92rem; color: var(--color-ink-muted); line-height: 1.6; margin-bottom: 16px;">
-            Dual-engine ATS optimization platform. Compare your resume against any role or build an authentic ATS-proof resume with 5 proven templates.
+            Dual-engine ATS optimization platform. Compare your resume against any role or build an authentic ATS-proof
+            resume with 5 proven templates.
           </p>
-          <div style="display: flex; gap: 12px; font-size: 0.82rem; font-weight: 700; color: var(--color-blue); flex-wrap: wrap;">
+          <div
+            style="display: flex; gap: 12px; font-size: 0.82rem; font-weight: 700; color: var(--color-blue); flex-wrap: wrap;">
             <span>✓ No signup required</span>
             <span>✓ Zero data stored</span>
           </div>
         </div>
 
         <div>
-          <h4 style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-ink); margin-bottom: 16px;">5 ATS Templates</h4>
+          <h4
+            style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-ink); margin-bottom: 16px;">
+            5 ATS Templates</h4>
           <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.92rem;">
-            <li><a href="/builder?template=jake" style="color: var(--color-ink-muted); text-decoration: none;">Jake's Resume (50k+ Overleaf)</a></li>
-            <li><a href="/builder?template=mcdowell" style="color: var(--color-ink-muted); text-decoration: none;">The McDowell CV / Apex (FAANG)</a></li>
-            <li><a href="/builder?template=asg" style="color: var(--color-ink-muted); text-decoration: none;">ASG ATS Resume (Minimalist LaTeX)</a></li>
-            <li><a href="/builder?template=universal" style="color: var(--color-ink-muted); text-decoration: none;">Universal Résumé (Web/Print)</a></li>
-            <li><a href="/builder?template=belresume" style="color: var(--color-ink-muted); text-decoration: none;">BelResumé (European Standard)</a></li>
+            <li><a href="/builder?template=jake" style="color: var(--color-ink-muted); text-decoration: none;">Jake's
+                Resume (50k+ Overleaf)</a></li>
+            <li><a href="/builder?template=mcdowell" style="color: var(--color-ink-muted); text-decoration: none;">The
+                McDowell CV / Apex (FAANG)</a></li>
+            <li><a href="/builder?template=asg" style="color: var(--color-ink-muted); text-decoration: none;">ASG ATS
+                Resume (Minimalist LaTeX)</a></li>
+            <li><a href="/builder?template=universal"
+                style="color: var(--color-ink-muted); text-decoration: none;">Universal Résumé (Web/Print)</a></li>
+            <li><a href="/builder?template=belresume"
+                style="color: var(--color-ink-muted); text-decoration: none;">BelResumé (European Standard)</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-ink); margin-bottom: 16px;">Tools &amp; Features</h4>
+          <h4
+            style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-ink); margin-bottom: 16px;">
+            Tools &amp; Features</h4>
           <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.92rem;">
-            <li><a href="#tool" style="color: var(--color-ink-muted); text-decoration: none;">ATS Match Analyzer</a></li>
-            <li><a href="/builder" style="color: var(--color-ink-muted); text-decoration: none;">Resume Studio (Live A4)</a></li>
-            <li><a href="#templates" style="color: var(--color-ink-muted); text-decoration: none;">Template Showcase</a></li>
+            <li><a href="#tool" style="color: var(--color-ink-muted); text-decoration: none;">ATS Match Analyzer</a>
+            </li>
+            <li><a href="/builder" style="color: var(--color-ink-muted); text-decoration: none;">Resume Studio (Live
+                A4)</a></li>
+            <li><a href="#templates" style="color: var(--color-ink-muted); text-decoration: none;">Template Showcase</a>
+            </li>
             <li><a href="#faq" style="color: var(--color-ink-muted); text-decoration: none;">ATS FAQ</a></li>
-            <li><a href="https://github.com/megha250903/ResumeFit" target="_blank" rel="noopener noreferrer" style="color: var(--color-ink-muted); text-decoration: none;">GitHub Repository ↗</a></li>
+            <li><a href="https://github.com/megha250903/ResumeFit" target="_blank" rel="noopener noreferrer"
+                style="color: var(--color-ink-muted); text-decoration: none;">GitHub Repository ↗</a></li>
           </ul>
         </div>
       </div>
 
-      <div style="padding-top: 24px; border-top: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <div
+        style="padding-top: 24px; border-top: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
         <p style="font-size: 0.85rem; color: var(--color-ink-soft); margin: 0; max-width: 600px;">
-          ResumeFit analyzes resumes against job descriptions to help applicants optimize formatting and signal. It does not predict or guarantee hiring decisions.
+          ResumeFit analyzes resumes against job descriptions to help applicants optimize formatting and signal. It does
+          not predict or guarantee hiring decisions.
         </p>
-        <span style="font-size: 0.85rem; color: var(--color-ink-soft); font-weight: 600;">© 2026 ResumeFit • MIT License</span>
+        <span style="font-size: 0.85rem; color: var(--color-ink-soft); font-weight: 600;">© 2026 ResumeFit • MIT
+          License</span>
       </div>
     </div>
   </footer>
@@ -5982,7 +6144,7 @@
             expList.forEach(job => {
               const card = createEl('div', 'sheet-job');
               const header = createEl('div', 'sheet-job-header');
-              
+
               const titleComp = createEl('div', 'sheet-job-title-company');
               const jobTitle = createEl('span', 'sheet-job-title', job.title || 'Role Title');
               titleComp.appendChild(jobTitle);
@@ -6023,7 +6185,7 @@
               const deg = createEl('span', 'sheet-edu-deg', edu.degree || 'Degree');
               const sch = edu.school ? createEl('span', 'sheet-edu-sch', ' — ' + edu.school) : null;
               const yr = edu.year ? createEl('span', 'sheet-edu-yr', '(' + edu.year + ')') : null;
-              
+
               const left = createEl('div');
               left.appendChild(deg);
               if (sch) left.appendChild(sch);
@@ -6162,7 +6324,7 @@
             importedJd = localStorage.getItem('resumefit_auto_import_jd') || '';
             importedTitle = importedTitle || localStorage.getItem('resumefit_auto_import_title') || '';
             importedCompany = importedCompany || localStorage.getItem('resumefit_auto_import_company') || '';
-          } catch (e) {}
+          } catch (e) { }
         } else if (urlParams.has('jd')) {
           importedJd = decodeURIComponent(urlParams.get('jd') || '');
         }
@@ -6190,8 +6352,8 @@
             document.getElementById('rf-copilot-modal').remove();
           }
 
-          var jd = document.getElementById('jobDescriptionText') || 
-                   document.querySelector('.jobs-description__content, #job-details, .jobsearch-JobComponent-description, [data-testid="jobsearch-JobComponent"]');
+          var jd = document.getElementById('jobDescriptionText') ||
+            document.querySelector('.jobs-description__content, #job-details, .jobsearch-JobComponent-description, [data-testid="jobsearch-JobComponent"]');
           var title = document.querySelector('h2.jobsearch-JobInfoHeader-title, h1[data-testid="jobsearch-JobInfoHeader-title"], .job-details-jobs-unified-top-card__job-title, h1');
           var comp = document.querySelector('[data-testid="inlineHeader-companyName"], [data-company-name="true"], .job-details-jobs-unified-top-card__company-name');
 
@@ -6264,29 +6426,29 @@
                 resume_text: resText
               })
             })
-            .then(function (r) { return r.json(); })
-            .then(function (data) {
-              actBtn.innerText = origText;
-              actBtn.disabled = false;
-              document.getElementById('rf-result-area').style.display = 'block';
-              document.getElementById('rf-badge-title').innerText = type === 'email' ? '⚡ Recruiter Cold Email' : '📄 Tailored Cover Letter';
-              document.getElementById('rf-subject-line').innerText = data.subject || '';
-              var text = type === 'email' ? (data.email_body || '') : (data.cover_letter || '');
-              document.getElementById('rf-body-content').innerText = text;
+              .then(function (r) { return r.json(); })
+              .then(function (data) {
+                actBtn.innerText = origText;
+                actBtn.disabled = false;
+                document.getElementById('rf-result-area').style.display = 'block';
+                document.getElementById('rf-badge-title').innerText = type === 'email' ? '⚡ Recruiter Cold Email' : '📄 Tailored Cover Letter';
+                document.getElementById('rf-subject-line').innerText = data.subject || '';
+                var text = type === 'email' ? (data.email_body || '') : (data.cover_letter || '');
+                document.getElementById('rf-body-content').innerText = text;
 
-              document.getElementById('rf-copy-btn').onclick = function () {
-                var full = (data.subject ? ('Subject: ' + data.subject + '\n\n') : '') + text;
-                navigator.clipboard.writeText(full);
-                this.innerText = 'Copied!';
-                var self = this;
-                setTimeout(function () { self.innerText = 'Copy'; }, 2000);
-              };
-            })
-            .catch(function () {
-              actBtn.innerText = origText;
-              actBtn.disabled = false;
-              alert('Could not reach ResumeFit on http://localhost:8000. Please make sure the app is running.');
-            });
+                document.getElementById('rf-copy-btn').onclick = function () {
+                  var full = (data.subject ? ('Subject: ' + data.subject + '\n\n') : '') + text;
+                  navigator.clipboard.writeText(full);
+                  this.innerText = 'Copied!';
+                  var self = this;
+                  setTimeout(function () { self.innerText = 'Copy'; }, 2000);
+                };
+              })
+              .catch(function () {
+                actBtn.innerText = origText;
+                actBtn.disabled = false;
+                alert('Could not reach ResumeFit on http://localhost:8000. Please make sure the app is running.');
+              });
           }
 
           document.getElementById('rf-btn-email').onclick = function () { runCoPilot('email'); };
