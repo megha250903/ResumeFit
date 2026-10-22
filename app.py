@@ -42,13 +42,30 @@ Rules:
   * "revised": write the exact, ready-to-paste optimized bullet point using strong action verbs, quantifiable metrics, and relevant keywords from the job description that the candidate could truthfully claim.
   * "change": one short headline describing the modification.
   * "why": 1 concise sentence explaining why this upgrade passes ATS filters and impresses hiring teams.
+- Important: Output strictly valid JSON. Properly escape any quotation marks inside text strings with backslashes. Do not wrap in markdown.
 
-Return ONLY JSON, no other text, in this shape:
-{"score":number,"verdict":"one short sentence","summary":"2-3 sentences explaining the score",
-"matched":["..."],"missing":["..."],"experience_fit":"one sentence",
-"improvements":[{"change":"...","original":"...","revised":"...","why":"..."}],
-"email":{"subject":"...","body":"..."}}
-Give 4 to 6 improvements, ordered by impact."""
+Expected JSON structure:
+{
+  "score": 0,
+  "verdict": "one sentence",
+  "summary": "2-3 sentences",
+  "matched": ["item1"],
+  "missing": ["item2"],
+  "experience_fit": "one sentence",
+  "improvements": [
+    {
+      "change": "headline",
+      "original": "quote",
+      "revised": "improved bullet",
+      "why": "rationale"
+    }
+  ],
+  "email": {
+    "subject": "email subject",
+    "body": "email body"
+  }
+}
+Provide exactly 4 or 5 improvements, ordered by impact."""
 
 
 def extract_text(filename: str, data: bytes) -> str:
@@ -75,10 +92,41 @@ def check_rate(ip: str) -> None:
 
 
 def parse_json(text: str) -> dict:
-    m = re.search(r"\{.*\}", text, re.S)
+    if not text:
+        raise ValueError("no JSON in model reply")
+    cleaned = re.sub(r"^```json\s*|^```\s*|```$", "", text.strip(), flags=re.MULTILINE).strip()
+    try:
+        return json.loads(cleaned)
+    except Exception:
+        pass
+
+    m = re.search(r"\{.*\}", cleaned, re.S)
     if not m:
         raise ValueError("no JSON in model reply")
-    return json.loads(m.group(0))
+    candidate = m.group(0).strip()
+    try:
+        return json.loads(candidate)
+    except Exception:
+        pass
+
+    # Repair malformed endings like "}"}} or extra quotes before brace
+    fixed = re.sub(r'\"\}\s*\"\}\}$', '\"}}', candidate)
+    fixed = re.sub(r'\"\}\s*\}\}$', '\"}}', fixed)
+    fixed = re.sub(r'\"\}\s*\"?\s*$', '}}', fixed)
+    try:
+        return json.loads(fixed)
+    except Exception:
+        pass
+
+    # Repair trailing missing closing braces if cut off
+    open_b = fixed.count('{') - fixed.count('}')
+    if open_b > 0:
+        try:
+            return json.loads(fixed + ('}' * open_b))
+        except Exception:
+            pass
+
+    raise ValueError("Could not parse JSON from model output")
 
 
 @app.post("/api/analyze")
@@ -112,17 +160,38 @@ def analyze(
         f"<job_description>\n{job_description.strip()[:MAX_CHARS]}\n</job_description>"
     )
     try:
-        resp = client.chat.completions.create(
-            model=MODEL,
-            temperature=0.3,
-            max_tokens=2500,
-            response_format={"type": "json_object"},
-            messages=[
-                {"role": "system", "content": SYSTEM},
-                {"role": "user", "content": user_msg},
-            ],
-        )
-        return parse_json(resp.choices[0].message.content)
+        try:
+            resp = client.chat.completions.create(
+                model=MODEL,
+                temperature=0.3,
+                max_tokens=4096,
+                response_format={"type": "json_object"},
+                messages=[
+                    {"role": "system", "content": SYSTEM},
+                    {"role": "user", "content": user_msg},
+                ],
+            )
+            return parse_json(resp.choices[0].message.content)
+        except groq.APIError as ge:
+            body = getattr(ge, "body", {})
+            if isinstance(body, dict):
+                err = body.get("error", {})
+                if err.get("code") == "json_validate_failed" and err.get("failed_generation"):
+                    try:
+                        return parse_json(err["failed_generation"])
+                    except Exception:
+                        pass
+            # Fallback without json_object constraint so Groq proxy does not abort on small escape errors
+            resp = client.chat.completions.create(
+                model=MODEL,
+                temperature=0.3,
+                max_tokens=4096,
+                messages=[
+                    {"role": "system", "content": SYSTEM},
+                    {"role": "user", "content": user_msg},
+                ],
+            )
+            return parse_json(resp.choices[0].message.content)
     except groq.AuthenticationError as e:
         print("Groq auth error:", e)
         raise HTTPException(500, "Server is missing a valid GROQ_API_KEY.")
