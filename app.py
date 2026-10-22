@@ -6,13 +6,17 @@ import os
 import re
 import time
 from collections import defaultdict
+from urllib.parse import urlparse
 
 import groq
+import httpx
+from bs4 import BeautifulSoup
 from docx import Document
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from groq import Groq
+from pydantic import BaseModel
 from pypdf import PdfReader
 
 try:
@@ -207,6 +211,101 @@ def analyze(
     except Exception as e:
         print("Unexpected error:", e)
         raise HTTPException(500, f"Server error: {str(e)}")
+
+
+class FetchJobRequest(BaseModel):
+    url: str
+
+
+@app.post("/api/fetch-job")
+async def fetch_job(req: FetchJobRequest):
+    """Scrape and extract clean text from a public job posting URL."""
+    raw_url = req.url.strip()
+    if not raw_url:
+        raise HTTPException(400, "URL cannot be empty.")
+
+    if not raw_url.startswith(("http://", "https://")):
+        raw_url = "https://" + raw_url
+
+    parsed = urlparse(raw_url)
+    if not parsed.scheme or not parsed.netloc or "." not in parsed.netloc:
+        raise HTTPException(400, "Please enter a valid job URL (e.g., https://boards.greenhouse.io/... or https://jobs.lever.co/...).")
+
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+    }
+
+    try:
+        async with httpx.AsyncClient(timeout=14.0, follow_redirects=True) as http_client:
+            resp = await http_client.get(raw_url, headers=headers)
+            if resp.status_code in (401, 403):
+                raise HTTPException(
+                    422,
+                    f"This site ({parsed.netloc}) restricts automated scraping or requires login. "
+                    "Please copy and paste the job description text directly into the box."
+                )
+            if resp.status_code >= 400:
+                raise HTTPException(
+                    422,
+                    f"Could not open job page (HTTP status {resp.status_code}). Please copy and paste the text directly."
+                )
+            html_text = resp.text
+    except httpx.TimeoutException:
+        raise HTTPException(408, "The job link took too long to respond. Please copy and paste the job description directly.")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(422, f"Could not fetch URL: {str(e)}")
+
+    soup = BeautifulSoup(html_text, "html.parser")
+
+    # Remove non-content elements
+    for el in soup(["script", "style", "noscript", "svg", "nav", "footer", "iframe", "header"]):
+        el.decompose()
+
+    # Prioritize typical job posting containers (Greenhouse, Lever, LinkedIn, Workday, Ashby, BambooHR)
+    container = (
+        soup.find(id=re.compile(r"job[-_]?description|posting[-_]?content|job[-_]?details|app[-_]?body", re.I)) or
+        soup.find(class_=re.compile(r"job[-_]?description|posting[-_]?page|description__text|show-more-less-html|section-page", re.I)) or
+        soup.find("main") or
+        soup.find("article") or
+        soup.body
+    )
+
+    if not container:
+        container = soup
+
+    lines = (line.strip() for line in container.get_text(separator="\n").splitlines())
+    chunks = [c for c in lines if c]
+    extracted_text = "\n".join(chunks)
+
+    if len(extracted_text) < 60:
+        raise HTTPException(
+            422,
+            "Could not detect job description text on this page. The page might rely on heavy client-side JavaScript or login. Please copy and paste the job text directly."
+        )
+
+    if len(extracted_text) > MAX_CHARS:
+        extracted_text = extracted_text[:MAX_CHARS]
+
+    # Extract title
+    job_title = ""
+    if soup.title and soup.title.string:
+        job_title = soup.title.string.strip()
+
+    return {
+        "title": job_title,
+        "text": extracted_text,
+        "char_count": len(extracted_text),
+        "source": parsed.netloc
+    }
 
 
 @app.get("/")

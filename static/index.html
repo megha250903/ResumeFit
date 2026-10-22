@@ -807,6 +807,152 @@
       font-weight: 600;
     }
 
+    /* URL Import Styling */
+    .url-import-card {
+      background-color: var(--color-bg);
+      border: 1px dashed var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 250px;
+      justify-content: center;
+    }
+
+    .url-input-wrap {
+      display: flex;
+      align-items: center;
+      background-color: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 4px 6px 4px 14px;
+      gap: 10px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .url-input-wrap:focus-within {
+      border-color: var(--color-blue);
+      box-shadow: 0 0 0 3px rgba(35, 48, 216, 0.12);
+    }
+
+    .url-icon {
+      color: var(--color-ink-muted);
+      flex-shrink: 0;
+    }
+
+    .url-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--color-ink);
+      padding: 8px 0;
+      outline: none;
+      min-width: 0;
+    }
+
+    .btn-fetch-url {
+      background-color: var(--color-blue);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 9px 18px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color var(--transition), transform var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-fetch-url:hover {
+      background-color: var(--color-blue-dark);
+    }
+
+    .btn-fetch-url:active {
+      transform: scale(0.98);
+    }
+
+    .btn-fetch-url.loading {
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .url-status {
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      display: none;
+    }
+
+    .url-status.success {
+      display: block;
+      background-color: var(--color-match-bg);
+      border: 1px solid var(--color-match-border);
+      color: var(--color-match);
+      font-weight: 500;
+    }
+
+    .url-status.error {
+      display: block;
+      background-color: var(--color-gap-bg);
+      border: 1px solid var(--color-gap-border);
+      color: var(--color-gap);
+    }
+
+    .url-import-tips {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.775rem;
+      color: var(--color-ink-muted);
+      line-height: 1.45;
+    }
+
+    .url-tip-badge {
+      font-weight: 600;
+      color: var(--color-ink);
+      flex-shrink: 0;
+    }
+
+    .jd-url-detected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background-color: var(--color-blue-subtle);
+      border: 1px solid var(--color-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      margin-top: 8px;
+      font-size: 0.8125rem;
+      color: var(--color-blue-dark);
+      font-weight: 500;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .btn-chip-fetch {
+      background-color: var(--color-yellow);
+      color: var(--color-ink);
+      border: none;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color var(--transition);
+    }
+
+    .btn-chip-fetch:hover {
+      background-color: var(--color-yellow-hover);
+    }
+
     /* Submit and status row */
     .tool-actions {
       display: flex;
@@ -1526,10 +1672,223 @@
         transform: none !important;
       }
     }
+
+    /* ==========================================================================
+       Custom Scrollbar & Reading Progress Bar (Theme: Ultramarine & Highlighter)
+       ========================================================================== */
+    /* Firefox standard */
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-blue) var(--color-bg);
+    }
+
+    /* WebKit (Chrome, Edge, Safari, Brave) */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--color-bg);
+      border-left: 1px solid var(--color-border);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--color-blue) 0%, var(--color-blue-dark) 100%);
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--color-bg);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--color-yellow) 0%, #E6BD1C 100%);
+      border-color: var(--color-ink);
+      box-shadow: 0 0 10px rgba(255, 216, 61, 0.6);
+    }
+
+    /* Internal scrollable containers (history drawer, email preview, textarea) */
+    .history-scroll::-webkit-scrollbar,
+    .email-preview::-webkit-scrollbar,
+    .diff-list::-webkit-scrollbar,
+    textarea::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .history-scroll::-webkit-scrollbar-track,
+    .email-preview::-webkit-scrollbar-track,
+    .diff-list::-webkit-scrollbar-track,
+    textarea::-webkit-scrollbar-track {
+      background: rgba(12, 16, 51, 0.04);
+      border: none;
+      border-radius: 4px;
+    }
+
+    .history-scroll::-webkit-scrollbar-thumb,
+    .email-preview::-webkit-scrollbar-thumb,
+    .diff-list::-webkit-scrollbar-thumb,
+    textarea::-webkit-scrollbar-thumb {
+      background: var(--color-blue);
+      border-radius: 4px;
+      border: 1px solid transparent;
+    }
+
+    .history-scroll::-webkit-scrollbar-thumb:hover,
+    .email-preview::-webkit-scrollbar-thumb:hover,
+    .diff-list::-webkit-scrollbar-thumb:hover,
+    textarea::-webkit-scrollbar-thumb:hover {
+      background: var(--color-yellow);
+    }
+
+    /* Sticky top scroll progress indicator */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3.5px;
+      background: linear-gradient(90deg, var(--color-blue) 0%, #4D5BF7 50%, var(--color-yellow) 100%);
+      box-shadow: 0 0 10px rgba(255, 216, 61, 0.7);
+      z-index: 99999;
+      pointer-events: none;
+      transition: width 0.06s linear;
+    }
+
+    /* ==========================================================================
+       Bespoke Custom Cursor (Editorial Markup & Highlighter Glow)
+       ========================================================================== */
+    @media (hover: hover) and (pointer: fine) {
+      body,
+      a,
+      button,
+      input,
+      textarea,
+      select,
+      label,
+      .dropzone,
+      .tab-btn,
+      .pill,
+      .history-chip,
+      .sample-chip,
+      .btn-copy,
+      .btn-copy-bullet,
+      [role="button"] {
+        cursor: none !important;
+      }
+
+      .cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background-color: var(--color-blue);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 100001;
+        transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+        transition: transform 0.12s ease-out, background-color 0.2s ease, opacity 0.2s ease;
+        opacity: 0;
+        will-change: transform;
+      }
+
+      .cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(35, 48, 216, 0.45);
+        background: rgba(35, 48, 216, 0.05);
+        pointer-events: none;
+        z-index: 100000;
+        transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+        transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-radius 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    background-color 0.22s ease,
+                    border-color 0.22s ease,
+                    box-shadow 0.22s ease,
+                    opacity 0.2s ease;
+        opacity: 0;
+        will-change: transform;
+      }
+
+      /* Hover state on interactive items -> Fluorescent Highlighter Pill */
+      body.cursor-hover .cursor-ring {
+        width: 50px;
+        height: 50px;
+        border-color: var(--color-yellow);
+        background-color: rgba(255, 216, 61, 0.35);
+        box-shadow: 0 0 18px rgba(255, 216, 61, 0.7), inset 0 0 6px rgba(255, 216, 61, 0.35);
+      }
+
+      body.cursor-hover .cursor-dot {
+        transform: translate3d(var(--cursor-x, 0), var(--cursor-y, 0), 0) translate(-50%, -50%) scale(1.3);
+        background-color: var(--color-ink);
+      }
+
+      /* Active click snap */
+      body.cursor-down .cursor-ring {
+        transform: translate3d(var(--ring-x, 0), var(--ring-y, 0), 0) translate(-50%, -50%) scale(0.82);
+      }
+
+      body.cursor-down .cursor-dot {
+        transform: translate3d(var(--cursor-x, 0), var(--cursor-y, 0), 0) translate(-50%, -50%) scale(0.65);
+      }
+
+      /* Hover state over text inputs & textareas -> Precision Editorial Marker */
+      body.cursor-text .cursor-ring {
+        width: 4px;
+        height: 26px;
+        border-radius: 2px;
+        border: none;
+        background-color: var(--color-blue);
+        box-shadow: 0 0 8px rgba(35, 48, 216, 0.5);
+      }
+
+      body.cursor-text .cursor-dot {
+        opacity: 0;
+      }
+
+      /* Dark sections adaptation (Hero & Footer) */
+      body.cursor-on-dark .cursor-dot {
+        background-color: var(--color-yellow);
+        box-shadow: 0 0 8px rgba(255, 216, 61, 0.85);
+      }
+
+      body.cursor-on-dark .cursor-ring {
+        border-color: rgba(255, 216, 61, 0.6);
+        background: rgba(255, 216, 61, 0.12);
+        box-shadow: 0 0 14px rgba(255, 216, 61, 0.35);
+      }
+
+      body.cursor-on-dark.cursor-hover .cursor-ring {
+        border-color: #FFFFFF;
+        background-color: rgba(255, 216, 61, 0.48);
+        box-shadow: 0 0 22px rgba(255, 216, 61, 0.9);
+      }
+
+      body.cursor-on-dark.cursor-hover .cursor-dot {
+        background-color: #FFFFFF;
+      }
+
+      body.cursor-visible .cursor-dot,
+      body.cursor-visible .cursor-ring {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress" class="scroll-progress-bar" aria-hidden="true"></div>
+
+  <!-- Bespoke Theme Cursors (Desktop only) -->
+  <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" class="cursor-ring" aria-hidden="true"></div>
 
   <!-- Navigation -->
   <header class="site-nav">
@@ -1735,10 +2094,45 @@
               <div class="panel">
                 <div class="panel-head">
                   <label for="jd-text" class="panel-label">2. Target job description</label>
+                  <div class="tab-switch" role="tablist" aria-label="Job description input mode">
+                    <button type="button" role="tab" id="tab-jd-text" class="tab-btn active" aria-selected="true"
+                      aria-controls="view-jd-text">Paste text</button>
+                    <button type="button" role="tab" id="tab-jd-url" class="tab-btn" aria-selected="false"
+                      aria-controls="view-jd-url">Import link 🔗</button>
+                  </div>
                 </div>
 
-                <textarea id="jd-text" class="tool-textarea"
-                  placeholder="Paste the entire job posting here, including required qualifications, preferred skills, and core responsibilities..."></textarea>
+                <!-- Textarea View -->
+                <div id="view-jd-text" role="tabpanel" aria-labelledby="tab-jd-text">
+                  <textarea id="jd-text" class="tool-textarea"
+                    placeholder="Paste the entire job posting here, including required qualifications, preferred skills, and core responsibilities..."></textarea>
+                  <!-- Smart URL Detection banner if user pastes URL into textarea -->
+                  <div id="jd-url-detected" class="jd-url-detected" style="display: none;">
+                    <span>🔗 Job link detected in text!</span>
+                    <button type="button" id="btn-auto-fetch-jd" class="btn-chip-fetch">Fetch full job description</button>
+                  </div>
+                </div>
+
+                <!-- URL Import View -->
+                <div id="view-jd-url" role="tabpanel" aria-labelledby="tab-jd-url" hidden>
+                  <div class="url-import-card">
+                    <div class="url-input-wrap">
+                      <svg class="url-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                      </svg>
+                      <input type="url" id="jd-url-input" class="url-input" placeholder="https://boards.greenhouse.io/... or company job link">
+                      <button type="button" id="btn-fetch-url" class="btn-fetch-url">
+                        <span id="btn-fetch-label">Fetch Job</span>
+                      </button>
+                    </div>
+                    <div id="url-status" class="url-status" role="status" aria-live="polite"></div>
+                    <div class="url-import-tips">
+                      <span class="url-tip-badge">Supported:</span>
+                      <span>Public postings on Greenhouse, Lever, Workday, Ashby, and company career pages. If the link requires logging in, copy &amp; paste text directly.</span>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="panel-footer">
                   <span id="jd-hint">Minimum 80 characters needed</span>
@@ -1894,6 +2288,16 @@
 
       const jdText = document.getElementById('jd-text');
       const jdCounter = document.getElementById('jd-counter');
+      const tabJdText = document.getElementById('tab-jd-text');
+      const tabJdUrl = document.getElementById('tab-jd-url');
+      const viewJdText = document.getElementById('view-jd-text');
+      const viewJdUrl = document.getElementById('view-jd-url');
+      const jdUrlInput = document.getElementById('jd-url-input');
+      const btnFetchUrl = document.getElementById('btn-fetch-url');
+      const btnFetchLabel = document.getElementById('btn-fetch-label');
+      const urlStatus = document.getElementById('url-status');
+      const jdUrlDetected = document.getElementById('jd-url-detected');
+      const btnAutoFetchJd = document.getElementById('btn-auto-fetch-jd');
 
       const btnSubmit = document.getElementById('btn-submit');
       const progressBox = document.getElementById('progress-box');
@@ -1923,6 +2327,7 @@
 
       // State
       let activeTab = 'file'; // 'file' or 'text'
+      let activeJdTab = 'text'; // 'text' or 'url'
       let selectedFile = null;
       let progressTimer = null;
       let fullEmailText = '';
@@ -1935,7 +2340,7 @@
         'Drafting customized hiring manager outreach...'
       ];
 
-      // Tab Switching
+      // Resume Tab Switching
       function setTab(tab) {
         activeTab = tab;
         if (tab === 'file') {
@@ -1960,6 +2365,118 @@
 
       tabFile.addEventListener('click', () => setTab('file'));
       tabText.addEventListener('click', () => setTab('text'));
+
+      // Job Description Tab Switching & URL Fetch
+      function setJdTab(tab) {
+        activeJdTab = tab;
+        if (tab === 'text') {
+          tabJdText.classList.add('active');
+          tabJdText.setAttribute('aria-selected', 'true');
+          tabJdUrl.classList.remove('active');
+          tabJdUrl.setAttribute('aria-selected', 'false');
+          viewJdText.hidden = false;
+          viewJdUrl.hidden = true;
+          jdText.focus();
+        } else {
+          tabJdUrl.classList.add('active');
+          tabJdUrl.setAttribute('aria-selected', 'true');
+          tabJdText.classList.remove('active');
+          tabJdText.setAttribute('aria-selected', 'false');
+          viewJdText.hidden = true;
+          viewJdUrl.hidden = false;
+          jdUrlInput.focus();
+        }
+      }
+
+      if (tabJdText && tabJdUrl) {
+        tabJdText.addEventListener('click', () => setJdTab('text'));
+        tabJdUrl.addEventListener('click', () => setJdTab('url'));
+      }
+
+      function showUrlStatus(msg, type) {
+        if (!urlStatus) return;
+        urlStatus.textContent = msg;
+        urlStatus.className = 'url-status ' + (type === 'success' ? 'success' : (type === 'error' ? 'error' : ''));
+        urlStatus.style.display = 'block';
+      }
+
+      async function fetchJobFromUrl(targetUrl) {
+        if (!targetUrl || !targetUrl.trim()) {
+          showUrlStatus('Please paste a job posting URL.', 'error');
+          return;
+        }
+
+        btnFetchUrl.classList.add('loading');
+        btnFetchLabel.textContent = 'Fetching...';
+        showUrlStatus('Extracting job description from URL...', 'info');
+
+        try {
+          const resp = await fetch('/api/fetch-job', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: targetUrl.trim() })
+          });
+
+          const data = await resp.json();
+          if (!resp.ok) {
+            throw new Error(data.detail || 'Could not fetch job description.');
+          }
+
+          jdText.value = data.text;
+          updateJdCounter();
+          if (jdUrlDetected) jdUrlDetected.style.display = 'none';
+
+          const site = data.source ? data.source.replace(/^www\./, '') : 'source';
+          const title = data.title ? `"${data.title}"` : 'Job posting';
+          showUrlStatus(`✓ Imported ${title} from ${site} (${data.char_count.toLocaleString()} chars). Switched to edit/review mode.`, 'success');
+
+          // Switch back to text view so user can review the parsed job description
+          setTimeout(() => {
+            setJdTab('text');
+          }, 600);
+        } catch (err) {
+          showUrlStatus(err.message, 'error');
+        } finally {
+          btnFetchUrl.classList.remove('loading');
+          btnFetchLabel.textContent = 'Fetch Job';
+        }
+      }
+
+      if (btnFetchUrl) {
+        btnFetchUrl.addEventListener('click', () => {
+          fetchJobFromUrl(jdUrlInput.value);
+        });
+      }
+
+      if (jdUrlInput) {
+        jdUrlInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            fetchJobFromUrl(jdUrlInput.value);
+          }
+        });
+      }
+
+      // Smart URL detection if user pastes a link into the textarea
+      if (jdText) {
+        jdText.addEventListener('input', () => {
+          const val = jdText.value.trim();
+          const isSingleUrl = /^https?:\/\/[^\s]+$/i.test(val);
+          if (isSingleUrl && val.length < 300) {
+            if (jdUrlDetected) jdUrlDetected.style.display = 'flex';
+            if (jdUrlInput) jdUrlInput.value = val;
+          } else {
+            if (jdUrlDetected) jdUrlDetected.style.display = 'none';
+          }
+        });
+      }
+
+      if (btnAutoFetchJd) {
+        btnAutoFetchJd.addEventListener('click', () => {
+          const val = jdText.value.trim();
+          fetchJobFromUrl(val);
+        });
+      }
 
       // File Drag & Drop Handling
       dropzone.addEventListener('click', (e) => {
@@ -2581,15 +3098,149 @@
         }
       }
 
-      // Run visual enhancements on load
-      if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', () => {
-          initSplitType();
-          initCurtains();
+      // ======================================================================
+      // Custom Scroll Progress Indicator
+      // ======================================================================
+      function initScrollProgress() {
+        const bar = document.getElementById('scroll-progress');
+        if (!bar) return;
+
+        function updateProgress() {
+          const docEl = document.documentElement;
+          const scrollTop = window.scrollY || docEl.scrollTop || 0;
+          const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
+          if (scrollHeight <= 0) {
+            bar.style.width = '0%';
+            return;
+          }
+          const progress = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
+          bar.style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress, { passive: true });
+        updateProgress();
+      }
+
+      // ======================================================================
+      // Bespoke Custom Cursor (Dual Layer Fluid Highlighter)
+      // ======================================================================
+      function initCustomCursor() {
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        if (!dot || !ring) return;
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let ringX = -100;
+        let ringY = -100;
+        let isVisible = false;
+        let isHovered = false;
+        let isText = false;
+        let isDark = false;
+
+        const darkSections = document.querySelectorAll('.hero, .site-footer');
+
+        function checkDarkSection(x, y) {
+          let found = false;
+          for (let i = 0; i < darkSections.length; i++) {
+            const rect = darkSections[i].getBoundingClientRect();
+            if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+              found = true;
+              break;
+            }
+          }
+          if (found !== isDark) {
+            isDark = found;
+            document.body.classList.toggle('cursor-on-dark', isDark);
+          }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+
+          if (!isVisible) {
+            isVisible = true;
+            document.body.classList.add('cursor-visible');
+            ringX = mouseX;
+            ringY = mouseY;
+          }
+
+          checkDarkSection(mouseX, mouseY);
+        }, { passive: true });
+
+        window.addEventListener('mousedown', () => {
+          document.body.classList.add('cursor-down');
         });
-      } else {
+
+        window.addEventListener('mouseup', () => {
+          document.body.classList.remove('cursor-down');
+        });
+
+        document.documentElement.addEventListener('mouseleave', () => {
+          isVisible = false;
+          document.body.classList.remove('cursor-visible');
+        });
+
+        document.documentElement.addEventListener('mouseenter', () => {
+          isVisible = true;
+          document.body.classList.add('cursor-visible');
+        });
+
+        const interactiveSelector = 'a, button, input[type="file"], input[type="submit"], .dropzone, .tab-btn, .pill, .btn-copy, .btn-copy-bullet, .history-chip, .sample-chip, [role="button"]';
+        const textSelector = 'textarea, input[type="text"], input[type="url"], input[type="email"], input[type="search"]';
+
+        document.addEventListener('mouseover', (e) => {
+          const target = e.target;
+          if (target.closest && target.closest(interactiveSelector)) {
+            if (!isHovered) {
+              isHovered = true;
+              document.body.classList.add('cursor-hover');
+            }
+          } else if (isHovered) {
+            isHovered = false;
+            document.body.classList.remove('cursor-hover');
+          }
+
+          if (target.closest && target.closest(textSelector)) {
+            if (!isText) {
+              isText = true;
+              document.body.classList.add('cursor-text');
+            }
+          } else if (isText) {
+            isText = false;
+            document.body.classList.remove('cursor-text');
+          }
+        }, { passive: true });
+
+        function renderLoop() {
+          const lerpFactor = 0.22;
+          ringX += (mouseX - ringX) * lerpFactor;
+          ringY += (mouseY - ringY) * lerpFactor;
+
+          ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+          requestAnimationFrame(renderLoop);
+        }
+        requestAnimationFrame(renderLoop);
+      }
+
+      // Run visual enhancements on load
+      function initVisuals() {
         initSplitType();
         initCurtains();
+        initScrollProgress();
+        initCustomCursor();
+      }
+
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', initVisuals);
+      } else {
+        initVisuals();
       }
     })();
   </script>
