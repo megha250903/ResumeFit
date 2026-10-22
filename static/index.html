@@ -2615,6 +2615,23 @@
                       <span class="url-tip-badge">Supported:</span>
                       <span>LinkedIn, Greenhouse, Lever, Workday, Ashby, and company career pages.</span>
                     </div>
+
+                    <!-- Zero-Install Co-Pilot Bookmarklet -->
+                    <div class="bookmarklet-promo" style="margin-top: 14px; padding: 14px 16px; background: rgba(37, 99, 235, 0.06); border: 1.5px dashed var(--color-blue); border-radius: var(--radius-sm);">
+                      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                        <div style="max-width: 280px;">
+                          <strong style="color: var(--color-blue); font-size: 0.875rem; display: flex; align-items: center; gap: 6px;">
+                            <span>⚡ Zero-Install Co-Pilot (Bookmarklet)</span>
+                          </strong>
+                          <p style="font-size: 0.775rem; color: var(--color-ink-muted); margin: 3px 0 0 0; line-height: 1.4;">
+                            No Chrome extension needed! Drag this button to your bookmarks bar. Click it on <b>Indeed</b> or <b>LinkedIn</b> to write recruiter emails right on the page.
+                          </p>
+                        </div>
+                        <a id="btn-drag-bookmarklet" href="#" class="btn-bookmarklet" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--color-blue); color: #FFFFFF; font-size: 0.8125rem; font-weight: 700; border-radius: var(--radius-pill); text-decoration: none; cursor: grab; box-shadow: 0 2px 8px rgba(27,42,74,0.25);" title="Drag me to your Bookmarks Bar (Ctrl + Shift + B)">
+                          <span>⭐ ResumeFit Co-Pilot</span>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -3848,6 +3865,131 @@
       });
 
       checkAutoImport();
+
+      // Initialize Drag-and-Drop Bookmarklet (Zero Extension Needed)
+      function initBookmarklet() {
+        const btnBookmarklet = document.getElementById('btn-drag-bookmarklet');
+        if (!btnBookmarklet) return;
+
+        const bookmarkletFn = function () {
+          if (document.getElementById('rf-copilot-modal')) {
+            document.getElementById('rf-copilot-modal').remove();
+          }
+
+          var jd = document.getElementById('jobDescriptionText') || 
+                   document.querySelector('.jobs-description__content, #job-details, .jobsearch-JobComponent-description, [data-testid="jobsearch-JobComponent"]');
+          var title = document.querySelector('h2.jobsearch-JobInfoHeader-title, h1[data-testid="jobsearch-JobInfoHeader-title"], .job-details-jobs-unified-top-card__job-title, h1');
+          var comp = document.querySelector('[data-testid="inlineHeader-companyName"], [data-company-name="true"], .job-details-jobs-unified-top-card__company-name');
+
+          var role = title ? title.innerText.trim() : 'Target Role';
+          var company = comp ? comp.innerText.trim() : 'Company';
+          var desc = jd ? jd.innerText.trim() : '';
+
+          if (!desc || desc.length < 30) {
+            var mainEl = document.querySelector('main, article, [role="main"]') || document.body;
+            desc = (mainEl ? mainEl.innerText : document.body.innerText).slice(0, 8000).trim();
+          }
+
+          var m = document.createElement('div');
+          m.id = 'rf-copilot-modal';
+          m.style.cssText = 'position:fixed;top:20px;right:20px;width:370px;max-height:90vh;background:#070A20;color:#FFFFFF;border:1.5px solid #2563EB;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,0.6);z-index:99999999;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:13px;line-height:1.45;overflow:hidden;display:flex;flex-direction:column;';
+
+          m.innerHTML = '<div style="background:#0F172A;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;">' +
+            '<div style="font-weight:700;font-size:14px;color:#38BDF8;display:flex;align-items:center;gap:6px;"><span style="width:7px;height:7px;border-radius:50%;background:#38BDF8;"></span>ResumeFit Co-Pilot</div>' +
+            '<button id="rf-close-btn" style="background:none;border:none;color:#94A3B8;font-size:20px;cursor:pointer;line-height:1;">&times;</button>' +
+            '</div>' +
+            '<div style="padding:14px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">' +
+            '<div style="background:#1E293B;padding:10px 12px;border-radius:8px;border:1px solid #334155;">' +
+            '<div style="font-size:10px;font-weight:700;color:#38BDF8;text-transform:uppercase;">Detected Job</div>' +
+            '<div style="font-weight:700;font-size:13.5px;color:#F8FAFC;margin-top:2px;">' + role + '</div>' +
+            '<div style="font-size:11.5px;color:#94A3B8;">' + company + ' &bull; ' + desc.length + ' chars</div>' +
+            '</div>' +
+            '<textarea id="rf-resume-box" style="width:100%;height:65px;background:#0F172A;border:1px solid #334155;color:#F8FAFC;border-radius:6px;padding:8px;font-size:11px;resize:vertical;" placeholder="Paste your resume text once..."></textarea>' +
+            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
+            '<button id="rf-btn-email" style="background:#2563EB;color:#fff;border:none;padding:9px;border-radius:6px;font-weight:600;font-size:12px;cursor:pointer;">⚡ Write Email</button>' +
+            '<button id="rf-btn-cover" style="background:#1E293B;color:#fff;border:1px solid #334155;padding:9px;border-radius:6px;font-weight:600;font-size:12px;cursor:pointer;">📄 Cover Letter</button>' +
+            '</div>' +
+            '<button id="rf-btn-open" style="background:none;border:1px solid #334155;color:#94A3B8;padding:7px;border-radius:6px;font-size:11px;cursor:pointer;">🚀 Open in Full ResumeFit (ATS + CV)</button>' +
+            '<div id="rf-result-area" style="display:none;background:#0F172A;border:1px solid #334155;border-radius:8px;padding:10px;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
+            '<span id="rf-badge-title" style="font-size:11px;font-weight:700;color:#38BDF8;"></span>' +
+            '<button id="rf-copy-btn" style="background:#2563EB;border:none;color:#fff;padding:3px 8px;border-radius:4px;font-size:10.5px;font-weight:600;cursor:pointer;">Copy</button>' +
+            '</div>' +
+            '<div id="rf-subject-line" style="font-size:11px;font-weight:700;color:#E2E8F0;margin-bottom:4px;"></div>' +
+            '<div id="rf-body-content" style="font-size:11px;color:#CBD5E1;line-height:1.5;max-height:140px;overflow-y:auto;white-space:pre-wrap;background:#1E293B;padding:8px;border-radius:4px;"></div>' +
+            '</div>' +
+            '</div>';
+
+          document.body.appendChild(m);
+
+          var cached = localStorage.getItem('resumefit_saved_resume') || '';
+          if (cached) document.getElementById('rf-resume-box').value = cached;
+
+          document.getElementById('rf-close-btn').onclick = function () { m.remove(); };
+
+          function runCoPilot(type) {
+            var resText = document.getElementById('rf-resume-box').value.trim();
+            if (!resText || resText.length < 30) {
+              alert('Please paste at least 30 characters of your resume.');
+              return;
+            }
+            localStorage.setItem('resumefit_saved_resume', resText);
+
+            var actBtn = type === 'email' ? document.getElementById('rf-btn-email') : document.getElementById('rf-btn-cover');
+            var origText = actBtn.innerText;
+            actBtn.innerText = 'Writing...';
+            actBtn.disabled = true;
+
+            fetch('http://localhost:8000/api/quick-email', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                job_title: role,
+                company: company,
+                job_description: desc,
+                resume_text: resText
+              })
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              actBtn.innerText = origText;
+              actBtn.disabled = false;
+              document.getElementById('rf-result-area').style.display = 'block';
+              document.getElementById('rf-badge-title').innerText = type === 'email' ? '⚡ Recruiter Cold Email' : '📄 Tailored Cover Letter';
+              document.getElementById('rf-subject-line').innerText = data.subject || '';
+              var text = type === 'email' ? (data.email_body || '') : (data.cover_letter || '');
+              document.getElementById('rf-body-content').innerText = text;
+
+              document.getElementById('rf-copy-btn').onclick = function () {
+                var full = (data.subject ? ('Subject: ' + data.subject + '\n\n') : '') + text;
+                navigator.clipboard.writeText(full);
+                this.innerText = 'Copied!';
+                var self = this;
+                setTimeout(function () { self.innerText = 'Copy'; }, 2000);
+              };
+            })
+            .catch(function () {
+              actBtn.innerText = origText;
+              actBtn.disabled = false;
+              alert('Could not reach ResumeFit on http://localhost:8000. Please make sure the app is running.');
+            });
+          }
+
+          document.getElementById('rf-btn-email').onclick = function () { runCoPilot('email'); };
+          document.getElementById('rf-btn-cover').onclick = function () { runCoPilot('cover'); };
+
+          document.getElementById('rf-btn-open').onclick = function () {
+            localStorage.setItem('resumefit_auto_import_jd', desc);
+            localStorage.setItem('resumefit_auto_import_title', role);
+            localStorage.setItem('resumefit_auto_import_company', company);
+            window.open('http://localhost:8000/?import=extension', '_blank');
+          };
+        };
+
+        btnBookmarklet.href = 'javascript:(' + bookmarkletFn.toString() + ')();';
+      }
+
+      initBookmarklet();
 
       // ======================================================================
       // SplitType: Kinetic Typography Staggered Reveal
